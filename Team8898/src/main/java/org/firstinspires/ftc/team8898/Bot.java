@@ -3,6 +3,8 @@ package org.firstinspires.ftc.team8898;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 public class Bot {
     private DcMotor frontLeftDrive = null;
@@ -22,10 +24,10 @@ public class Bot {
 
         hwMap = ahwMap;
 
-        frontLeftDrive = hwMap.get(DcMotor.class, "left");
-        frontRightDrive = hwMap.get(DcMotor.class, "right");
-        backLeftDrive = hwMap.get(DcMotor.class, "left");
-        backRightDrive = hwMap.get(DcMotor.class, "right");
+        frontLeftDrive = hwMap.get(DcMotor.class, "frontleft");
+        frontRightDrive = hwMap.get(DcMotor.class, "frontright");
+        backLeftDrive = hwMap.get(DcMotor.class, "backleft");
+        backRightDrive = hwMap.get(DcMotor.class, "backright");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -38,5 +40,8 @@ public class Bot {
         backLeftDrive.setPower(leftPower);
         backRightDrive.setPower(rightPower);
     }
-
+    private ElapsedTime runtime = new ElapsedTime();
+    public double getRunTime (){
+        return runtime.seconds();
+    }
 }

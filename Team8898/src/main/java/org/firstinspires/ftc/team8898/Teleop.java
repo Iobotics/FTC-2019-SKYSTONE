@@ -18,8 +18,11 @@ public class Teleop extends LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
        robot.init(hardwareMap);
+       waitForStart();
 
-       robot.setPower(gamepad1.left_stick_y, gamepad1.right_stick_y);
+       while(opModeIsActive()) {
+           robot.setPower(gamepad1.left_stick_y, gamepad1.right_stick_y);
+       }
     }
 
 }
