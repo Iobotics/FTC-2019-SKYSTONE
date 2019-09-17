@@ -9,7 +9,7 @@ public class Auto extends LinearOpMode {
         Bot robot = new Bot(this);
         waitForStart();
         while( robot.getRunTime() < 10) {
-          robot.setPower(1,1);
+            robot.setPower(1,1);
         }
         robot.setPower(0,0);
 
