@@ -56,4 +56,71 @@ public class Bot {
     public double getServo () {
         return servo.getPosition();
     }
+
+    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
+    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
+    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+            (WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double     DRIVE_SPEED             = 0.6;
+    static final double     TURN_SPEED              = 0.5;
+
+    public void encoderDrive(double speed,
+                             double leftInches, double rightInches,
+                             double timeoutS) {
+        int newfrontLeftTarget;
+        int newfrontRightTarget;
+        int newbackLeftTarget;
+        int newbackRightTarget;
+
+
+        // Ensure that the opmode is still active
+        if (opMode.opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newfrontLeftTarget = frontLeftDrive.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newfrontRightTarget = frontRightDrive.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newbackLeftTarget = frontLeftDrive.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newbackRightTarget = frontRightDrive.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            frontLeftDrive.setTargetPosition(newfrontLeftTarget);
+            frontRightDrive.setTargetPosition(newfrontRightTarget);
+            backLeftDrive.setTargetPosition(newbackLeftTarget);
+            backRightDrive.setTargetPosition(newbackRightTarget);
+
+            // Turn On RUN_TO_POSITION
+            frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            frontLeftDrive.setPower(Math.abs(speed));
+            frontRightDrive.setPower(Math.abs(speed));
+            backLeftDrive.setPower(Math.abs(speed));
+            backRightDrive.setPower(Math.abs(speed));
+        }
+        while (opMode.opModeIsActive() &&
+                (runtime.seconds() < timeoutS) &&
+                (frontLeftDrive.isBusy() && frontRightDrive.isBusy() && backLeftDrive.isBusy() && backRightDrive.isBusy())) {
+        }
+        // Stop all motion;
+        frontLeftDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
+
+        // Turn off RUN_TO_POSITION
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    public void resetEncoder(){
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    }
 }

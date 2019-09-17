@@ -7,11 +7,9 @@ public class Auto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         Bot robot = new Bot(this);
+        robot.resetEncoder();
         waitForStart();
-        while( robot.getRunTime() < 10) {
-          robot.setPower(1,1);
-        }
-        robot.setPower(0,0);
+        robot.encoderDrive(1, 10, 10,30);
 
     }
 }
