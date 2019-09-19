@@ -20,7 +20,11 @@ public class Teleop extends LinearOpMode{
        waitForStart();
        while(opModeIsActive()) {
            robot.setPower(gamepad1.left_stick_y, gamepad1.right_stick_y);
-           robot.setPosition(gamepad1.left_trigger, gamepad1.right_trigger);
+           robot.getLeftPosition();
+           telemetry.addData("leftServoPosition", robot.getLeftPosition());
+           telemetry.addData("rightServoPosition", robot.getRightPosition());
+           robot.setPosition(gamepad1.left_trigger);
+           telemetry.update();
 
        }
     }

@@ -47,9 +47,19 @@ public class Bot {
         frontRightDrive.setPower(rightPower);
 
     }
-    public void setPosition(double leftServo, double rightServo) {
-        servoLeft.setPosition(leftServo);
-        servoRight.setPosition(rightServo);
+
+    public void setPosition(double position) {
+        servoLeft.setPosition(position);
+        servoRight.setPosition(position);
+    }
+
+    public double getLeftPosition() {
+        return servoLeft.getPosition();
+    }
+
+    public double getRightPosition() {
+        return servoRight.getPosition();
+
     }
     private ElapsedTime runtime = new ElapsedTime();
 
