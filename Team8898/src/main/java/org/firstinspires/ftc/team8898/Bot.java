@@ -2,6 +2,7 @@ package org.firstinspires.ftc.team8898;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -12,8 +13,10 @@ public class Bot {
     private DcMotor backLeftDrive = null;
     private DcMotor backRightDrive = null;
     private HardwareMap hwMap = null;
-    private Servo servo = null;
-    private Servo second = null;
+    private Servo arm1 = null;
+    private Servo arm2 = null;
+    private Servo latch1 = null;
+    private Servo latch2 = null;
 
     private LinearOpMode opMode = null;
     public Bot(LinearOpMode opMode) {
@@ -30,8 +33,10 @@ public class Bot {
         frontRightDrive = hwMap.get(DcMotor.class, "frontright");
         backLeftDrive = hwMap.get(DcMotor.class, "backleft");
         backRightDrive = hwMap.get(DcMotor.class, "backright");
-        servo = hwMap.get (Servo.class, "servo");
-        second = hwMap.get (Servo.class, "second");
+        arm1 = hwMap.get (Servo.class, "servo1");
+        arm2 = hwMap.get (Servo.class, "servo2");
+        latch1 = hwMap.get (Servo.class, "servo3");
+        latch2 = hwMap.get (Servo.class, "servo4");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -49,12 +54,16 @@ public class Bot {
     public double getRunTime (){
         return runtime.seconds();
     }
-    public void setServo1 (double position){ servo.setPosition(position);
+    public void setServo1 (double position){ arm1.setPosition(position);
     }
-    public void setServo2 (double position){second.setPosition(position);
+    public void setServo2 (double position){arm2.setPosition(position);
+    }
+    public void setServo3 (double position){ latch1.setPosition(position);
+    }
+    public void setServo4 (double position){latch2.setPosition(position);
     }
     public double getServo () {
-        return servo.getPosition();
+        return arm1.getPosition();
     }
 
     static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
@@ -103,6 +112,11 @@ public class Bot {
         while (opMode.opModeIsActive() &&
                 (runtime.seconds() < timeoutS) &&
                 (frontLeftDrive.isBusy() && frontRightDrive.isBusy() && backLeftDrive.isBusy() && backRightDrive.isBusy())) {
+            opMode.telemetry.addData("frontLeftEncoder",frontLeftDrive.getCurrentPosition());
+            opMode.telemetry.addData("frontRightEncoder",frontRightDrive.getCurrentPosition());
+            opMode.telemetry.addData("backLeftEncoder",backLeftDrive.getCurrentPosition());
+            opMode.telemetry.addData("backRightEncoder",backRightDrive.getCurrentPosition());
+            opMode.telemetry.update();
         }
         // Stop all motion;
         frontLeftDrive.setPower(0);
@@ -117,10 +131,22 @@ public class Bot {
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
     public void resetEncoder(){
-        frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+    }
+    public double getFrontLeft(){
+        return frontLeftDrive.getCurrentPosition();
+    }
+    public double getFrontRight(){
+        return frontRightDrive.getCurrentPosition();
+    }
+    public double getBackLeft(){
+        return backLeftDrive.getCurrentPosition();
+    }
+    public double getBackRight(){
+        return backRightDrive.getCurrentPosition();
     }
 }

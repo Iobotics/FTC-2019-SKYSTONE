@@ -10,21 +10,29 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class Teleop extends LinearOpMode{
     private Bot robot = new Bot(this);
 
-    double frontLeftPower;
-    double frontRightPower;
-    double backLeftPower;
-    double backRightPower;
 
     @Override
+    
     public void runOpMode() throws InterruptedException {
        robot.init(hardwareMap);
+       robot.setServo1(1);
+       robot.setServo2(0);
        waitForStart();
 
        while(opModeIsActive()) {
            robot.setPower(gamepad1.left_stick_y, gamepad1.right_stick_y);
-           if (gamepad1.a = true){
-               robot.setServo1(0);
-               robot.setServo2(1);
+           if (gamepad1.a == true){
+               robot.setServo1(0.5);
+               robot.setServo2(0.5);
+           }
+
+           else{
+               robot.setServo1(1);
+               robot.setServo2(0);
+           }
+           if (gamepad1.b == true);{
+               robot.setServo3(0);
+               robot.setServo4(1);
            }
        }
     }
