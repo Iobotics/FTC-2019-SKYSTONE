@@ -16,6 +16,8 @@ public class Bot {
     private DcMotor Latch =null;
     private Servo Arm1 = null;
     private Servo Arm2 = null;
+    private Servo clawServo1 = null;
+    private Servo clawServo2 = null;
 
 
 
@@ -41,6 +43,9 @@ public class Bot {
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+
+        clawServo1 = hwMap.get(Servo.class, "servo3");
+        clawServo2 = hwMap.get(Servo.class, "servo4");
 
         Latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -149,6 +154,30 @@ public class Bot {
     public double getBackRight(){
         return backRightDrive.getCurrentPosition();
 
+
+    }
+    public void setClaw1Position(double position){
+
+        clawServo1.setPosition(position);
+
+
+    }
+    public void setClaw2Position(double position) {
+
+        clawServo2.setPosition(position);
+
+    }
+
+    public double getClawOnePosition(){
+
+        return clawServo1.getPosition();
+
+
+    }
+
+    public double getClawTwoPosition(){
+
+        return clawServo2.getPosition();
 
     }
 }
