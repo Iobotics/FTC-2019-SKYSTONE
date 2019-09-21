@@ -18,6 +18,7 @@ public class Bot {
     private Servo Arm2 = null;
 
 
+
     private LinearOpMode opMode = null;
     public Bot(LinearOpMode opMode) {
         this.opMode = opMode;
@@ -40,6 +41,7 @@ public class Bot {
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+
         Latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 }
@@ -134,6 +136,7 @@ public class Bot {
         backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
+
     public double getFrontLeft(){
         return frontLeftDrive.getCurrentPosition();
     }
@@ -145,5 +148,7 @@ public class Bot {
     }
     public double getBackRight(){
         return backRightDrive.getCurrentPosition();
+
+
     }
 }

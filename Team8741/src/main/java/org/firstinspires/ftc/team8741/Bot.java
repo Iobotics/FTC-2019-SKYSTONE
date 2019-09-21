@@ -14,8 +14,12 @@ public class Bot {
     private Servo closer1 = null;
     private Servo closer2 = null;
     private Servo spinner = null;
-    private Servo lifter1 = null;
-    private Servo lifter2 = null;
+    private DcMotor lifter1 = null;
+<<<<<<< Updated upstream
+    private DcMotor lifter2 = null;
+=======
+
+>>>>>>> Stashed changes
 
     private LinearOpMode opMode = null;
     public Bot(LinearOpMode opMode) {
@@ -35,12 +39,19 @@ public class Bot {
         closer1 = hwMap.get(Servo.class, "closerRight"); //right closer
         closer2 = hwMap.get(Servo.class, "closerLeft"); //left closer
         spinner = hwMap.get(Servo.class, "spinner"); //the spinner
-        lifter1 = hwMap.get(Servo.class, "lifterRight"); //right lifter
-        lifter2 = hwMap.get(Servo.class, "lifterLeft"); //left lifter
+<<<<<<< Updated upstream
+        lifter1 = hwMap.get(DcMotor.class, "lifterRight"); //right lifter
+        lifter2 = hwMap.get(DcMotor.class, "lifterLeft"); //left lifter
+=======
+        lifter1 = hwMap.get(DcMotor.class, "lifter"); //right lifter
+>>>>>>> Stashed changes
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+
+        lifter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        lifter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 }
 
     public void setPower(double leftPower, double rightPower) {
@@ -48,6 +59,24 @@ public class Bot {
         frontRightDrive.setPower(rightPower);
         backLeftDrive.setPower(leftPower);
         backRightDrive.setPower(rightPower);
+    }
+
+    public void setLifter(boolean lifterPower, boolean lifterPower2){
+
+        if (lifterPower2 == true) {
+            lifter1.setPower(-0.5);
+            lifter2.setPower(0.5);
+        }
+
+        else if (lifterPower == true) {
+            lifter1.setPower(0.5);
+            lifter2.setPower(-0.5);
+        }
+
+        else if (lifterPower == false && lifterPower2 == false){
+            lifter1.setPower(0);
+            lifter2.setPower(0);
+        }
     }
 
     /*public void setLifter(boolean lifterPower){
@@ -67,7 +96,7 @@ public class Bot {
 
     private double servoPos = 0;
 
-    public void setLifter(boolean lifterPower, boolean lifterPower2){
+    /*public void setLifter(boolean lifterPower, boolean lifterPower2){
 
         if (lifterPower2 == true) {
             lifter1.setPosition(0);
@@ -94,6 +123,19 @@ public class Bot {
         return lifter2.getPosition();
     }
 
+     */
+    public void setSpinner(boolean spinnerPower, boolean spinnerPower2) {
+
+        if (spinnerPower2 == true) {
+            servoPos += 0.01;
+        }
+
+        if (spinnerPower == true) {
+            servoPos -= 0.01;
+        }
+
+        spinner.setPosition(servoPos);
+    }
 
     public void setCloser(boolean closerPower, boolean closerPower2){
 
@@ -108,6 +150,8 @@ public class Bot {
         closer1.setPosition(servoPos);
         closer2.setPosition(1 - servoPos);
     }
+
+
 }
 
 

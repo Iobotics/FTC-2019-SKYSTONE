@@ -26,6 +26,7 @@ public class Teleop extends LinearOpMode{
            else{
                robot.setLatchPower(0);
            }
+
            if (gamepad1.b == true);{
                robot.setServo3(0);
                robot.setServo4(1);
@@ -35,6 +36,7 @@ public class Teleop extends LinearOpMode{
            telemetry.addData("Back Left", robot.getBackLeft());
            telemetry.addData("Front right", robot.getFrontRight());
            telemetry.update();
+
 
        }
     }
