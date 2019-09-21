@@ -14,6 +14,9 @@ public class Bot {
     private HardwareMap hwMap = null;
     private Servo servo = null;
     private Servo second = null;
+    private Servo clawServo1 = null;
+    private Servo clawServo2 = null;
+
 
     private LinearOpMode opMode = null;
     public Bot(LinearOpMode opMode) {
@@ -36,6 +39,8 @@ public class Bot {
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        clawServo1 = hwMap.get(Servo.class, "servo3");
+        clawServo2 = hwMap.get(Servo.class, "servo4");
 
 }
 
@@ -121,6 +126,31 @@ public class Bot {
         frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    }
+
+    public void setClaw1Position(double position){
+
+        clawServo1.setPosition(position);
+
+
+    }
+    public void setClaw2Position(double position) {
+
+        clawServo2.setPosition(position);
+
+    }
+
+    public double getClawOnePosition(){
+
+        return clawServo1.getPosition();
+
+
+    }
+
+    public double getClawTwoPosition(){
+
+        return clawServo2.getPosition();
 
     }
 }
