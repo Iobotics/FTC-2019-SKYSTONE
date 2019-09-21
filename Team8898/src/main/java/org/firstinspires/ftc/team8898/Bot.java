@@ -13,10 +13,10 @@ public class Bot {
     private DcMotor backLeftDrive = null;
     private DcMotor backRightDrive = null;
     private HardwareMap hwMap = null;
-    private Servo arm1 = null;
-    private Servo arm2 = null;
-    private Servo latch1 = null;
-    private Servo latch2 = null;
+    private DcMotor Latch =null;
+    private Servo Arm1 = null;
+    private Servo Arm2 = null;
+
 
     private LinearOpMode opMode = null;
     public Bot(LinearOpMode opMode) {
@@ -33,14 +33,14 @@ public class Bot {
         frontRightDrive = hwMap.get(DcMotor.class, "frontright");
         backLeftDrive = hwMap.get(DcMotor.class, "backleft");
         backRightDrive = hwMap.get(DcMotor.class, "backright");
-        arm1 = hwMap.get (Servo.class, "servo1");
-        arm2 = hwMap.get (Servo.class, "servo2");
-        latch1 = hwMap.get (Servo.class, "servo3");
-        latch2 = hwMap.get (Servo.class, "servo4");
+        Latch =hwMap.get(DcMotor.class,"latch");
+        Arm1 = hwMap.get (Servo.class, "servo3");
+        Arm2 = hwMap.get (Servo.class, "servo4");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        Latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 }
 
@@ -50,20 +50,17 @@ public class Bot {
         backLeftDrive.setPower(leftPower);
         backRightDrive.setPower(rightPower);
     }
+    public void setLatchPower(double latchPower){
+        Latch.setPower(latchPower);
+    }
+
     private ElapsedTime runtime = new ElapsedTime();
     public double getRunTime (){
         return runtime.seconds();
     }
-    public void setServo1 (double position){ arm1.setPosition(position);
+    public void setServo3 (double position){ Arm1.setPosition(position);
     }
-    public void setServo2 (double position){arm2.setPosition(position);
-    }
-    public void setServo3 (double position){ latch1.setPosition(position);
-    }
-    public void setServo4 (double position){latch2.setPosition(position);
-    }
-    public double getServo () {
-        return arm1.getPosition();
+    public void setServo4 (double position){Arm2.setPosition(position);
     }
 
     static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder

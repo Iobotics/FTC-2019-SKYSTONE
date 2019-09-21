@@ -12,28 +12,30 @@ public class Teleop extends LinearOpMode{
 
 
     @Override
-    
+
     public void runOpMode() throws InterruptedException {
        robot.init(hardwareMap);
-       robot.setServo1(1);
-       robot.setServo2(0);
        waitForStart();
 
        while(opModeIsActive()) {
            robot.setPower(gamepad1.left_stick_y, gamepad1.right_stick_y);
            if (gamepad1.a == true){
-               robot.setServo1(0.5);
-               robot.setServo2(0.5);
+               robot.setLatchPower(0.5);
            }
 
            else{
-               robot.setServo1(1);
-               robot.setServo2(0);
+               robot.setLatchPower(0);
            }
            if (gamepad1.b == true);{
                robot.setServo3(0);
                robot.setServo4(1);
            }
+           telemetry.addData("Front Left", robot.getFrontLeft());
+           telemetry.addData("BackRight", robot.getBackRight());
+           telemetry.addData("Back Left", robot.getBackLeft());
+           telemetry.addData("Front right", robot.getFrontRight());
+           telemetry.update();
+
        }
     }
 

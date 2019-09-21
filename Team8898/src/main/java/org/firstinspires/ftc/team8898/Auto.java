@@ -12,7 +12,10 @@ public class Auto extends LinearOpMode {
         robot.resetEncoder();
         waitForStart();
         robot.encoderDrive(1, 10, 10,30);
-        robot.encoderDrive(1, 10, 10,30);
-
+        telemetry.addData("Front Left", robot.getFrontLeft());
+        telemetry.addData("BackRight", robot.getBackRight());
+        while(opModeIsActive()) {
+            telemetry.update();
+        }
     }
 }
