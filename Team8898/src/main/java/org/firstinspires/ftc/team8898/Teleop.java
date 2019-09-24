@@ -20,19 +20,22 @@ public class Teleop extends LinearOpMode{
        while(opModeIsActive()) {
            robot.setPower(gamepad1.left_stick_y, gamepad1.right_stick_y);
            if (gamepad1.a == true){
-               robot.setLatchPower(0.5);
+               robot.setLatchPower(0.25);
            }
 
-           else{
+           else if (gamepad1.b == true){
+               robot.setLatchPower(-0.25);
+           }
+           else {
                robot.setLatchPower(0);
            }
 
-           if (gamepad1.b == true);{
+           if (gamepad1.x == true);{
                robot.setServo3(0);
                robot.setServo4(1);
            }
            telemetry.addData("Front Left", robot.getFrontLeft());
-           telemetry.addData("BackRight", robot.getBackRight());
+           telemetry.addData("Back Right", robot.getBackRight());
            telemetry.addData("Back Left", robot.getBackLeft());
            telemetry.addData("Front right", robot.getFrontRight());
            telemetry.update();

@@ -7,13 +7,16 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import java.security.PublicKey;
+
 public class Bot {
     private DcMotor frontLeftDrive = null;
     private DcMotor frontRightDrive = null;
     private DcMotor backLeftDrive = null;
     private DcMotor backRightDrive = null;
     private HardwareMap hwMap = null;
-    private DcMotor Latch =null;
+    private DcMotor Latch1 = null;
+    private DcMotor Latch2 =null;
     private Servo Arm1 = null;
     private Servo Arm2 = null;
 
@@ -34,16 +37,18 @@ public class Bot {
         frontRightDrive = hwMap.get(DcMotor.class, "frontright");
         backLeftDrive = hwMap.get(DcMotor.class, "backleft");
         backRightDrive = hwMap.get(DcMotor.class, "backright");
-        Latch =hwMap.get(DcMotor.class,"latch");
+        Latch1 =hwMap.get(DcMotor.class,"latch1");
+        Latch2 =hwMap.get(DcMotor.class,"latch2");
         Arm1 = hwMap.get (Servo.class, "servo3");
         Arm2 = hwMap.get (Servo.class, "servo4");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
-
-        Latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+        Latch1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Latch2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Latch1.setDirection(DcMotor.Direction.FORWARD);
+        Latch2.setDirection(DcMotor.Direction.REVERSE);
 }
 
     public void setPower(double leftPower, double rightPower) {
@@ -53,7 +58,8 @@ public class Bot {
         backRightDrive.setPower(rightPower);
     }
     public void setLatchPower(double latchPower){
-        Latch.setPower(latchPower);
+        Latch1.setPower(latchPower);
+        Latch2.setPower(latchPower);
     }
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -151,4 +157,13 @@ public class Bot {
 
 
     }
+    public void autoDriveStraightB(double distance){
+        double ticks = COUNTS_PER_INCH * distance;
+        ticks += frontLeftDrive.getCurrentPosition();
+        while(frontLeftDrive.getCurrentPosition() < ticks ){
+            setPower(1,1);
+        }
+        setPower(0,0);
+    }
+
 }

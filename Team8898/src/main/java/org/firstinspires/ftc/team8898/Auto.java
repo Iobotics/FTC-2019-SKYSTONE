@@ -2,7 +2,7 @@ package org.firstinspires.ftc.team8898;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-@Autonomous(name="Autot: Auto Drive By Encoder", group="Auto")
+@Autonomous(name="Auto: Auto Drive By Encoder", group="Auto")
 public class Auto extends LinearOpMode {
 
     @Override
