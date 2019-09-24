@@ -16,7 +16,11 @@ public class Bot {
     private Servo spinner = null;
     private DcMotor lifter1 = null;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     private DcMotor lifter2 = null;
+=======
+
+>>>>>>> Stashed changes
 =======
 
 >>>>>>> Stashed changes
@@ -40,8 +44,12 @@ public class Bot {
         closer2 = hwMap.get(Servo.class, "closerLeft"); //left closer
         spinner = hwMap.get(Servo.class, "spinner"); //the spinner
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         lifter1 = hwMap.get(DcMotor.class, "lifterRight"); //right lifter
         lifter2 = hwMap.get(DcMotor.class, "lifterLeft"); //left lifter
+=======
+        lifter1 = hwMap.get(DcMotor.class, "lifter"); //right lifter
+>>>>>>> Stashed changes
 =======
         lifter1 = hwMap.get(DcMotor.class, "lifter"); //right lifter
 >>>>>>> Stashed changes

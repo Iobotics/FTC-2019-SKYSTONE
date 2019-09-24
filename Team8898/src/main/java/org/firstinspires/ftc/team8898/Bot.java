@@ -16,13 +16,15 @@ public class Bot {
     private DcMotor backRightDrive = null;
     private HardwareMap hwMap = null;
     private DcMotor Latch1 = null;
-    private DcMotor Latch2 =null;
+    private DcMotor Latch2 = null;
     private Servo Arm1 = null;
     private Servo Arm2 = null;
-
+    private Servo clawServo1 = null;
+    private Servo clawServo2 = null;
 
 
     private LinearOpMode opMode = null;
+
     public Bot(LinearOpMode opMode) {
         this.opMode = opMode;
     }
@@ -37,10 +39,10 @@ public class Bot {
         frontRightDrive = hwMap.get(DcMotor.class, "frontright");
         backLeftDrive = hwMap.get(DcMotor.class, "backleft");
         backRightDrive = hwMap.get(DcMotor.class, "backright");
-        Latch1 =hwMap.get(DcMotor.class,"latch1");
-        Latch2 =hwMap.get(DcMotor.class,"latch2");
-        Arm1 = hwMap.get (Servo.class, "servo3");
-        Arm2 = hwMap.get (Servo.class, "servo4");
+        Latch1 = hwMap.get(DcMotor.class, "latch1");
+        Latch2 = hwMap.get(DcMotor.class, "latch2");
+        Arm1 = hwMap.get(Servo.class, "servo3");
+        Arm2 = hwMap.get(Servo.class, "servo4");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -49,7 +51,7 @@ public class Bot {
         Latch2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Latch1.setDirection(DcMotor.Direction.FORWARD);
         Latch2.setDirection(DcMotor.Direction.REVERSE);
-}
+    }
 
     public void setPower(double leftPower, double rightPower) {
         frontLeftDrive.setPower(leftPower);
@@ -57,27 +59,33 @@ public class Bot {
         backLeftDrive.setPower(leftPower);
         backRightDrive.setPower(rightPower);
     }
-    public void setLatchPower(double latchPower){
+
+    public void setLatchPower(double latchPower) {
         Latch1.setPower(latchPower);
         Latch2.setPower(latchPower);
     }
 
     private ElapsedTime runtime = new ElapsedTime();
-    public double getRunTime (){
+
+    public double getRunTime() {
         return runtime.seconds();
     }
-    public void setServo3 (double position){ Arm1.setPosition(position);
-    }
-    public void setServo4 (double position){Arm2.setPosition(position);
+
+    public void setServo3(double position) {
+        Arm1.setPosition(position);
     }
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+    public void setServo4(double position) {
+        Arm2.setPosition(position);
+    }
+
+    static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: TETRIX Motor Encoder
+    static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+    static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.6;
-    static final double     TURN_SPEED              = 0.5;
+    static final double DRIVE_SPEED = 0.6;
+    static final double TURN_SPEED = 0.5;
 
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
@@ -117,10 +125,10 @@ public class Bot {
         while (opMode.opModeIsActive() &&
                 (runtime.seconds() < timeoutS) &&
                 (frontLeftDrive.isBusy() && frontRightDrive.isBusy() && backLeftDrive.isBusy() && backRightDrive.isBusy())) {
-            opMode.telemetry.addData("frontLeftEncoder",frontLeftDrive.getCurrentPosition());
-            opMode.telemetry.addData("frontRightEncoder",frontRightDrive.getCurrentPosition());
-            opMode.telemetry.addData("backLeftEncoder",backLeftDrive.getCurrentPosition());
-            opMode.telemetry.addData("backRightEncoder",backRightDrive.getCurrentPosition());
+            opMode.telemetry.addData("frontLeftEncoder", frontLeftDrive.getCurrentPosition());
+            opMode.telemetry.addData("frontRightEncoder", frontRightDrive.getCurrentPosition());
+            opMode.telemetry.addData("backLeftEncoder", backLeftDrive.getCurrentPosition());
+            opMode.telemetry.addData("backRightEncoder", backRightDrive.getCurrentPosition());
             opMode.telemetry.update();
         }
         // Stop all motion;
@@ -135,7 +143,8 @@ public class Bot {
         backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
-    public void resetEncoder(){
+
+    public void resetEncoder() {
         frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -143,27 +152,31 @@ public class Bot {
 
     }
 
-    public double getFrontLeft(){
+    public double getFrontLeft() {
         return frontLeftDrive.getCurrentPosition();
     }
-    public double getFrontRight(){
+
+    public double getFrontRight() {
         return frontRightDrive.getCurrentPosition();
     }
-    public double getBackLeft(){
+
+    public double getBackLeft() {
         return backLeftDrive.getCurrentPosition();
     }
-    public double getBackRight(){
+
+    public double getBackRight() {
         return backRightDrive.getCurrentPosition();
 
 
     }
-    public void autoDriveStraightB(double distance){
+
+
+    public void autoDriveStraightB(double distance) {
         double ticks = COUNTS_PER_INCH * distance;
         ticks += frontLeftDrive.getCurrentPosition();
-        while(frontLeftDrive.getCurrentPosition() < ticks ){
-            setPower(1,1);
+        while (frontLeftDrive.getCurrentPosition() < ticks) {
+            setPower(1, 1);
         }
-        setPower(0,0);
+        setPower(0, 0);
     }
-
 }
