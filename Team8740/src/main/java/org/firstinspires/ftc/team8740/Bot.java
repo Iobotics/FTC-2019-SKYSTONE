@@ -12,8 +12,9 @@ public class Bot {
     private DcMotor backLeftDrive = null;
     private DcMotor backRightDrive = null;
     private HardwareMap hwMap = null;
-    private Servo servoRight = null;
-    private Servo servoLeft = null;
+    private DcMotor intakeLeft = null;
+    private DcMotor intakeRight = null;
+
 
     private LinearOpMode opMode = null;
     public Bot(LinearOpMode opMode) {
@@ -26,16 +27,19 @@ public class Bot {
 
         hwMap = ahwMap;
 
-        frontLeftDrive = hwMap.get(DcMotor.class, "frontleft");
-        frontRightDrive = hwMap.get(DcMotor.class, "frontright");
-        backLeftDrive = hwMap.get(DcMotor.class, "backleft");
-        backRightDrive = hwMap.get(DcMotor.class, "backright");
+        frontLeftDrive = hwMap.get(DcMotor.class, "frontLeft");
+        frontRightDrive = hwMap.get(DcMotor.class, "frontRight");
+        backLeftDrive = hwMap.get(DcMotor.class, "backLeft");
+        backRightDrive = hwMap.get(DcMotor.class, "backRight");
+        intakeLeft = hwMap.get(DcMotor.class, "leftIntake");
+        intakeRight = hwMap.get(DcMotor.class, "rightIntake");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
-        servoLeft = hwMap.get(Servo.class,"leftservo");
-        servoRight = hwMap.get(Servo.class,"rightservo");
+       intakeLeft.setDirection(DcMotor.Direction.FORWARD);
+        intakeRight.setDirection(DcMotor.Direction.REVERSE);
+
 
 
 }
@@ -47,20 +51,14 @@ public class Bot {
         frontRightDrive.setPower(rightPower);
 
     }
-
-    public void setPosition(double position) {
-        servoLeft.setPosition(position);
-        servoRight.setPosition(position);
+    public void setIntake(double leftPower, double rightPower){
+        intakeLeft.setPower(leftPower);
+        intakeRight.setPower(rightPower);
     }
 
-    public double getLeftPosition() {
-        return servoLeft.getPosition();
-    }
 
-    public double getRightPosition() {
-        return servoRight.getPosition();
 
-    }
+
     private ElapsedTime runtime = new ElapsedTime();
 
     public double getRunTime (){
