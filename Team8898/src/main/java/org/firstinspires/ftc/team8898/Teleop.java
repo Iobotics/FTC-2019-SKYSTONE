@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name="Basic: OpMode", group="Iterative Opmode")
+@TeleOp(name="Teleop", group="Iterative Opmode")
 
 public class Teleop extends LinearOpMode{
     private Bot robot = new Bot(this);
@@ -19,11 +19,11 @@ public class Teleop extends LinearOpMode{
 
        while(opModeIsActive()) {
            robot.setPower(gamepad1.left_stick_y, gamepad1.right_stick_y);
-           if (gamepad1.a == true){
+           if (gamepad1.left_bumper == true){
                robot.setLatchPower(0.25);
            }
 
-           else if (gamepad1.b == true){
+           else if (gamepad1.right_bumper == true){
                robot.setLatchPower(-0.25);
            }
            else {

@@ -1,34 +1,27 @@
 package org.firstinspires.ftc.team8898;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-@Autonomous(name="Auto", group="Auto")
-public class Auto extends LinearOpMode {
+@Autonomous(name="Auto2", group="Auto2")
+public class Auto2 extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
         Bot robot = new Bot(this);
         robot.init(hardwareMap);
-        robot.resetEncoder();
         waitForStart();
-        robot.encoderDrive(.8, 20, 20,30);
-        robot.gyroTurn(-90,.5);
-        robot.encoderDrive(.8,63,63,30);
-        robot.gyroTurn(0,.5);
-        robot.setLatchPower(0.25);
-        sleep(10);
-        robot.setLatchPower(0);
-        robot.encoderDrive(.8,13,13,30);
-        robot.setLatchPower(0.25);
-        sleep(10);
-        robot.setLatchPower(0);
-        robot.encoderDrive(.8,-13,-13,30);
+        robot.encoderDrive(.8,11,11,30);
         robot.gyroTurn(90,.5);
+        robot.encoderDrive(.8,4,4,30);
+        robot.gyroTurn(0,.5);
+        robot.encoderDrive(.8,3,3,30);
+        robot.setLatchPower(0.25);
+        sleep(10);
+        robot.setLatchPower(0);
+        robot.encoderDrive(.8,-14,-14,30);
+        robot.setLatchPower(0.25);
+        sleep(10);
+        robot.setLatchPower(0);
+        robot.gyroTurn(-90,.5);
         robot.encoderDrive(.8,31,31,30);
-        telemetry.addData("Front Left", robot.getFrontLeft());
-        telemetry.addData("BackRight", robot.getBackRight());
-        while(opModeIsActive()) {
-            telemetry.update();
-        }
     }
 }
