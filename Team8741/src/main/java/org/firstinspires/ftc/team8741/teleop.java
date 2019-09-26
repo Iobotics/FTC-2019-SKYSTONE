@@ -17,7 +17,7 @@ public class teleop extends LinearOpMode {
     double frontRightPower;
     double backLeftPower;
     double backRightPower;
-
+    double lifterPower;
 
 
     @Override
@@ -29,9 +29,17 @@ public class teleop extends LinearOpMode {
 
 
             robot.setLifter(gamepad1.a, gamepad1.b);
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
             robot.setSpinner(gamepad1.left_bumper, gamepad1.right_bumper);
             /*telemetry.addData("Lifter 1", robot.getLifter1Servo());*/
+=======
+            //telemetry.addData("Lifter 1", robot.getLifter1Servo());
+>>>>>>> Stashed changes
+=======
+            //telemetry.addData("Lifter 1", robot.getLifter1Servo());
+>>>>>>> Stashed changes
 
             telemetry.update();
 
