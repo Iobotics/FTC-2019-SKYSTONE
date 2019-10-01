@@ -55,22 +55,12 @@ public class Bot {
         frontRightDrive = hwMap.get(DcMotor.class, "frontRight"); //front right motor
         backLeftDrive = hwMap.get(DcMotor.class, "backLeft"); //back left motor
         backRightDrive = hwMap.get(DcMotor.class, "backRight"); //back right motor
-<<<<<<< HEAD
         //closer1 = hwMap.get(Servo.class, "closerRight"); //right closer
         //closer2 = hwMap.get(Servo.class, "closerLeft"); //left closer
         //spinner = hwMap.get(Servo.class, "spinner"); //the spinner
         latcher = hwMap.get(DcMotor.class, "latcher"); //the latcher
         //lifter1 = hwMap.get(DcMotor.class, "lifter"); //right lifter
         //lifter2 = hwMap.get(DcMotor.class, "lifterLeft"); //left lifter
-=======
-        closer1 = hwMap.get(Servo.class, "closerRight"); //right closer
-        closer2 = hwMap.get(Servo.class, "closerLeft"); //left closer
-        spinner = hwMap.get(Servo.class, "spinner"); //the spinner
-        lifter1 = hwMap.get(DcMotor.class, "lifterRight"); //right lifter
-        lifter2 = hwMap.get(DcMotor.class, "lifterLeft"); //left lifter
-        lifter1 = hwMap.get(DcMotor.class, "lifter"); //right lifter
-        lifter1 = hwMap.get(DcMotor.class, "lifter"); //right lifter
->>>>>>> 30a6104716ea719aa5d789ea1c71d8e7b894829c
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
