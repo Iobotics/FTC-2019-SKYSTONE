@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name="Teleop", group="Iterative Opmode")
 
 public class Teleop extends LinearOpMode{
+    //ita hic est magnumcerebrum tempus
     private Bot robot = new Bot(this);
 
 
