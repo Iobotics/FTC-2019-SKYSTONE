@@ -17,7 +17,7 @@ public class teleop extends LinearOpMode {
     double frontRightPower;
     double backLeftPower;
     double backRightPower;
-
+    double lifterPower;
 
 
     @Override
@@ -33,10 +33,15 @@ public class teleop extends LinearOpMode {
 
             //robot.setSpinner(gamepad1.dpad_left, gamepad1.dpad_right);
             /*telemetry.addData("Lifter 1", robot.getLifter1Servo());*/
+<<<<<<< HEAD
             telemetry.addData("Encoder", robot.getFrontLeft());
             telemetry.addData("Encoder 2", robot.getBackLeft());
             telemetry.addData("Encoder 3", robot.getFrontRight());
             telemetry.addData("Encoder 4", robot.getBackRight());
+=======
+            //telemetry.addData("Lifter 1", robot.getLifter1Servo());
+            //telemetry.addData("Lifter 1", robot.getLifter1Servo());
+>>>>>>> 30a6104716ea719aa5d789ea1c71d8e7b894829c
 
             telemetry.update();
 
