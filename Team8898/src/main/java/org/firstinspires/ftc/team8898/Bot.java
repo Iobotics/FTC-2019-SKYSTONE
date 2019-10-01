@@ -108,9 +108,7 @@ public class Bot {
     static final double DRIVE_SPEED = 0.6;
     static final double TURN_SPEED = 0.5;
 
-    public void encoderDrive(double speed,
-                             double leftInches, double rightInches,
-                             double timeoutS) {
+    public void encoderDrive(double speed, double leftInches, double rightInches, double timeoutS) {
         int newfrontLeftTarget;
         int newfrontRightTarget;
         int newbackLeftTarget;
