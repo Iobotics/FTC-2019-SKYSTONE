@@ -9,7 +9,7 @@ public class Auto extends LinearOpMode {
         Bot robot = new Bot(this);
         robot.resetEncoder();
         waitForStart();
-        robot.encoderDrive(1, 10, 10,30);
+        robot.encoderDrive(1, -10, -10,60);
 
     }
 }
