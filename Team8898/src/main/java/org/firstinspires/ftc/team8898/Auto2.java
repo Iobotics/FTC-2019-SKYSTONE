@@ -9,19 +9,19 @@ public class Auto2 extends LinearOpMode {
         Bot robot = new Bot(this);
         robot.init(hardwareMap);
         waitForStart();
-        robot.encoderDrive(.8,11,11,30);
+        robot.encoderDrive(.8,-11,-11,30);
         robot.gyroTurn(90,.5);
-        robot.encoderDrive(.8,4,4,30);
+        robot.encoderDrive(.8,-4,-4,30);
         robot.gyroTurn(0,.5);
-        robot.encoderDrive(.8,3,3,30);
+        robot.encoderDrive(.8,-3,-3,30);
         robot.setLatchPower(0.25);
-        sleep(10);
+        sleep(5);
         robot.setLatchPower(0);
-        robot.encoderDrive(.8,-14,-14,30);
+        robot.encoderDrive(.8,14,14,30);
         robot.setLatchPower(0.25);
-        sleep(10);
+        sleep(5);
         robot.setLatchPower(0);
         robot.gyroTurn(-90,.5);
-        robot.encoderDrive(.8,31,31,30);
+        robot.encoderDrive(.8,-31,-31,30);
     }
 }
