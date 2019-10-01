@@ -23,6 +23,7 @@ public class Bot {
     private DcMotor intakeLeft = null;
     private DcMotor intakeRight = null;
     private BNO055IMU imu = null;
+    //Josh! Get Productive
     private Orientation angles = null;
     private Acceleration gravity = null;
 

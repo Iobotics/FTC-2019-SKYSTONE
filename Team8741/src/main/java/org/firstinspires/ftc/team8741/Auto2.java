@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Autonomous", group = "Bot")
 //@Disabled
-public class Auto extends LinearOpMode {
+public class Auto2 extends LinearOpMode {
 
     private Bot robot = new Bot(this);
     private ElapsedTime runtime = new ElapsedTime();
@@ -27,11 +27,11 @@ public class Auto extends LinearOpMode {
 
         robot.encoderDrive(0.5, -13, -13, 300);
 
-        robot.encoderDrive(0.5, 7, -7, 300);
+        robot.encoderDrive(0.5, -7, 7, 300);
 
         robot.encoderDrive(0.5, 4, 4, 300);
 
-        robot.encoderDrive(0.5, -7, 7, 300);
+        robot.encoderDrive(0.5, 7, -7, 300);
 
         robot.encoderDrive(0.5, -3, -3, 300);
 
@@ -53,7 +53,7 @@ public class Auto extends LinearOpMode {
         }
         robot.setLatcher(false, false);
 
-        robot.encoderDrive(0.5, -7, 7, 300);
+        robot.encoderDrive(0.5, 7, -7, 300);
 
         robot.encoderDrive(0.5, 15, 15, 300);
 

@@ -23,23 +23,33 @@ public class teleop extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
+
         waitForStart();
         while (opModeIsActive()) {
-            robot.setPower(gamepad1.left_stick_y, gamepad1.right_stick_y);
+            robot.setPower(gamepad1.left_stick_y * .5, gamepad1.right_stick_y * .5);
 
 
-            robot.setLifter(gamepad1.a, gamepad1.b);
+            //robot.setLifter(gamepad1.a, gamepad1.b);
 
-            robot.setSpinner(gamepad1.left_bumper, gamepad1.right_bumper);
+            //robot.setSpinner(gamepad1.dpad_left, gamepad1.dpad_right);
             /*telemetry.addData("Lifter 1", robot.getLifter1Servo());*/
+<<<<<<< HEAD
+            telemetry.addData("Encoder", robot.getFrontLeft());
+            telemetry.addData("Encoder 2", robot.getBackLeft());
+            telemetry.addData("Encoder 3", robot.getFrontRight());
+            telemetry.addData("Encoder 4", robot.getBackRight());
+=======
             //telemetry.addData("Lifter 1", robot.getLifter1Servo());
             //telemetry.addData("Lifter 1", robot.getLifter1Servo());
+>>>>>>> 30a6104716ea719aa5d789ea1c71d8e7b894829c
 
             telemetry.update();
 
-            robot.setCloser(gamepad1.y, gamepad1.x);
+           // robot.setCloser(gamepad1.y, gamepad1.x);
 
+            robot.setLatcher(gamepad1.a, gamepad1.b);
 
+            robot.slowMode(gamepad1.left_bumper, gamepad1.right_bumper);
         }
     }
 

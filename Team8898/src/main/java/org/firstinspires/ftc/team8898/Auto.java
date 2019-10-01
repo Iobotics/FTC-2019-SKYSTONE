@@ -11,6 +11,10 @@ public class Auto extends LinearOpMode {
         robot.init(hardwareMap);
         robot.resetEncoder();
         waitForStart();
+<<<<<<< HEAD
+        robot.encoderDrive(1, -10, -10,60);
+
+=======
         robot.encoderDrive(.8, 20, 20,30);
         robot.gyroTurn(-90,.5);
         robot.encoderDrive(.8,63,63,30);
@@ -30,5 +34,6 @@ public class Auto extends LinearOpMode {
         while(opModeIsActive()) {
             telemetry.update();
         }
+>>>>>>> 30a6104716ea719aa5d789ea1c71d8e7b894829c
     }
 }
