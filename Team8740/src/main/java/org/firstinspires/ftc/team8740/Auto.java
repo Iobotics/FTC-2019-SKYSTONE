@@ -12,7 +12,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
             robot.init(hardwareMap);
             waitForStart();
-
         }
 
     }
