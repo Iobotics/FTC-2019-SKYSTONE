@@ -157,11 +157,22 @@ public class Bot {
         return heading;
     }
     public void gyroTurn(double target, double speed){
-        while(!(getGyroHeading() < target + 1 && getGyroHeading() > target -1))
-            setPower(speed,-speed);
+        int multiplier = 1;
+        while((target > 178 && getGyroHeading() < target - 1) || ((target <= 178 && target >= -178 && !(getGyroHeading() < target + 1 && getGyroHeading() > target -1))) || (target < -178 && getGyroHeading() < target +1)) {
+
+            if (isTurnCCW(getGyroHeading() + 180, target + 180)) {
+                multiplier = 1;
+            } else {
+                multiplier = -1;
+            }
+            setPower(-speed * multiplier, speed * multiplier);
+        }
     }
 
-
+    boolean isTurnCCW(double hdg, double newHdg) { // should a new heading turn left ie. CCW?
+        double diff = newHdg - hdg;        // CCW = counter-clockwise ie. left
+        return diff > 0 ? diff > 180 : diff >= -180;
+    }
     public void stop() {
         frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

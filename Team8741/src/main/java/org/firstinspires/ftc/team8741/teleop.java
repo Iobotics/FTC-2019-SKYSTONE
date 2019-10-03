@@ -39,6 +39,7 @@ public class teleop extends LinearOpMode {
             telemetry.addData("Encoder 4", robot.getBackRight());
             //telemetry.addData("Lifter 1", robot.getLifter1Servo());
             //telemetry.addData("Lifter 1", robot.getLifter1Servo());
+            telemetry.addData(" 'neil' degrese", robot.getGyroHeading());
 
             telemetry.update();
 
