@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.team8741;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -7,6 +9,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import static java.lang.Thread.sleep;
 
@@ -39,6 +47,9 @@ public class Bot {
     private DcMotor lifter1 = null;
     private DcMotor lifter2 = null;
 
+    private BNO055IMU imu = null;
+    private Orientation angles = null;
+    private Acceleration gravity = null;
     private LinearOpMode opMode = null;
 
     public Bot(LinearOpMode opMode) {
@@ -65,6 +76,16 @@ public class Bot {
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        parameters.loggingEnabled = false;
+        parameters.loggingTag = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+        imu = hwMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
 
         //lifter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //lifter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -127,7 +148,31 @@ public class Bot {
 
      */
 
+    public double getGyroHeading() {
+        // Update gyro
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        gravity = imu.getGravity();
 
+        double heading = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
+        return heading;
+    }
+    public void gyroTurn(double target, double speed){
+        int multiplier = 1;
+        while((target > 178 && getGyroHeading() < target - 1) || ((target <= 178 && target >= -178 && !(getGyroHeading() < target + 1 && getGyroHeading() > target -1))) || (target < -178 && getGyroHeading() < target +1)) {
+
+            if (isTurnCCW(getGyroHeading() + 180, target + 180)) {
+                multiplier = 1;
+            } else {
+                multiplier = -1;
+            }
+            setPower(-speed * multiplier, speed * multiplier);
+        }
+    }
+
+    boolean isTurnCCW(double hdg, double newHdg) { // should a new heading turn left ie. CCW?
+        double diff = newHdg - hdg;        // CCW = counter-clockwise ie. left
+        return diff > 0 ? diff > 180 : diff >= -180;
+    }
     public void stop() {
         frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

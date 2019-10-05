@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Autonomous", group = "Bot")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="simmionsAuto", group = "Bot")
 //@Disabled
-public class Auto extends LinearOpMode {
+public class simmonsAuto extends LinearOpMode {
 
     private Bot robot = new Bot(this);
     private ElapsedTime runtime = new ElapsedTime();
