@@ -6,11 +6,15 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 public class Teleop extends LinearOpMode{
     private Bot robot = new Bot(this);
-//motors
+//motors aka wotors
+    //wotor sheep
     double frontLeftPower;
     double frontRightPower;
     double backLeftPower;
     double backRightPower;
+    //for the slow mode
+    boolean slowMode = false;
+    boolean buttonApressed = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -18,10 +22,21 @@ public class Teleop extends LinearOpMode{
        robot.init(hardwareMap);
        waitForStart();
        while(opModeIsActive()) {
-           if(gamepad1.a){
+           //slow modes
+           if(gamepad1.a && buttonApressed == false){
+               slowMode= !slowMode;
+               buttonApressed = true;
+               //Person 1:"or else!" Person 2:"or else what?" *see else ifs below*
+           }
+           else if (gamepad1.a){
+           }
+           else{
+               buttonApressed = false;
+           }
+           if(slowMode){
                robot.setPower(gamepad1.left_stick_y *0.3,gamepad1.right_stick_y *0.3);
            }
-           else{ robot.setPower(gamepad1.left_stick_y *0.6, gamepad1.right_stick_y *0.6);}
+           else{ robot.setPower(gamepad1.left_stick_y *1, gamepad1.right_stick_y *1);}
            //foundation 1
            if(gamepad1.left_trigger > 0.5){
                robot.setIntake(gamepad1.left_trigger, -gamepad1.left_trigger);
@@ -45,145 +60,3 @@ public class Teleop extends LinearOpMode{
     }
 
 }
-
-
-//owo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

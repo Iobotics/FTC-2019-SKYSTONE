@@ -23,7 +23,6 @@ public class Bot {
     private DcMotor intakeLeft = null;
     private DcMotor intakeRight = null;
     private BNO055IMU imu = null;
-    //Josh! Get Productive
     private Orientation angles = null;
     private Acceleration gravity = null;
 
@@ -37,7 +36,6 @@ public class Bot {
 
 
         hwMap = ahwMap;
-//all the motors here
         frontLeftDrive = hwMap.get(DcMotor.class, "frontLeft");
         frontRightDrive = hwMap.get(DcMotor.class, "frontRight");
         backLeftDrive = hwMap.get(DcMotor.class, "backLeft");
@@ -48,6 +46,12 @@ public class Bot {
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        //stop coasting code
+        frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
        intakeLeft.setDirection(DcMotor.Direction.FORWARD);
         intakeRight.setDirection(DcMotor.Direction.REVERSE);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -72,7 +76,7 @@ public class Bot {
         intakeLeft.setPower(leftPower);
         intakeRight.setPower(rightPower);
     }
-    //gyro
+    //skylanders: gyro's adventure
     public double getGyroHeading() {
         // Update gyro
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -81,7 +85,6 @@ public class Bot {
         return heading;
     }
     private ElapsedTime runtime = new ElapsedTime();
-
     public double getRunTime (){
         return runtime.seconds();
     }
@@ -97,12 +100,18 @@ public class Bot {
             (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double DRIVE_SPEED = 0.6;
     static final double TURN_SPEED = 0.5;
+    static final double INCHES_PER_DEGREE = 0.1744;
 
     public void encoderDrive(double speed, double leftInches, double rightInches, double timeoutS) {
         int newfrontLeftTarget;
         int newfrontRightTarget;
         int newbackLeftTarget;
         int newbackRightTarget;
+        int newRightTurnTarget;
+        int newLeftTurnTarget;
+
+
+
 
 
         // Ensure that the opmode is still active
@@ -111,13 +120,72 @@ public class Bot {
             // Determine new target position, and pass to motor controller
             newfrontLeftTarget = frontLeftDrive.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
             newfrontRightTarget = frontRightDrive.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-            newbackLeftTarget = frontLeftDrive.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newbackRightTarget = frontRightDrive.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
+            newbackLeftTarget = frontLeftDrive.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH * INCHES_PER_DEGREE);
+            newbackRightTarget = frontRightDrive.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH * INCHES_PER_DEGREE);
             frontLeftDrive.setTargetPosition(newfrontLeftTarget);
             frontRightDrive.setTargetPosition(newfrontRightTarget);
             backLeftDrive.setTargetPosition(newbackLeftTarget);
             backRightDrive.setTargetPosition(newbackRightTarget);
+            // Turn On RUN_TO_POSITION
+            frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+            // reset the timeout time and start motion.
+            runtime.reset();
+            frontLeftDrive.setPower(Math.abs(speed));
+            frontRightDrive.setPower(Math.abs(speed));
+            backLeftDrive.setPower(Math.abs(speed));
+            backRightDrive.setPower(Math.abs(speed));
+        }
+        while (opMode.opModeIsActive() &&
+                (runtime.seconds() < timeoutS) &&
+                (frontLeftDrive.isBusy() && frontRightDrive.isBusy() && backLeftDrive.isBusy() && backRightDrive.isBusy())) {
+            opMode.telemetry.addData("frontLeftEncoder", frontLeftDrive.getCurrentPosition());
+            opMode.telemetry.addData("frontRightEncoder", frontRightDrive.getCurrentPosition());
+            opMode.telemetry.addData("backLeftEncoder", backLeftDrive.getCurrentPosition());
+            opMode.telemetry.addData("backRightEncoder", backRightDrive.getCurrentPosition());
+            opMode.telemetry.update();
+        }
+        // Stop all motion;
+        frontLeftDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        backLeftDrive.setPower(0);
+        backRightDrive.setPower(0);
+
+        // Turn off RUN_TO_POSITION
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+
+    public void encoderTurn(double speed, double degrees, double timeoutS) {
+        int newfrontLeftTarget;
+        int newfrontRightTarget;
+        int newbackLeftTarget;
+        int newbackRightTarget;
+        int newRightTurnTarget;
+        int newLeftTurnTarget;
+
+
+
+
+
+        // Ensure that the opmode is still active
+        if (opMode.opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newfrontLeftTarget = frontLeftDrive.getCurrentPosition() + (int) (-degrees * COUNTS_PER_INCH * INCHES_PER_DEGREE);
+            newfrontRightTarget = frontRightDrive.getCurrentPosition() + (int) (degrees * COUNTS_PER_INCH * INCHES_PER_DEGREE);
+            newbackLeftTarget = frontLeftDrive.getCurrentPosition() + (int) (-degrees * COUNTS_PER_INCH * INCHES_PER_DEGREE);
+            newbackRightTarget = frontRightDrive.getCurrentPosition() + (int) (degrees * COUNTS_PER_INCH * INCHES_PER_DEGREE);
+            frontLeftDrive.setTargetPosition(newfrontLeftTarget);
+            frontRightDrive.setTargetPosition(newfrontRightTarget);
+            backLeftDrive.setTargetPosition(newbackLeftTarget);
+            backRightDrive.setTargetPosition(newbackRightTarget);
             // Turn On RUN_TO_POSITION
             frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
