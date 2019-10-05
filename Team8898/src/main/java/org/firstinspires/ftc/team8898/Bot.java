@@ -207,7 +207,17 @@ public class Bot {
         return heading;
     }
     public void gyroTurn(double target, double speed){
-        while(!(getGyroHeading() < target + 1 && getGyroHeading() > target -1))
-        setPower(speed,-speed);
+        while((!(getGyroHeading() < target + 1 && getGyroHeading() > target -1))&& opMode.opModeIsActive()) {
+            setPower(absRange(0.01 *(target - getGyroHeading()), speed), -absRange(0.01 *(target - getGyroHeading()), speed));
+            opMode.telemetry.addData("Gyro", getGyroHeading());
+            opMode.telemetry.update();
+        }
+    }
+
+    public double absRange(double input, double range){
+        if (input <= range || input >= -range){
+            return input;
+        }
+        else return 1 * ((Math.abs(input))/ input);
     }
 }

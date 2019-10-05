@@ -10,9 +10,9 @@ public class Auto2 extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
         robot.encoderDrive(.8,-11,-11,30);
-        robot.gyroTurn(90,.5);
+        robot.gyroTurn(90,1);
         robot.encoderDrive(.8,-4,-4,30);
-        robot.gyroTurn(0,.5);
+        robot.gyroTurn(0,1);
         robot.encoderDrive(.8,-3,-3,30);
         robot.setLatchPower(0.25);
         sleep(5);
@@ -21,7 +21,7 @@ public class Auto2 extends LinearOpMode {
         robot.setLatchPower(0.25);
         sleep(5);
         robot.setLatchPower(0);
-        robot.gyroTurn(-90,.5);
+        robot.gyroTurn(-90,1);
         robot.encoderDrive(.8,-31,-31,30);
     }
 }
