@@ -40,6 +40,7 @@ public class teleop extends LinearOpMode {
             //telemetry.addData("Lifter 1", robot.getLifter1Servo());
             //telemetry.addData("Lifter 1", robot.getLifter1Servo());
             telemetry.addData(" 'neil' degrese", robot.getGyroHeading());
+            telemetry.addData("splinter", robot.getSpinner());
 
             telemetry.update();
 

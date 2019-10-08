@@ -54,6 +54,7 @@ public class Bot {
 
 
     private double servoPos = 0;
+    private double servoPos2 = 1;
 
     public Bot(LinearOpMode opMode) {
         this.opMode = opMode;
@@ -150,9 +151,30 @@ public class Bot {
         }
     }
 
-
-
     public double getGyroHeading() {
+        // Update gyro
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        gravity = imu.getGravity();
+
+        double heading = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
+        return heading;
+    }
+    public void gyroTurn(double target, double speed){
+        while((!(getGyroHeading() < target + 1 && getGyroHeading() > target -1))&& opMode.opModeIsActive()) {
+            setPower(absRange(0.01 *(target - getGyroHeading()), speed), -absRange(0.01 *(target - getGyroHeading()), speed));
+            opMode.telemetry.addData("Gyro", getGyroHeading());
+            opMode.telemetry.update();
+        }
+    }
+
+    public double absRange(double input, double range){
+        if (input <= range || input >= -range){
+            return input;
+        }
+        else return 1 * ((Math.abs(input))/ input);
+    }
+
+   /* public double getGyroHeading() {
         // Update gyro
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         gravity = imu.getGravity();
@@ -186,6 +208,8 @@ public class Bot {
         double diff = newHdg - hdg;        // CCW = counter-clockwise ie. left
         return diff > 0 ? diff > 180 : diff >= -180;
     }
+
+    */
     public void stop() {
         frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -337,16 +361,19 @@ public class Bot {
     public void setSpinner(boolean spinnerPower, boolean spinnerPower2) {
 
         if (spinnerPower2 == true) {
-            servoPos += 1;
+            servoPos2 += .05;
         }
 
         if (spinnerPower == true) {
-            servoPos -= 1;
+            servoPos2 -= .05;
         }
 
-        spinner.setPosition(servoPos);
+        spinner.setPosition(servoPos2);
     }
 
+    public double getSpinner(){
+        return spinner.getPosition();
+    }
 
     /*public void setLatcher(boolean latcherPower, boolean latcherPower2){
         if (latcherPower2 == true){
@@ -361,11 +388,11 @@ public class Bot {
     public void setCloser(boolean closerPower, boolean closerPower2){
 
         if (closerPower2 == true){
-            servoPos += 0.01;
+            servoPos += 0.5;
         }
 
         if (closerPower == true){
-            servoPos -= 0.01;
+            servoPos -= 0.5;
         }
 
         closer1.setPosition(servoPos);
