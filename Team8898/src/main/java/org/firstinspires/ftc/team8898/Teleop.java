@@ -42,6 +42,7 @@ public class Teleop extends LinearOpMode{
            telemetry.addData("Back Left", robot.getBackLeft());
            telemetry.addData("Front right", robot.getFrontRight());
            telemetry.addData("Gyro", robot.getGyroHeading());
+           telemetry.addData("getPower", robot.getFrontLeftPower());
            telemetry.update();
 
 

@@ -32,6 +32,9 @@ public class Bot {
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
+    private double p_Coeff = 0.01;
+    private double f_Coeff = 0;
+
 
 
     private LinearOpMode opMode = null;
@@ -52,8 +55,8 @@ public class Bot {
         backRightDrive = hwMap.get(DcMotor.class, "backright");
         Latch1 = hwMap.get(DcMotor.class, "latch1");
         Latch2 = hwMap.get(DcMotor.class, "latch2");
-        Arm1 = hwMap.get(Servo.class, "servo3");
-        Arm2 = hwMap.get(Servo.class, "servo4");
+        Arm1 = hwMap.get(Servo.class, "servo1");
+        Arm2 = hwMap.get(Servo.class, "servo2");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -80,6 +83,9 @@ public class Bot {
         backLeftDrive.setPower(leftPower);
         backRightDrive.setPower(rightPower);
     }
+    public double getFrontLeftPower(){
+        return frontLeftDrive.getPower();
+    }
 
     public void setLatchPower(double latchPower) {
         Latch1.setPower(latchPower);
@@ -100,7 +106,7 @@ public class Bot {
         Arm2.setPosition(position);
     }
 
-    static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: TETRIX Motor Encoder
+    static final double COUNTS_PER_MOTOR_REV = 1680;    // eg: TETRIX Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -208,10 +214,11 @@ public class Bot {
     }
     public void gyroTurn(double target, double speed){
         while((!(getGyroHeading() < target + 1 && getGyroHeading() > target -1))&& opMode.opModeIsActive()) {
-            setPower(absRange(0.01 *(target - getGyroHeading()), speed), -absRange(0.01 *(target - getGyroHeading()), speed));
+            setPower(absRange((p_Coeff *(target - getGyroHeading())) + f_Coeff, speed), -absRange((p_Coeff *(target - getGyroHeading())) + f_Coeff, speed));
             opMode.telemetry.addData("Gyro", getGyroHeading());
             opMode.telemetry.update();
         }
+        setPower(0,0);
     }
 
     public double absRange(double input, double range){
