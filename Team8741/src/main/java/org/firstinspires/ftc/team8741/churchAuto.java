@@ -35,7 +35,7 @@ public class churchAuto extends LinearOpMode {
 
         robot.encoderDrive(0.5, -3, -3, 300);
 
-        robot.setLatcher(false, true);
+        /*robot.setLatcher(false, true);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 1.0)) {
             telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
@@ -52,6 +52,8 @@ public class churchAuto extends LinearOpMode {
             telemetry.update();
         }
         robot.setLatcher(false, false);
+
+         */
 
         robot.encoderDrive(0.5, 7, -7, 300);
 

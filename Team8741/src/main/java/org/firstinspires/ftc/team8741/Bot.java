@@ -52,6 +52,9 @@ public class Bot {
     private Acceleration gravity = null;
     private LinearOpMode opMode = null;
 
+
+    private double servoPos = 0;
+
     public Bot(LinearOpMode opMode) {
         this.opMode = opMode;
     }
@@ -66,11 +69,11 @@ public class Bot {
         frontRightDrive = hwMap.get(DcMotor.class, "frontRight"); //front right motor
         backLeftDrive = hwMap.get(DcMotor.class, "backLeft"); //back left motor
         backRightDrive = hwMap.get(DcMotor.class, "backRight"); //back right motor
-        //closer1 = hwMap.get(Servo.class, "closerRight"); //right closer
+        closer1 = hwMap.get(Servo.class, "closer"); //right closer
         //closer2 = hwMap.get(Servo.class, "closerLeft"); //left closer
-        //spinner = hwMap.get(Servo.class, "spinner"); //the spinner
-        latcher = hwMap.get(DcMotor.class, "latcher"); //the latcher
-        //lifter1 = hwMap.get(DcMotor.class, "lifter"); //right lifter
+        spinner = hwMap.get(Servo.class, "spinner"); //the spinner
+        //latcher = hwMap.get(DcMotor.class, "latcher"); //the latcher
+        lifter1 = hwMap.get(DcMotor.class, "lifter"); //right lifter
         //lifter2 = hwMap.get(DcMotor.class, "lifterLeft"); //left lifter
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -87,9 +90,9 @@ public class Bot {
         imu = hwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
-        //lifter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        lifter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //lifter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        latcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //latcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
 
@@ -100,7 +103,6 @@ public class Bot {
         backRightDrive.setPower(rightPower);
     }
 
-    private double servoPos = 0;
 
     public void slowMode(boolean setPower, boolean setPower2){
 
@@ -114,7 +116,7 @@ public class Bot {
 
     }
 
-    public void setLatcher(boolean latcherPower, boolean latcherPower2) {
+    /*public void setLatcher(boolean latcherPower, boolean latcherPower2) {
         if (latcherPower2 == true) {
             latcher.setPower(-0.5);
         }
@@ -128,7 +130,9 @@ public class Bot {
         }
     }
 
-    /*public void setLifter(boolean lifterPower, boolean lifterPower2){
+     */
+
+    public void setLifter(boolean lifterPower, boolean lifterPower2){
 
         if (lifterPower2 == true) {
             lifter1.setPower(-0.5);
@@ -146,7 +150,7 @@ public class Bot {
         }
     }
 
-     */
+
 
     public double getGyroHeading() {
         // Update gyro
@@ -156,16 +160,25 @@ public class Bot {
         double heading = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
         return heading;
     }
+
+
+
     public void gyroTurn(double target, double speed){
         int multiplier = 1;
-        while((target > 178 && getGyroHeading() < target - 1) || ((target <= 178 && target >= -178 && !(getGyroHeading() < target + 1 && getGyroHeading() > target -1))) || (target < -178 && getGyroHeading() < target +1)) {
+        while((target > 178 && (-180 -  getGyroHeading()  >  1  || getGyroHeading() < target - 1)) || ((target <= 178 && target >= -178 && !(getGyroHeading() < target + 1 && getGyroHeading() > target -1))) || (target < -178 && (180 - getGyroHeading() > 1|| getGyroHeading() > target +1))) {
 
             if (isTurnCCW(getGyroHeading() + 180, target + 180)) {
                 multiplier = 1;
             } else {
                 multiplier = -1;
             }
-            setPower(-speed * multiplier, speed * multiplier);
+
+            if ((Math.abs(target - getGyroHeading()) < 20)){
+                setPower(-((speed - .2) * Math.abs(target - getGyroHeading()) / 20 + .2) *  multiplier, ((speed - .2) * Math.abs(target - getGyroHeading()) / 20 + .2) *  multiplier);
+            } else{
+                setPower(-speed * multiplier, speed * multiplier);
+            }
+
         }
     }
 
@@ -269,7 +282,8 @@ public class Bot {
         public double getBackRight(){
             return backRightDrive.getCurrentPosition();
         }
-    }
+
+
 
 
     /*public void setLifter(boolean lifterPower){
@@ -288,6 +302,8 @@ public class Bot {
 
 
     private double servoPos = 0;
+
+     */
 
     /*public void setLifter(boolean lifterPower, boolean lifterPower2){
 
@@ -316,20 +332,21 @@ public class Bot {
         return lifter2.getPosition();
     }
 
-
+*/
 
     public void setSpinner(boolean spinnerPower, boolean spinnerPower2) {
 
         if (spinnerPower2 == true) {
-            servoPos += 0.01;
+            servoPos += 1;
         }
 
         if (spinnerPower == true) {
-            servoPos -= 0.01;
+            servoPos -= 1;
         }
 
         spinner.setPosition(servoPos);
     }
+
 
     /*public void setLatcher(boolean latcherPower, boolean latcherPower2){
         if (latcherPower2 == true){
@@ -340,7 +357,7 @@ public class Bot {
             servoPos -= 0.01;
         }
     }
-
+*/
     public void setCloser(boolean closerPower, boolean closerPower2){
 
         if (closerPower2 == true){
@@ -352,9 +369,10 @@ public class Bot {
         }
 
         closer1.setPosition(servoPos);
-        closer2.setPosition(1 - servoPos);
+        //closer2.setPosition(1 - servoPos);
     }
- */
+}
+
 
 
 
