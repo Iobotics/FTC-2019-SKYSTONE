@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Autonomous", group = "Bot")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="churchAuto", group = "Bot")
 //@Disabled
-public class Auto2 extends LinearOpMode {
+public class churchAuto extends LinearOpMode {
 
     private Bot robot = new Bot(this);
     private ElapsedTime runtime = new ElapsedTime();
@@ -35,7 +35,7 @@ public class Auto2 extends LinearOpMode {
 
         robot.encoderDrive(0.5, -3, -3, 300);
 
-        robot.setLatcher(false, true);
+        /*robot.setLatcher(false, true);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 1.0)) {
             telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
@@ -52,6 +52,8 @@ public class Auto2 extends LinearOpMode {
             telemetry.update();
         }
         robot.setLatcher(false, false);
+
+         */
 
         robot.encoderDrive(0.5, 7, -7, 300);
 

@@ -23,15 +23,24 @@ public class Bot {
     private DcMotor backLeftDrive = null;
     private DcMotor backRightDrive = null;
     private HardwareMap hwMap = null;
-    private DcMotor Latch1 = null;
     private DcMotor Latch2 = null;
+    /* this is new*/
+    private DcMotor rightFlyWheel = null;
+    private DcMotor leftFlyWheel = null;
+    private DcMotor screwMotor = null;
     private Servo Arm1 = null;
     private Servo Arm2 = null;
-    private Servo clawServo1 = null;
-    private Servo clawServo2 = null;
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
+    private double p_Coeff = 0.001;
+    private double f_Coeff = 0.09;
+
+
+    double inchesPerDegrees = 13.8 * Math.PI / 360;
+
+
+
 
 
     private LinearOpMode opMode = null;
@@ -50,17 +59,26 @@ public class Bot {
         frontRightDrive = hwMap.get(DcMotor.class, "frontright");
         backLeftDrive = hwMap.get(DcMotor.class, "backleft");
         backRightDrive = hwMap.get(DcMotor.class, "backright");
-        Latch1 = hwMap.get(DcMotor.class, "latch1");
+
         Latch2 = hwMap.get(DcMotor.class, "latch2");
-        Arm1 = hwMap.get(Servo.class, "servo3");
-        Arm2 = hwMap.get(Servo.class, "servo4");
+
+        /* this is new*/
+        rightFlyWheel = hwMap.get(DcMotor.class, "rightflywheel" );
+        leftFlyWheel = hwMap.get(DcMotor.class, "leftflywheel");
+        screwMotor = hwMap.get(DcMotor.class,"screwmotor");
+        Latch2 = hwMap.get(DcMotor.class, "latch2");
+        Arm1 = hwMap.get(Servo.class, "servo1");
+        Arm2 = hwMap.get(Servo.class, "servo2");
+
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
-        Latch1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        rightFlyWheel.setDirection(DcMotor.Direction.REVERSE);
+        leftFlyWheel.setDirection(DcMotor.Direction.FORWARD);
+        screwMotor.setDirection(DcMotor.Direction.FORWARD);
         Latch2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Latch1.setDirection(DcMotor.Direction.FORWARD);
         Latch2.setDirection(DcMotor.Direction.REVERSE);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -79,10 +97,20 @@ public class Bot {
         frontRightDrive.setPower(rightPower);
         backLeftDrive.setPower(leftPower);
         backRightDrive.setPower(rightPower);
+
+    }
+    public void setFlyPower(double flyPower){
+        rightFlyWheel.setPower(flyPower);
+        leftFlyWheel.setPower(flyPower);
+    }
+    public void setScrewPower(double screwPower){
+        screwMotor.setPower(screwPower);
+    }
+    public double getFrontLeftPower(){
+        return frontLeftDrive.getPower();
     }
 
     public void setLatchPower(double latchPower) {
-        Latch1.setPower(latchPower);
         Latch2.setPower(latchPower);
     }
 
@@ -92,15 +120,8 @@ public class Bot {
         return runtime.seconds();
     }
 
-    public void setServo3(double position) {
-        Arm1.setPosition(position);
-    }
 
-    public void setServo4(double position) {
-        Arm2.setPosition(position);
-    }
-
-    static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: TETRIX Motor Encoder
+    static final double COUNTS_PER_MOTOR_REV = 1680;    // eg: TETRIX Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -117,7 +138,6 @@ public class Bot {
 
         // Ensure that the opmode is still active
         if (opMode.opModeIsActive()) {
-
             // Determine new target position, and pass to motor controller
             newfrontLeftTarget = frontLeftDrive.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
             newfrontRightTarget = frontRightDrive.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
@@ -127,12 +147,16 @@ public class Bot {
             frontRightDrive.setTargetPosition(newfrontRightTarget);
             backLeftDrive.setTargetPosition(newbackLeftTarget);
             backRightDrive.setTargetPosition(newbackRightTarget);
-
+            /*this is new*/
+            rightFlyWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftFlyWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            screwMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             // Turn On RUN_TO_POSITION
             frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             backLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             backRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
             // reset the timeout time and start motion.
             runtime.reset();
@@ -140,6 +164,9 @@ public class Bot {
             frontRightDrive.setPower(Math.abs(speed));
             backLeftDrive.setPower(Math.abs(speed));
             backRightDrive.setPower(Math.abs(speed));
+            rightFlyWheel.setPower(Math.abs(speed));
+            leftFlyWheel.setPower(Math.abs(speed));
+            screwMotor.setPower(Math.abs(speed));
         }
         while (opMode.opModeIsActive() &&
                 (runtime.seconds() < timeoutS) &&
@@ -155,12 +182,19 @@ public class Bot {
         frontRightDrive.setPower(0);
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
+        //this is new
+        leftFlyWheel.setPower(0);
+        rightFlyWheel.setPower(0);
+        screwMotor.setPower(0);
 
         // Turn off RUN_TO_POSITION
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightFlyWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        leftFlyWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        screwMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void resetEncoder() {
@@ -168,6 +202,9 @@ public class Bot {
         frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFlyWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFlyWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        screwMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
 
@@ -188,6 +225,16 @@ public class Bot {
 
 
     }
+    /* this is new*/
+    public double getRightFly(){
+        return rightFlyWheel.getCurrentPosition();
+    }
+    public double getLeftFly() {
+        return leftFlyWheel.getCurrentPosition();
+    }
+    public double getScrewMotor() {
+        return screwMotor.getCurrentPosition();
+    }
 
 
     public void autoDriveStraightB(double distance) {
@@ -207,8 +254,50 @@ public class Bot {
         return heading;
     }
     public void gyroTurn(double target, double speed){
-        while(!(getGyroHeading() < target + 1 && getGyroHeading() > target -1))
-        setPower(speed,-speed);
+        double error;
+        double power;
+        while((!(getGyroHeading() < target + 1 && getGyroHeading() > target -1))&& opMode.opModeIsActive()) {
+            error = target - getGyroHeading();
+            power = absRange((p_Coeff * error) + f_Coeff * ((Math.abs(error))/ error), speed);
+            setPower(power, -power);
+            opMode.telemetry.addData("Gyro", getGyroHeading());
+            opMode.telemetry.update();
+        }
+        setPower(0,0);
+    }
+
+    public double absRange(double input, double range){
+        if (input <= range || input >= -range){
+            return input;
+        }
+        else return 1 * ((Math.abs(input))/ input);
+    }
+    public void rotate(double power, double degrees, double timeout) {
+
+        encoderDrive(power,degrees * inchesPerDegrees, degrees * -inchesPerDegrees, timeout);
+    }
+    public void setArmPosition1(double position){
+
+        Arm1.setPosition(position);
+
+
+    }
+    public void setArm2Position(double position) {
+
+        Arm2.setPosition(position);
+
+    }
+
+    public double getArmOnePosition(){
+
+        return Arm1.getPosition();
+
+
+    }
+
+    public double getArmTwoPosition(){
+
+        return Arm2.getPosition();
     }
 }
 

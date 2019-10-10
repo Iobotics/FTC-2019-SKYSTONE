@@ -33,21 +33,24 @@ public class teleop extends LinearOpMode {
 
             //robot.setSpinner(gamepad1.dpad_left, gamepad1.dpad_right);
             /*telemetry.addData("Lifter 1", robot.getLifter1Servo());*/
-<<<<<<< HEAD
             telemetry.addData("Encoder", robot.getFrontLeft());
             telemetry.addData("Encoder 2", robot.getBackLeft());
             telemetry.addData("Encoder 3", robot.getFrontRight());
             telemetry.addData("Encoder 4", robot.getBackRight());
-=======
             //telemetry.addData("Lifter 1", robot.getLifter1Servo());
             //telemetry.addData("Lifter 1", robot.getLifter1Servo());
->>>>>>> 30a6104716ea719aa5d789ea1c71d8e7b894829c
+            telemetry.addData(" 'neil' degrese", robot.getGyroHeading());
+            telemetry.addData("splinter", robot.getSpinner());
 
             telemetry.update();
 
-           // robot.setCloser(gamepad1.y, gamepad1.x);
+            robot.setSpinner(gamepad1.y, gamepad1.x);
 
-            robot.setLatcher(gamepad1.a, gamepad1.b);
+            robot.setLifter(gamepad1.right_trigger > .5, gamepad1.left_trigger > .5);
+
+            robot.setCloser(gamepad1.a, gamepad1.b);
+
+            //robot.setLatcher(gamepad1.a, gamepad1.b);
 
             robot.slowMode(gamepad1.left_bumper, gamepad1.right_bumper);
         }
