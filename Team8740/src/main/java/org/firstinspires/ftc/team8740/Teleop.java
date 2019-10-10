@@ -1,18 +1,15 @@
 package org.firstinspires.ftc.team8740;
-//sup
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp(name="Basic: OpMode", group="Iterative Opmode")
 
 public class Teleop extends LinearOpMode{
     private Bot robot = new Bot(this);
-//motors aka wotors
-    //wotor sheep
     double frontLeftPower;
     double frontRightPower;
     double backLeftPower;
     double backRightPower;
-    //for the slow mode
+   //slowmode
     boolean slowMode = false;
     boolean buttonApressed = false;
 
@@ -22,11 +19,9 @@ public class Teleop extends LinearOpMode{
        robot.init(hardwareMap);
        waitForStart();
        while(opModeIsActive()) {
-           //slow modes
            if(gamepad1.a && buttonApressed == false){
                slowMode= !slowMode;
                buttonApressed = true;
-               //Person 1:"or else!" Person 2:"or else what?" *see else ifs below*
            }
            else if (gamepad1.a){
            }
@@ -45,7 +40,6 @@ public class Teleop extends LinearOpMode{
            else if(gamepad1.right_trigger > 0.5){
                robot.setIntake(-gamepad1.right_trigger, gamepad1.right_trigger);
            }
-           //intake things
            else if(gamepad1.left_bumper == true){
               robot.setIntake( 1, 1);
           }
