@@ -15,7 +15,10 @@ public class Teleop extends LinearOpMode {
     @Override
 
     public void runOpMode() throws InterruptedException {
+
         robot.init(hardwareMap);
+        robot.setArm2Position(0.5);
+        robot.setArmPosition1(0.5);
         waitForStart();
 
         while (opModeIsActive()) {
@@ -35,10 +38,45 @@ public class Teleop extends LinearOpMode {
             telemetry.addData("Front right", robot.getFrontRight());
             telemetry.addData("Gyro", robot.getGyroHeading());
             telemetry.addData("getPower", robot.getFrontLeftPower());
+            telemetry.addData("arm1", robot.getArmOnePosition());
+            telemetry.addData("arm2", robot.getArmTwoPosition());
+            telemetry.update();
+            if (gamepad1.left_trigger > 0.5) {
+                robot.setFlyPower(1);
+            } else if (gamepad1.right_trigger > 0.5) {
+                robot.setFlyPower(-1);
+            } else {
+                robot.setFlyPower(0);
+            }
+            if (gamepad1.x) {
+                robot.setScrewPower(0.5);
+            } else if (gamepad1.y) {
+                robot.setScrewPower(-0.5);
+            } else {
+                robot.setScrewPower(0);
+            }
+            /*
+            if(gamepad1.right_trigger>0.5){
+               robot.setArmPosition1(1);
+                robot.setArm2Position(0);
+            }
+            else if(gamepad1.left_trigger>0.5){
+                robot.setArmPosition1(0);
+                robot.setArm2Position(1); //big bot
+            }
+            else {robot.setArm2Position(0.6);
+               robot.setArmPosition1(0.4);
+            }
+            */
+
+
+            telemetry.addData("Front Left", robot.getFrontLeft());
+            telemetry.addData("Back Right", robot.getBackRight());
+            telemetry.addData("Back Left", robot.getBackLeft());
+            telemetry.addData("Front right", robot.getFrontRight());
             telemetry.update();
 
 
         }
     }
 }
-

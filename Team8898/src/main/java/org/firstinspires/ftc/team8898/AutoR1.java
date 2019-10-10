@@ -28,8 +28,12 @@ public class AutoR1 extends LinearOpMode {
         robot.encoderDrive(.8,31,31,30);
         telemetry.addData("Front Left", robot.getFrontLeft());
         telemetry.addData("BackRight", robot.getBackRight());
-        while(opModeIsActive()) {
+        if (opModeIsActive()) {
             telemetry.update();
+            robot.encoderDrive(1, 26, 26, 2);
+            robot.rotate(0.5, 90, 5);
+
         }
+
     }
 }

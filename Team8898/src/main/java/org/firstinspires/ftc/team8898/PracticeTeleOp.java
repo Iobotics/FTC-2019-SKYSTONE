@@ -27,14 +27,16 @@ public class PracticeTeleOp extends LinearOpMode {
             PracticeBot.setPower(gamepad1.left_stick_y, gamepad1.right_stick_y);
 
 
-            if(gamepad1.b){
+            if(gamepad1.right_trigger>0.5){
                 PracticeBot.setArmPosition1(1);
                 PracticeBot.setArm2Position(0);
 
             }
-            else if(gamepad1.x){
+            else
+                if(gamepad1.left_trigger>0.5){
                 PracticeBot.setArmPosition1(0);
-                PracticeBot.setArm2Position(1);}
+                PracticeBot.setArm2Position(1);
+            }
                 else {PracticeBot.setArm2Position(0.5);
                         PracticeBot.setArmPosition1(0.7);
             }
@@ -46,4 +48,3 @@ public class PracticeTeleOp extends LinearOpMode {
 
 
 }
-//iudaifhadsiogaysud
