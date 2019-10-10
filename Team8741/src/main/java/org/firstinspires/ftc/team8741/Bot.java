@@ -73,7 +73,7 @@ public class Bot {
         closer1 = hwMap.get(Servo.class, "closer"); //right closer
         //closer2 = hwMap.get(Servo.class, "closerLeft"); //left closer
         spinner = hwMap.get(Servo.class, "spinner"); //the spinner
-        //latcher = hwMap.get(DcMotor.class, "latcher"); //the latcher
+        latcher = hwMap.get(DcMotor.class, "latcher"); //the latcher
         lifter1 = hwMap.get(DcMotor.class, "lifter"); //right lifter
         //lifter2 = hwMap.get(DcMotor.class, "lifterLeft"); //left lifter
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -93,7 +93,7 @@ public class Bot {
 
         lifter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //lifter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //latcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        latcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
 
@@ -117,7 +117,7 @@ public class Bot {
 
     }
 
-    /*public void setLatcher(boolean latcherPower, boolean latcherPower2) {
+    public void setLatcher(boolean latcherPower, boolean latcherPower2) {
         if (latcherPower2 == true) {
             latcher.setPower(-0.5);
         }
@@ -131,7 +131,7 @@ public class Bot {
         }
     }
 
-     */
+
 
     public void setLifter(boolean lifterPower, boolean lifterPower2){
 
@@ -398,6 +398,7 @@ public class Bot {
         closer1.setPosition(servoPos);
         //closer2.setPosition(1 - servoPos);
     }
+    public double getCloser(){return spinner.getPosition();}
 }
 
 
