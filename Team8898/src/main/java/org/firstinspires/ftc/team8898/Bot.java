@@ -23,17 +23,12 @@ public class Bot {
     private DcMotor backLeftDrive = null;
     private DcMotor backRightDrive = null;
     private HardwareMap hwMap = null;
-    private DcMotor Latch1 = null;
     private DcMotor Latch2 = null;
-    private Servo Arm1 = null;
-    private Servo Arm2 = null;
-    private Servo clawServo1 = null;
-    private Servo clawServo2 = null;
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
-    private double p_Coeff = 0.01;
-    private double f_Coeff = 0;
+    private double p_Coeff = 0.001;
+    private double f_Coeff = 0.09;
 
 
 
@@ -53,17 +48,12 @@ public class Bot {
         frontRightDrive = hwMap.get(DcMotor.class, "frontright");
         backLeftDrive = hwMap.get(DcMotor.class, "backleft");
         backRightDrive = hwMap.get(DcMotor.class, "backright");
-        Latch1 = hwMap.get(DcMotor.class, "latch1");
         Latch2 = hwMap.get(DcMotor.class, "latch2");
-        Arm1 = hwMap.get(Servo.class, "servo1");
-        Arm2 = hwMap.get(Servo.class, "servo2");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
-        Latch1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Latch2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Latch1.setDirection(DcMotor.Direction.FORWARD);
         Latch2.setDirection(DcMotor.Direction.REVERSE);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -88,7 +78,6 @@ public class Bot {
     }
 
     public void setLatchPower(double latchPower) {
-        Latch1.setPower(latchPower);
         Latch2.setPower(latchPower);
     }
 
@@ -98,13 +87,6 @@ public class Bot {
         return runtime.seconds();
     }
 
-    public void setServo3(double position) {
-        Arm1.setPosition(position);
-    }
-
-    public void setServo4(double position) {
-        Arm2.setPosition(position);
-    }
 
     static final double COUNTS_PER_MOTOR_REV = 1680;    // eg: TETRIX Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
@@ -213,8 +195,12 @@ public class Bot {
         return heading;
     }
     public void gyroTurn(double target, double speed){
+        double error;
+        double power;
         while((!(getGyroHeading() < target + 1 && getGyroHeading() > target -1))&& opMode.opModeIsActive()) {
-            setPower(absRange((p_Coeff *(target - getGyroHeading())) + f_Coeff, speed), -absRange((p_Coeff *(target - getGyroHeading())) + f_Coeff, speed));
+            error = target - getGyroHeading();
+            power = absRange((p_Coeff * error) + f_Coeff * ((Math.abs(error))/ error), speed);
+            setPower(power, -power);
             opMode.telemetry.addData("Gyro", getGyroHeading());
             opMode.telemetry.update();
         }

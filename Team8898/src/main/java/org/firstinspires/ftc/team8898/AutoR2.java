@@ -11,7 +11,7 @@ public class AutoR2 extends LinearOpMode {
         waitForStart();
         robot.encoderDrive(.8,-27,-27,30);
         robot.gyroTurn(-90,.8);
-        robot.encoderDrive(.8,-7,-7,30);
+        robot.encoderDrive(.8,-4,-4,30);
         robot.gyroTurn(0,.8);
         robot.setLatchPower(-0.25);
         sleep(5000);
