@@ -23,7 +23,7 @@ public class Bot {
     private DcMotor backLeftDrive = null;
     private DcMotor backRightDrive = null;
     private HardwareMap hwMap = null;
-    private DcMotor Latch2 = null;
+    private DcMotor Latch = null;
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
@@ -48,13 +48,13 @@ public class Bot {
         frontRightDrive = hwMap.get(DcMotor.class, "frontright");
         backLeftDrive = hwMap.get(DcMotor.class, "backleft");
         backRightDrive = hwMap.get(DcMotor.class, "backright");
-        Latch2 = hwMap.get(DcMotor.class, "latch2");
+        Latch = hwMap.get(DcMotor.class, "latch2");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
-        Latch2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Latch2.setDirection(DcMotor.Direction.REVERSE);
+        Latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Latch.setDirection(DcMotor.Direction.REVERSE);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -78,7 +78,7 @@ public class Bot {
     }
 
     public void setLatchPower(double latchPower) {
-        Latch2.setPower(latchPower);
+        Latch.setPower(latchPower);
     }
 
     private ElapsedTime runtime = new ElapsedTime();
