@@ -26,7 +26,7 @@ public class teleop extends LinearOpMode {
 
         waitForStart();
         while (opModeIsActive()) {
-            robot.setPower(gamepad2.left_stick_y * .5, gamepad2.right_stick_y * .5);
+            robot.setPower(gamepad2.left_stick_y , gamepad2.right_stick_y );
 
 
             //robot.setLifter(gamepad1.a, gamepad1.b);
@@ -42,6 +42,7 @@ public class teleop extends LinearOpMode {
             telemetry.addData(" 'neil' degrese", robot.getGyroHeading());
             telemetry.addData("splinter", robot.getSpinner());
             telemetry.addData("adsf", robot.getCloser());
+            telemetry.addData("latch", robot.getLatcher());
 
             telemetry.update();
 
@@ -53,7 +54,7 @@ public class teleop extends LinearOpMode {
 
             robot.setLatcher(gamepad2.a, gamepad2.b);
 
-            robot.slowMode(gamepad1.left_bumper, gamepad1.right_bumper);
+            robot.slowMode(gamepad2.left_bumper, gamepad2.right_bumper);
         }
     }
 

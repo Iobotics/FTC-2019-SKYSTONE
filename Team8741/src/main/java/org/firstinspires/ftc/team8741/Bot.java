@@ -108,7 +108,7 @@ public class Bot {
     public void slowMode(boolean setPower, boolean setPower2){
 
         if(setPower2 == true){
-            setPower(0.25, 0.25);
+            setPower(0.5, 0.5);
         }
 
         else if (setPower == true){
@@ -131,6 +131,10 @@ public class Bot {
         }
     }
 
+    public double getLatcher (){
+        return latcher.getCurrentPosition();
+    }
+
 
 
     public void setLifter(boolean lifterPower, boolean lifterPower2){
@@ -148,6 +152,24 @@ public class Bot {
         else if (lifterPower == false && lifterPower2 == false){
             lifter1.setPower(0);
             //lifter2.setPower(0);
+        }
+    }
+
+    public void liftBlock (boolean liftPower, double speed, double gamePos){
+        int newLiftTarget;
+        if (liftPower == true){
+            newLiftTarget = lifter1.getCurrentPosition() + (int) (gamePos * COUNTS_PER_INCH);
+
+            lifter1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            runtime.reset();
+            lifter1.setPower(Math.abs(speed));
+
+            lifter1.setPower(0);
+
+            lifter1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
         }
     }
 
@@ -360,11 +382,11 @@ public class Bot {
 
     public void setSpinner(boolean spinnerPower, boolean spinnerPower2) {
 
-        if (spinnerPower2 == true) {
+        if (spinnerPower2 == true && servoPos2 < 1) {
             servoPos2 += .05;
         }
 
-        if (spinnerPower == true) {
+        if (spinnerPower == true && servoPos2 > -1) {
             servoPos2 -= .05;
         }
 
@@ -387,18 +409,18 @@ public class Bot {
 */
     public void setCloser(boolean closerPower, boolean closerPower2){
 
-        if (closerPower2 == true){
+        if (closerPower2 == true && servoPos < 1){
             servoPos += 0.5;
         }
 
-        if (closerPower == true){
+        if (closerPower == true && servoPos > -1){
             servoPos -= 0.5;
         }
 
         closer1.setPosition(servoPos);
         //closer2.setPosition(1 - servoPos);
     }
-    public double getCloser(){return spinner.getPosition();}
+    public double getCloser(){return closer1.getPosition();}
 }
 
 

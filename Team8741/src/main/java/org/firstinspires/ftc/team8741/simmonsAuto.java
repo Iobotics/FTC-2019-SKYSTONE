@@ -25,15 +25,15 @@ public class simmonsAuto extends LinearOpMode {
         //7 is for 90 degree turns
         waitForStart();
 
-        robot.encoderDrive(0.5, -13, -13, 300);
+        robot.encoderDrive(1, -22.25, -22.25, 300);
 
-        robot.encoderDrive(0.5, 7, -7, 300);
+        robot.encoderDrive(1, 10.25, -10.25, 300);
 
-        robot.encoderDrive(0.5, 4, 4, 300);
+        robot.encoderDrive(1, 4.25, 4.25, 300);
 
-        robot.encoderDrive(0.5, -7, 7, 300);
+        robot.encoderDrive(1, -10.25, 10.25, 300);
 
-        robot.encoderDrive(0.5, -3, -3, 300);
+        robot.encoderDrive(1, -2.25, -2.25, 300);
 
         robot.setLatcher(false, true);
         runtime.reset();
@@ -43,7 +43,7 @@ public class simmonsAuto extends LinearOpMode {
         }
         robot.setLatcher(false, false);
 
-        robot.encoderDrive(.25, 11.75, 11.75, 300);
+        robot.encoderDrive(.5, 19.75, 19.75, 300);
 
         robot.setLatcher(true, false);
         runtime.reset();
@@ -55,9 +55,9 @@ public class simmonsAuto extends LinearOpMode {
 
 
 
-        robot.encoderDrive(0.5, -7, 7, 300);
+        robot.encoderDrive(1, -10.25, 10.25, 300);
 
-        robot.encoderDrive(0.5, 15, 15, 300);
+        robot.encoderDrive(1, 26.25, 26.25, 300);
 
         telemetry.update();
         /*robot.encoderDrive(0.5, 6.5, -6.5, 300);

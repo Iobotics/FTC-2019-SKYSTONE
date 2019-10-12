@@ -18,7 +18,7 @@ public class snatchRed extends LinearOpMode {
         robot.stop();
 
         waitForStart();
-        robot.encoderDrive(0.5, -13, -13, 300);
+        robot.encoderDrive(0.5, -26, -26, 300);
 
         robot.setLatcher(false, true);
         runtime.reset();
