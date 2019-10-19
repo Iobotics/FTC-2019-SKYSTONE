@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -25,6 +26,8 @@ public class Bot {
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
+    private DcMotor liftLeft = null;
+    private DcMotor liftRight = null;
 
     private LinearOpMode opMode = null;
     public Bot(LinearOpMode opMode) {
@@ -36,24 +39,33 @@ public class Bot {
 
 
         hwMap = ahwMap;
+        //for drive
         frontLeftDrive = hwMap.get(DcMotor.class, "frontLeft");
         frontRightDrive = hwMap.get(DcMotor.class, "frontRight");
         backLeftDrive = hwMap.get(DcMotor.class, "backLeft");
         backRightDrive = hwMap.get(DcMotor.class, "backRight");
-        intakeLeft = hwMap.get(DcMotor.class, "leftIntake");
-        intakeRight = hwMap.get(DcMotor.class, "rightIntake");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        // for intake
+        intakeLeft = hwMap.get(DcMotor.class, "leftIntake");
+        intakeRight = hwMap.get(DcMotor.class, "rightIntake");
+        intakeLeft.setDirection(DcMotor.Direction.FORWARD);
+        intakeRight.setDirection(DcMotor.Direction.REVERSE);
+        //for lift
+        liftLeft = hwMap.get(DcMotor.class, "leftLift");
+        liftRight = hwMap.get(DcMotor.class, "rightLift");
+        liftLeft.setDirection(DcMotor.Direction.REVERSE);
+        liftRight.setDirection(DcMotor.Direction.REVERSE);
         //stop coasting code
-        frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        liftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        intakeLeft.setDirection(DcMotor.Direction.FORWARD);
-        intakeRight.setDirection(DcMotor.Direction.REVERSE);
+
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -76,6 +88,18 @@ public class Bot {
         intakeLeft.setPower(leftPower);
         intakeRight.setPower(rightPower);
     }
+    //lift
+    public void setLift(double leftPower, double rightpower){
+        liftLeft.setPower(leftPower);
+        liftRight.setPower(rightpower);
+
+    }
+    //brake lift
+    public void brakeLift(double leftPower, double rightpower){
+        liftLeft.setPower(leftPower);
+        liftRight.setPower(rightpower);
+    }
+
     //skylanders: gyro's adventure
     public double getGyroHeading() {
         // Update gyro
