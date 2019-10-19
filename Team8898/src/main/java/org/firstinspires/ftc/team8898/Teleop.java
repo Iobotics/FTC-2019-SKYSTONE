@@ -23,10 +23,12 @@ public class Teleop extends LinearOpMode {
 
         while (opModeIsActive()) {
             robot.setPower(gamepad1.left_stick_y, gamepad1.right_stick_y);
-            if (gamepad1.left_bumper == true) {
+            if (gamepad1.y == true) {
                 robot.setLatchPower(-0.25);
-            } else if (gamepad1.right_bumper == true) {
+                sleep(380);
+            } else if (gamepad1.x == true) {
                 robot.setLatchPower(0.25);
+                sleep(400);
             } else {
                 robot.setLatchPower(0);
             }
