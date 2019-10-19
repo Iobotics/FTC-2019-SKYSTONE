@@ -19,7 +19,7 @@ public class AutoR1 extends LinearOpMode {
         sleep(10);
         robot.setLatchPower(0);
         robot.encoderDrive(.8,13,13,30);
-        robot.setLatchPower(0.25);
+        robot.setLatchPower(-0.25);
         sleep(10);
         robot.setLatchPower(0);
         robot.encoderDrive(.8,-13,-13,30);

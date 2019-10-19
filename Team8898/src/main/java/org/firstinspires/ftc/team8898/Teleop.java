@@ -17,16 +17,18 @@ public class Teleop extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         robot.init(hardwareMap);
-        robot.setArm2Position(0.5);
-        robot.setArmPosition1(0.5);
+        /*robot.setArm2Position(0.5);
+        robot.setArmPosition1(0.5);*/
         waitForStart();
 
         while (opModeIsActive()) {
             robot.setPower(gamepad1.left_stick_y, gamepad1.right_stick_y);
-            if (gamepad1.left_bumper == true) {
-                robot.setLatchPower(0.25);
-            } else if (gamepad1.right_bumper == true) {
+            if (gamepad1.y == true) {
                 robot.setLatchPower(-0.25);
+                sleep(380);
+            } else if (gamepad1.x == true) {
+                robot.setLatchPower(0.25);
+                sleep(400);
             } else {
                 robot.setLatchPower(0);
             }
@@ -38,10 +40,10 @@ public class Teleop extends LinearOpMode {
             telemetry.addData("Front right", robot.getFrontRight());
             telemetry.addData("Gyro", robot.getGyroHeading());
             telemetry.addData("getPower", robot.getFrontLeftPower());
-            telemetry.addData("arm1", robot.getArmOnePosition());
-            telemetry.addData("arm2", robot.getArmTwoPosition());
+            /*telemetry.addData("arm1", robot.getArmOnePosition());
+            telemetry.addData("arm2", robot.getArmTwoPosition());*/
             telemetry.update();
-            if (gamepad1.left_trigger > 0.5) {
+            /*if (gamepad1.left_trigger > 0.5) {
                 robot.setFlyPower(1);
             } else if (gamepad1.right_trigger > 0.5) {
                 robot.setFlyPower(-1);

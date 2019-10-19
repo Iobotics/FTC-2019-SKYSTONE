@@ -17,3 +17,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
             }
         }
         }
+<<<<<<< HEAD
+
+yeet
+
+=======
+>>>>>>> 0d372993ee4c77a620c72c517516e44764ed58ec
