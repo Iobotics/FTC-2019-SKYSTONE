@@ -94,6 +94,11 @@ public class Bot {
         lifter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //lifter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         latcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
     }
 
 
@@ -283,16 +288,16 @@ public class Bot {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opMode.opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (frontLeftDrive.isBusy() && frontRightDrive.isBusy() && backLeftDrive.isBusy() && backRightDrive.isBusy())) {
+                    (frontLeftDrive.isBusy() || frontRightDrive.isBusy() || backLeftDrive.isBusy() || backRightDrive.isBusy())) {
 
                 // Display it for the driver.
-                opMode.telemetry.addData("Path1",  "Running to %7d :%7d", newFrontLeftTarget,  newFrontRightTarget, newBackLeftTarget, newBackRightTarget);
+                //opMode.telemetry.addData("Path1",  "Running to %7d :%7d", newFrontLeftTarget,  newFrontRightTarget, newBackLeftTarget, newBackRightTarget);
                 opMode.telemetry.addData("Path2",  "Running at %7d :%7d",
                         frontLeftDrive.getCurrentPosition(),
                         frontRightDrive.getCurrentPosition(),
                         backLeftDrive.getCurrentPosition(),
                         backRightDrive.getCurrentPosition());
-                opMode.telemetry.update();
+                //opMode.telemetry.update();
             }
 
 
@@ -309,7 +314,7 @@ public class Bot {
                 backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-                 sleep(250);   // optional pause after each move
+                 //sleep(250);   // optional pause after each move
             }
         }
 

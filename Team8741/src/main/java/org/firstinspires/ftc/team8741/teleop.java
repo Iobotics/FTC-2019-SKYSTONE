@@ -55,6 +55,8 @@ public class teleop extends LinearOpMode {
             robot.setLatcher(gamepad2.a, gamepad2.b);
 
             robot.slowMode(gamepad2.left_bumper, gamepad2.right_bumper);
+
+            //robot.liftBlock(gamepad2.x, .5, 1);
         }
     }
 
