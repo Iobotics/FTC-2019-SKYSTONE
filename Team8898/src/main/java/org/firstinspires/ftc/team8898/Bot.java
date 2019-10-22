@@ -25,12 +25,12 @@ public class Bot {
     private DcMotor backRightDrive = null;
     private HardwareMap hwMap = null;
     private DcMotor Latch = null;
+    private DcMotor Lift = null;
     private TouchSensor limitSwitch = null;
     /*private DcMotor rightFlyWheel = null;
     private DcMotor leftFlyWheel = null;
     private DcMotor screwMotor = null;*/
-    private Servo Arm1 = null;
-    private Servo Arm2 = null;
+    private Servo clasp = null;
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
@@ -61,12 +61,12 @@ public class Bot {
         backLeftDrive = hwMap.get(DcMotor.class, "backleft");
         backRightDrive = hwMap.get(DcMotor.class, "backright");
         Latch = hwMap.get(DcMotor.class, "latch2");
+        Lift = hwMap.get(DcMotor.class, "lift");
         limitSwitch = hwMap.get(TouchSensor.class, "limitSwitch");
         /*rightFlyWheel = hwMap.get(DcMotor.class, "rightflywheel" );
         leftFlyWheel = hwMap.get(DcMotor.class, "leftflywheel");
-        screwMotor = hwMap.get(DcMotor.class,"screwmotor");
-        Arm1 = hwMap.get(Servo.class, "servo1");
-        Arm2 = hwMap.get(Servo.class, "servo2");*/
+        screwMotor = hwMap.get(DcMotor.class,"screwmotor");*/
+        clasp = hwMap.get(Servo.class, "Clasp");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -95,6 +95,13 @@ public class Bot {
         backRightDrive.setPower(rightPower);
 
     }
+    public void setLiftPower(double liftPower){
+        Lift.setPower(liftPower);
+    }
+    public void setClasp(double position){
+        clasp.setPosition(position);
+
+    }
     /*public void setFlyPower(double flyPower){
         rightFlyWheel.setPower(flyPower);
         leftFlyWheel.setPower(flyPower);
@@ -111,6 +118,15 @@ public class Bot {
             setLatchPower(0);
         }
         else  Latch.setPower(latchPower);
+    }
+    public double getLatchPosition(){
+        return Latch.getCurrentPosition();
+    }
+    public void setLatchPosition(){
+        int offset = 0;
+        Latch.setTargetPosition( offset + (int)getLatchPosition());
+        Latch.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Latch.setPower(.25);
     }
 
 

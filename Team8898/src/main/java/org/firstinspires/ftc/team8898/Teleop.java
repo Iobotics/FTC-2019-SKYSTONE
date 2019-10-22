@@ -23,6 +23,8 @@ public class Teleop extends LinearOpMode {
 
         while (opModeIsActive()) {
             robot.setPower(gamepad1.left_stick_y, gamepad1.right_stick_y);
+            robot.setLiftPower(gamepad1.left_trigger);
+            robot.setLiftPower(-gamepad1.right_trigger);
             if (gamepad1.y == true) {
                 robot.setLatchPower(-0.25);
                 sleep(380);
@@ -32,6 +34,12 @@ public class Teleop extends LinearOpMode {
             } else {
                 robot.setLatchPower(0);
             }
+            if (gamepad1.left_bumper == true) {
+                robot.setClasp(1);
+            }
+            else if (gamepad1.right_bumper == true){
+                robot.setClasp(0);
+            }
 
 
             telemetry.addData("Front Left", robot.getFrontLeft());
@@ -40,8 +48,7 @@ public class Teleop extends LinearOpMode {
             telemetry.addData("Front right", robot.getFrontRight());
             telemetry.addData("Gyro", robot.getGyroHeading());
             telemetry.addData("getPower", robot.getFrontLeftPower());
-            /*telemetry.addData("arm1", robot.getArmOnePosition());
-            telemetry.addData("arm2", robot.getArmTwoPosition());*/
+            telemetry.addData("getLatch", robot.getLatchPosition());
             telemetry.update();
             /*if (gamepad1.left_trigger > 0.5) {
                 robot.setFlyPower(1);
