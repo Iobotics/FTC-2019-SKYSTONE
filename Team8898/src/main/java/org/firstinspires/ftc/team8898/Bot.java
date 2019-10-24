@@ -122,8 +122,7 @@ public class Bot {
     public double getLatchPosition(){
         return Latch.getCurrentPosition();
     }
-    public void setLatchPosition(){
-        int offset = 0;
+    public void setLatchPosition(int offset){
         Latch.setTargetPosition( offset + (int)getLatchPosition());
         Latch.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Latch.setPower(.25);
@@ -320,4 +319,3 @@ public class Bot {
     }*/
 
 }
-
