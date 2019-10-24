@@ -42,7 +42,7 @@ public class simmonsAuto extends LinearOpMode {
         telemetry.addData("Encoder 4", robot.getBackRight());
         telemetry.update();
 
-        robot.encoderDrive(1, 5.25, 5.25, 300);
+        robot.encoderDrive(1, 7.25, 7.25, 300);
 
         telemetry.addData("Encoder", robot.getFrontLeft());
         telemetry.addData("Encoder 2", robot.getBackLeft());
@@ -50,7 +50,7 @@ public class simmonsAuto extends LinearOpMode {
         telemetry.addData("Encoder 4", robot.getBackRight());
         telemetry.update();
 
-        robot.encoderDrive(1, -10.25, 10.25, 300);
+        robot.encoderDrive(1, -9.75, 9.75, 300);
 
         telemetry.addData("Encoder", robot.getFrontLeft());
         telemetry.addData("Encoder 2", robot.getBackLeft());
@@ -58,7 +58,7 @@ public class simmonsAuto extends LinearOpMode {
         telemetry.addData("Encoder 4", robot.getBackRight());
         telemetry.update();
 
-        robot.encoderDrive(1, -3.75, -3.75, 300);
+        robot.encoderDrive(1, -4.75, -4.75, 300);
 
         telemetry.addData("Encoder", robot.getFrontLeft());
         telemetry.addData("Encoder 2", robot.getBackLeft());
@@ -73,10 +73,11 @@ public class simmonsAuto extends LinearOpMode {
             //telemetry.update();
         }
 
+        robot.setLatcher(false,false);
 
         //robot.setLatcher(false, false);
 
-        robot.encoderDrive(.5, 20.75, 20.75, 300);
+        robot.encoderDrive(.5, 23.5, 23.5, 300);
 
         robot.setLatcher(true, false);
         runtime.reset();
@@ -90,9 +91,9 @@ public class simmonsAuto extends LinearOpMode {
 
 
 
-        robot.encoderDrive(1, -12.25, 12.25, 300);
+        robot.encoderDrive(1, -14, 14, 300);
 
-        robot.encoderDrive(1, 26.25, 26.25, 300);
+        robot.encoderDrive(1, 35.25, 35.25, 300);
 
         telemetry.update();
         /*robot.encoderDrive(0.5, 6.5, -6.5, 300);
