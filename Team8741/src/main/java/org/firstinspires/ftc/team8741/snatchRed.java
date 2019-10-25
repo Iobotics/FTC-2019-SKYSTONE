@@ -18,7 +18,7 @@ public class snatchRed extends LinearOpMode {
         robot.stop();
 
         waitForStart();
-        robot.encoderDrive(0.5, -26, -26, 300);
+        robot.encoderDrive(1, -22.25, -22.25, 300);
 
         robot.setLatcher(false, true);
         runtime.reset();
@@ -26,6 +26,17 @@ public class snatchRed extends LinearOpMode {
             telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
+        //robot.setLatcher(false, false);
+
+        robot.encoderDrive(1, 11, 11, 300);
+
+        robot.encoderDrive(1, -10.25, 10.25, 300);
+
+        robot.encoderDrive(1, -35, -35, 300);
+
         robot.setLatcher(false, false);
+
+        robot.encoderDrive(1, 4, 4, 300);
+
     }
 }

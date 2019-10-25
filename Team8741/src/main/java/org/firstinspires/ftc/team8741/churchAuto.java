@@ -20,44 +20,80 @@ public class churchAuto extends LinearOpMode {
         telemetry.addData("Encoder 2", robot.getBackLeft());
         telemetry.addData("Encoder 3", robot.getFrontRight());
         telemetry.addData("Encoder 4", robot.getBackRight());
+        telemetry.update();
 
 
-        //7 is for 90 degree turns
+        //10.25 is for 90 degree turns
         waitForStart();
 
-        robot.encoderDrive(0.5, -13, -13, 300);
+        robot.encoderDrive(1, -22.25, -22.25, 300);
 
-        robot.encoderDrive(0.5, -7, 7, 300);
+        telemetry.addData("Encoder", robot.getFrontLeft());
+        telemetry.addData("Encoder 2", robot.getBackLeft());
+        telemetry.addData("Encoder 3", robot.getFrontRight());
+        telemetry.addData("Encoder 4", robot.getBackRight());
+        telemetry.update();
 
-        robot.encoderDrive(0.5, 4, 4, 300);
+        robot.encoderDrive(1, -10.25, 10.25, 300);
 
-        robot.encoderDrive(0.5, 7, -7, 300);
+        telemetry.addData("Encoder", robot.getFrontLeft());
+        telemetry.addData("Encoder 2", robot.getBackLeft());
+        telemetry.addData("Encoder 3", robot.getFrontRight());
+        telemetry.addData("Encoder 4", robot.getBackRight());
+        telemetry.update();
 
-        robot.encoderDrive(0.5, -3, -3, 300);
+        robot.encoderDrive(1, 7.25, 7.25, 300);
+
+        telemetry.addData("Encoder", robot.getFrontLeft());
+        telemetry.addData("Encoder 2", robot.getBackLeft());
+        telemetry.addData("Encoder 3", robot.getFrontRight());
+        telemetry.addData("Encoder 4", robot.getBackRight());
+        telemetry.update();
+
+        robot.encoderDrive(1, 9.75, -9.75, 300);
+
+        telemetry.addData("Encoder", robot.getFrontLeft());
+        telemetry.addData("Encoder 2", robot.getBackLeft());
+        telemetry.addData("Encoder 3", robot.getFrontRight());
+        telemetry.addData("Encoder 4", robot.getBackRight());
+        telemetry.update();
+
+        robot.encoderDrive(1, -4.75, -4.75, 300);
+
+        telemetry.addData("Encoder", robot.getFrontLeft());
+        telemetry.addData("Encoder 2", robot.getBackLeft());
+        telemetry.addData("Encoder 3", robot.getFrontRight());
+        telemetry.addData("Encoder 4", robot.getBackRight());
+        telemetry.update();
 
         robot.setLatcher(false, true);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 1.0)) {
-            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
+            //telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
+            //telemetry.update();
         }
-        robot.setLatcher(false, false);
 
-        robot.encoderDrive(.25, 11.75, 11.75, 300);
+        robot.setLatcher(false,false);
+
+        //robot.setLatcher(false, false);
+
+        robot.encoderDrive(.5, 23.5, 23.5, 300);
 
         robot.setLatcher(true, false);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 1.0)) {
-            telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
+            //telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
+            //telemetry.update();
         }
+
+
         robot.setLatcher(false, false);
 
 
 
-        robot.encoderDrive(0.5, 7, -7, 300);
+        robot.encoderDrive(1, 14, -14, 300);
 
-        robot.encoderDrive(0.5, 15, 15, 300);
+        robot.encoderDrive(1, 35.25, 35.25, 300);
 
         telemetry.update();
         /*robot.encoderDrive(0.5, 6.5, -6.5, 300);
