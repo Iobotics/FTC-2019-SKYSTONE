@@ -9,6 +9,7 @@ public class AutoBlue2 extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         Bot robot = new Bot(this);
         robot.init(hardwareMap);
+        robot.resetEncoder();
         waitForStart();
         robot.encoderDrive(.8,-27,-27,30);
         robot.gyroTurn(90,.8);
