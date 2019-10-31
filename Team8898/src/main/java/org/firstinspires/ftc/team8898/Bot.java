@@ -3,6 +3,7 @@ package org.firstinspires.ftc.team8898;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -27,10 +28,11 @@ public class Bot {
     private DcMotor Latch = null;
     private DcMotor Lift = null;
     private TouchSensor limitSwitch = null;
+    private TouchSensor Limitswitch = null;
     /*private DcMotor rightFlyWheel = null;
     private DcMotor leftFlyWheel = null;
     private DcMotor screwMotor = null;*/
-    private Servo clasp = null;
+    private CRServo clasp = null;
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
@@ -39,7 +41,6 @@ public class Bot {
 
 
     double inchesPerDegrees = 13.8 * Math.PI / 360;
-
 
 
 
@@ -63,19 +64,14 @@ public class Bot {
         Latch = hwMap.get(DcMotor.class, "latch2");
         Lift = hwMap.get(DcMotor.class, "lift");
         limitSwitch = hwMap.get(TouchSensor.class, "limitSwitch");
-        /*rightFlyWheel = hwMap.get(DcMotor.class, "rightflywheel" );
-        leftFlyWheel = hwMap.get(DcMotor.class, "leftflywheel");
-        screwMotor = hwMap.get(DcMotor.class,"screwmotor");*/
-        clasp = hwMap.get(Servo.class, "Clasp");
+        Limitswitch = hwMap.get (TouchSensor.class, "Limitswitch");
+        clasp = hwMap.get(CRServo.class, "Clasp");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
         Latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Latch.setDirection(DcMotor.Direction.REVERSE);
-        /*rightFlyWheel.setDirection(DcMotor.Direction.REVERSE);
-        leftFlyWheel.setDirection(DcMotor.Direction.FORWARD);
-        screwMotor.setDirection(DcMotor.Direction.FORWARD);*/
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -96,19 +92,18 @@ public class Bot {
 
     }
     public void setLiftPower(double liftPower){
-        Lift.setPower(liftPower);
+        if (Limitswitch.isPressed()) {
+           setLiftPower(0);
+        }
+        else Lift.setPower(liftPower);
     }
-    public void setClasp(double position){
-        clasp.setPosition(position);
+
+    public void setClasp(double power){
+        clasp.setPower(power);
 
     }
-    /*public void setFlyPower(double flyPower){
-        rightFlyWheel.setPower(flyPower);
-        leftFlyWheel.setPower(flyPower);
-    }
-    public void setScrewPower(double screwPower){
-        screwMotor.setPower(screwPower);
-    }*/
+
+
     public double getFrontLeftPower(){
         return frontLeftDrive.getPower();
     }
@@ -162,10 +157,7 @@ public class Bot {
             frontRightDrive.setTargetPosition(newfrontRightTarget);
             backLeftDrive.setTargetPosition(newbackLeftTarget);
             backRightDrive.setTargetPosition(newbackRightTarget);
-            /*
-            rightFlyWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            leftFlyWheel.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            screwMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);*/
+
             // Turn On RUN_TO_POSITION
             frontLeftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             frontRightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -179,9 +171,6 @@ public class Bot {
             frontRightDrive.setPower(Math.abs(speed));
             backLeftDrive.setPower(Math.abs(speed));
             backRightDrive.setPower(Math.abs(speed));
-            /*rightFlyWheel.setPower(Math.abs(speed));
-            leftFlyWheel.setPower(Math.abs(speed));
-            screwMotor.setPower(Math.abs(speed));*/
         }
         while (opMode.opModeIsActive() &&
                 (runtime.seconds() < timeoutS) &&
@@ -197,19 +186,14 @@ public class Bot {
         frontRightDrive.setPower(0);
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
-        //this is new
-        /*leftFlyWheel.setPower(0);
-        rightFlyWheel.setPower(0);
-        screwMotor.setPower(0);*/
+
 
         // Turn off RUN_TO_POSITION
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        /*rightFlyWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        leftFlyWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        screwMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);*/
+
     }
 
     public void resetEncoder() {
@@ -217,9 +201,6 @@ public class Bot {
         frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        /*rightFlyWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        leftFlyWheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        screwMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);*/
 
     }
 
@@ -239,16 +220,6 @@ public class Bot {
         return backRightDrive.getCurrentPosition();
     }
 
-    /*
-    public double getRightFly(){
-        return rightFlyWheel.getCurrentPosition();
-    }
-    public double getLeftFly() {
-        return leftFlyWheel.getCurrentPosition();
-    }
-    public double getScrewMotor() {
-        return screwMotor.getCurrentPosition();
-    }*/
 
 
     public void autoDriveStraightB(double distance) {
@@ -280,6 +251,8 @@ public class Bot {
         setPower(0,0);
     }
 
+
+
     public double absRange(double input, double range){
         if (input <= range || input >= -range){
             return input;
@@ -290,32 +263,6 @@ public class Bot {
 
         encoderDrive(power,degrees * inchesPerDegrees, degrees * -inchesPerDegrees, timeout);
     }
-    /*public void setArmPosition1(double position){
 
-        Arm1.setPosition(position);
-
-
-    }
-    public void setArm2Position(double position) {
-
-        Arm2.setPosition(position);
-
-    }
-
-    public double getArmOnePosition(){
-
-        return Arm1.getPosition();
-
-
-    }
-
-    public double getArmTwoPosition(){
-
-        return Arm2.getPosition();
-    }
-    public void setArmPosition(double armPosition){
-        Arm1.setPosition(armPosition);
-        Arm2.setPosition(armPosition);
-    }*/
 
 }
