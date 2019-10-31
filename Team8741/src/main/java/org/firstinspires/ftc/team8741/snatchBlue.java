@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="snatchRed", group = "Bot")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="snatchBlue", group = "Bot")
 //@Disabled
-public class snatchRed extends LinearOpMode {
+public class snatchBlue extends LinearOpMode {
 
     private Bot robot = new Bot(this);
     private ElapsedTime runtime = new ElapsedTime();
@@ -30,7 +30,7 @@ public class snatchRed extends LinearOpMode {
 
         robot.encoderDrive(1, 11, 11, 300);
 
-        robot.encoderDrive(1, -10.25, 10.25, 300);
+        robot.encoderDrive(1, 10.25, -10.25, 300);
 
         robot.encoderDrive(1, -35, -35, 300);
 
