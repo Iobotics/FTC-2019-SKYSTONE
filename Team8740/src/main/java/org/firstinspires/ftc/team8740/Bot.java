@@ -30,6 +30,7 @@ public class Bot {
     private DcMotor liftRight = null;
 
     private LinearOpMode opMode = null;
+
     public Bot(LinearOpMode opMode) {
         this.opMode = opMode;
     }
@@ -76,6 +77,7 @@ public class Bot {
         imu = hwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
     }
+
     //drive
     public void setPower(double leftPower, double rightPower) {
         backLeftDrive.setPower(leftPower);
@@ -83,19 +85,22 @@ public class Bot {
         frontLeftDrive.setPower(leftPower);
         frontRightDrive.setPower(rightPower);
     }
+
     //intake
-    public void setIntake(double leftPower, double rightPower){
+    public void setIntake(double leftPower, double rightPower) {
         intakeLeft.setPower(leftPower);
         intakeRight.setPower(rightPower);
     }
+
     //lift
-    public void setLift(double leftPower, double rightpower){
+    public void setLift(double leftPower, double rightpower) {
         liftLeft.setPower(leftPower);
         liftRight.setPower(rightpower);
 
     }
+
     //brake lift
-    public void brakeLift(double leftPower, double rightpower){
+    public void brakeLift(double leftPower, double rightpower) {
         liftLeft.setPower(leftPower);
         liftRight.setPower(rightpower);
     }
@@ -108,16 +113,20 @@ public class Bot {
         double heading = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
         return heading;
     }
+
     private ElapsedTime runtime = new ElapsedTime();
-    public double getRunTime (){
+
+    public double getRunTime() {
         return runtime.seconds();
     }
-    public void gyroTurn(double target, double speed){
-        while(!(getGyroHeading() < target + 1 && getGyroHeading() > target -1));
-        setPower(speed,-speed);
+
+    public void gyroTurn(double target, double speed) {
+        while (!(getGyroHeading() < target + 1 && getGyroHeading() > target - 1)) ;
+        setPower(speed, -speed);
         //Skylanders: Gyro's adventure
 
     }
+
     static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: TETRIX Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
@@ -132,10 +141,6 @@ public class Bot {
         int newfrontRightTarget;
         int newbackLeftTarget;
         int newbackRightTarget;
-        int newRightTurnTarget;
-        int newLeftTurnTarget;
-
-
 
 
 
@@ -163,10 +168,10 @@ public class Bot {
             frontRightDrive.setPower(Math.abs(speed));
             backLeftDrive.setPower(Math.abs(speed));
             backRightDrive.setPower(Math.abs(speed));
-        }
+
         while (opMode.opModeIsActive() &&
                 (runtime.seconds() < timeoutS) &&
-                (frontLeftDrive.isBusy() && frontRightDrive.isBusy() && backLeftDrive.isBusy() && backRightDrive.isBusy())) {
+                (frontLeftDrive.isBusy() || frontRightDrive.isBusy() || backLeftDrive.isBusy() || backRightDrive.isBusy())) {
             opMode.telemetry.addData("frontLeftEncoder", frontLeftDrive.getCurrentPosition());
             opMode.telemetry.addData("frontRightEncoder", frontRightDrive.getCurrentPosition());
             opMode.telemetry.addData("backLeftEncoder", backLeftDrive.getCurrentPosition());
@@ -185,6 +190,7 @@ public class Bot {
         backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+    }
 
 
     public void encoderTurn(double speed, double degrees, double timeoutS) {
@@ -194,9 +200,6 @@ public class Bot {
         int newbackRightTarget;
         int newRightTurnTarget;
         int newLeftTurnTarget;
-
-
-
 
 
         // Ensure that the opmode is still active
@@ -271,4 +274,5 @@ public class Bot {
 
 
     }
+
 }
