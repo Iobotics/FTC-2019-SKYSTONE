@@ -29,15 +29,12 @@ class Bot {
     private DcMotor Lift = null;
     private TouchSensor limitSwitch = null;
     private TouchSensor limitSwitch2 = null;
-    /*private DcMotor rightFlyWheel = null;
-    private DcMotor leftFlyWheel = null;
-    private DcMotor screwMotor = null;*/
     private Servo clasp = null;
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
-    private double p_Coeff = 0.0009;
-    private double f_Coeff = 0.009;
+    private double p_Coeff = 0.0005;
+    private double f_Coeff = 0.007;
 
 
     double inchesPerDegrees = 13.8 * Math.PI / 360;

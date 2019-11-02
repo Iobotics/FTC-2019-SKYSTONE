@@ -73,7 +73,7 @@ public class simmonsAuto extends LinearOpMode {
             //telemetry.update();
         }
 
-        robot.setLatcher(false,false);
+        robot.setLatcher(true,true);
 
         //robot.setLatcher(false, false);
 
@@ -91,7 +91,7 @@ public class simmonsAuto extends LinearOpMode {
 
 
 
-        robot.encoderDrive(1, -14, 14, 300);
+        /*robot.encoderDrive(1, -14, 14, 300);
 
         robot.encoderDrive(1, 36.25, 36.25, 300);
 

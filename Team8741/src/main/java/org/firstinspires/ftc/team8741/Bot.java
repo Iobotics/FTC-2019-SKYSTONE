@@ -123,7 +123,10 @@ class Bot {
     }
 
     public void setLatcher(boolean latcherPower, boolean latcherPower2) {
-        if (latcherPower2 == true) {
+        if(latcherPower && latcherPower2){
+            latcher.setPower(-.2);
+        }
+        else if (latcherPower2 == true) {
             latcher.setPower(-0.5);
         }
 
