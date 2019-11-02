@@ -9,9 +9,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
         public void runOpMode() throws InterruptedException {
             robot.init(hardwareMap);
             waitForStart();
-            while (opModeIsActive()) {
-                robot.encoderDrive(0.2,5,5,15);
-                robot.setPower(0,0);
-            }
-        }
+
+
+
+            robot.encoderDrive(0.4,-10,-10,30);
+
+
+    }
     }
