@@ -150,8 +150,8 @@ public class Bot {
             // Determine new target position, and pass to motor controller
             newfrontLeftTarget = frontLeftDrive.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
             newfrontRightTarget = frontRightDrive.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-            newbackLeftTarget = frontLeftDrive.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH * INCHES_PER_DEGREE);
-            newbackRightTarget = frontRightDrive.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH * INCHES_PER_DEGREE);
+            newbackLeftTarget = backLeftDrive.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newbackRightTarget = backRightDrive.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
             frontLeftDrive.setTargetPosition(newfrontLeftTarget);
             frontRightDrive.setTargetPosition(newfrontRightTarget);
             backLeftDrive.setTargetPosition(newbackLeftTarget);
