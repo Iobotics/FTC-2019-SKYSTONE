@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import static java.lang.Thread.sleep;
 
-public class Bot {
+class Bot {
 
 
     final static int ENCODER_TICKS_PER_REV = 1120;
