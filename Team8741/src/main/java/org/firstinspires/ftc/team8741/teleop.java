@@ -46,7 +46,7 @@ public class teleop extends LinearOpMode {
 
             telemetry.update();
 
-            robot.setSpinner(gamepad1.y, gamepad1.x);
+            robot.setSpinner(gamepad1.y, gamepad1.x, gamepad1.right_bumper);
 
             robot.setLifter(gamepad1.right_trigger > .5, gamepad1.left_trigger > .5);
 
@@ -56,10 +56,9 @@ public class teleop extends LinearOpMode {
 
             robot.slowMode(gamepad2.left_bumper, gamepad2.right_bumper);
 
-            robot.liftBlock(gamepad2.x, .5, 1);
+            //robot.liftBlock(gamepad2.x, .5, 1);
         }
     }
 
 
 }
-// you have been cursed for 2019 - 2020, like and subscribe and give me $20 or your years are cursed and your minecraft dog will be fed rotton flesh for the rest of his life

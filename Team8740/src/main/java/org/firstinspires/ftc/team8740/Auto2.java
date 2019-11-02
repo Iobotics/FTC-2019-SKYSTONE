@@ -12,13 +12,13 @@ public class Auto2 extends LinearOpMode {
         waitForStart();
 
         robot.setLift(-0.4,0.4);
-        robot.encoderDrive( 0.4,-17,-17,30);
+        robot.encoderDrive(0.4,16,16,30);
         robot.setLift(0.1,-0.1);
         robot.setPower(0,0);
         sleep(1000);
-        robot.encoderDrive( 0.3,19,19,30);
+        robot.encoderDrive( 0.3,-18,-18,30);
         robot.setLift(-0.4,0.4);
-        sleep(20);
+        sleep(500);
         robot.setLift(-0.1,0.1);
         sleep(25000);
         robot.setLift(0,0);

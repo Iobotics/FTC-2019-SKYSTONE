@@ -28,11 +28,11 @@ class Bot {
     private DcMotor Latch = null;
     private DcMotor Lift = null;
     private TouchSensor limitSwitch = null;
-    private TouchSensor Limitswitch = null;
+    private TouchSensor limitSwitch2 = null;
     /*private DcMotor rightFlyWheel = null;
     private DcMotor leftFlyWheel = null;
     private DcMotor screwMotor = null;*/
-    private CRServo clasp = null;
+    private Servo clasp = null;
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
@@ -64,8 +64,8 @@ class Bot {
         Latch = hwMap.get(DcMotor.class, "latch2");
         Lift = hwMap.get(DcMotor.class, "lift");
         limitSwitch = hwMap.get(TouchSensor.class, "limitSwitch");
-        Limitswitch = hwMap.get (TouchSensor.class, "Limitswitch");
-        clasp = hwMap.get(CRServo.class, "Clasp");
+        limitSwitch2 = hwMap.get (TouchSensor.class, "limitSwitch2");
+        clasp = hwMap.get(Servo.class, "Clasp");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -96,15 +96,17 @@ class Bot {
 
     }
     public void setLiftPower(double liftPower){
-        if (Limitswitch.isPressed()) {
+        if (limitSwitch2.isPressed() && liftPower > 0) {
             Lift.setPower(0);
+
+
         }
         else Lift.setPower(liftPower);
     }
 
 
-    public void setClasp(double power){
-        clasp.setPower(power);
+    public void setClasp(double position){
+        clasp.setPosition(position);
 
     }
 
@@ -114,7 +116,7 @@ class Bot {
     }
 
     public void setLatchPower(double latchPower) {
-        if (limitSwitch.isPressed()){
+        if (limitSwitch.isPressed() && latchPower > 0){
             Latch.setPower(0);
         }
         else  Latch.setPower(latchPower);

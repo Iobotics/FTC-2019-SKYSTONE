@@ -386,14 +386,18 @@ class Bot {
 
 */
 
-    public void setSpinner(boolean spinnerPower, boolean spinnerPower2) {
+    public void setSpinner(boolean spinnerPower, boolean spinnerPower2, boolean spinnerPower3) {
 
         if (spinnerPower2 == true && servoPos2 < 1) {
             servoPos2 += .05;
         }
 
-        if (spinnerPower == true && servoPos2 > -1) {
+        else if (spinnerPower == true && servoPos2 > -1) {
             servoPos2 -= .05;
+        }
+
+        else if (spinnerPower3 == true){
+            servoPos2 = .49;
         }
 
         spinner.setPosition(servoPos2);
