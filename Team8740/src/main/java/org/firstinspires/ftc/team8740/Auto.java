@@ -10,12 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
             robot.init(hardwareMap);
             waitForStart();
-            while (opModeIsActive()) {
-            robot.encoderDrive(0.8,-10,-10,20);
-         
+            robot.encoderDrive(0.4,-10,-10,30);
 
-
-
-            }
         }
         }

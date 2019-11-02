@@ -5,10 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 public class Teleop extends LinearOpMode {
     private Bot robot = new Bot(this);
-    double frontLeftPower;
-    double frontRightPower;
-    double backLeftPower;
-    double backRightPower;
 
     //slowmode(tm)
     boolean slowMode = false;
@@ -20,6 +16,11 @@ public class Teleop extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
         while (opModeIsActive()) {
+            telemetry.addData("encoder 1",robot.getBackLeft());
+            telemetry.addData("encoder 2",robot.getFrontLeft());
+            telemetry.addData("encoder 3",robot.getBackRight());
+            telemetry.addData("encoder 4",robot.getFrontRight());
+            telemetry.update();
             if (gamepad1.a && buttonApressed == false) {
                 slowMode = !slowMode;
                 buttonApressed = true;
@@ -28,17 +29,17 @@ public class Teleop extends LinearOpMode {
                 buttonApressed = false;
             }
             if (slowMode) {
-                robot.setPower(gamepad1.left_stick_y * 0.3, gamepad1.right_stick_y * 0.3);
+                robot.setPower(gamepad1.left_stick_y * 0.6, gamepad1.right_stick_y * 0.6);
             } else {
                 robot.setPower(gamepad1.left_stick_y * 1, gamepad1.right_stick_y * 1);
             }
             //foundation 1
-            if (gamepad1.left_trigger > 0.5) {
-                robot.setIntake(gamepad1.left_trigger, -gamepad1.left_trigger);
+            if (gamepad1.dpad_left == true) {
+                robot.setIntake(1, -1);
             }
             //foundation 2
-            else if (gamepad1.right_trigger > 0.5) {
-                robot.setIntake(-gamepad1.right_trigger, gamepad1.right_trigger);
+            else if (gamepad1.dpad_right) {
+                robot.setIntake(-1, 1);
             } else if (gamepad1.left_bumper == true) {
                 robot.setIntake(1, 1);
             } else if (gamepad1.right_bumper == true) {
@@ -46,12 +47,13 @@ public class Teleop extends LinearOpMode {
             } else {
                 robot.setIntake(0, 0);
             }
-            if (gamepad1.dpad_up == true) {
-                robot.setLift(-0.4, 0.4);
-            } else if(gamepad1.dpad_down == true){
-                    robot.setLift(0.4, -0.4);
+            if (gamepad1.left_trigger > 0.5) {
+                robot.setLift(0.4, -0.4);
+            } else if(gamepad1.right_trigger > 0.5){
+                    robot.setLift(-0.4, 0.4);
             }
             else robot.setLift(0,0);
+
             }
 
         }
