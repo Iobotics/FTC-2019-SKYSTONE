@@ -19,7 +19,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import java.security.PublicKey;
 
-public class Bot {
+class Bot {
     private DcMotor frontLeftDrive = null;
     private DcMotor frontRightDrive = null;
     private DcMotor backLeftDrive = null;
@@ -93,10 +93,11 @@ public class Bot {
     }
     public void setLiftPower(double liftPower){
         if (Limitswitch.isPressed()) {
-           setLiftPower(0);
+            Lift.setPower(0);
         }
         else Lift.setPower(liftPower);
     }
+
 
     public void setClasp(double power){
         clasp.setPower(power);
@@ -110,7 +111,7 @@ public class Bot {
 
     public void setLatchPower(double latchPower) {
         if (limitSwitch.isPressed()){
-            setLatchPower(0);
+            Latch.setPower(0);
         }
         else  Latch.setPower(latchPower);
     }
