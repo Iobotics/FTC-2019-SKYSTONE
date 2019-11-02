@@ -166,6 +166,7 @@ public class Bot {
             newLiftTarget = lifter1.getCurrentPosition() + (int) (gamePos * COUNTS_PER_INCH);
 
             lifter1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            lifter1.setTargetPosition(newLiftTarget);
 
             runtime.reset();
             lifter1.setPower(Math.abs(speed));
