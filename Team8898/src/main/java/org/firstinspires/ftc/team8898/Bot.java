@@ -34,8 +34,8 @@ public class Bot {
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
-    private double p_Coeff = 0.001;
-    private double f_Coeff = 0.09;
+    private double p_Coeff = 0.0009;
+    private double f_Coeff = 0.009;
 
 
     double inchesPerDegrees = 13.8 * Math.PI / 360;
@@ -93,6 +93,10 @@ public class Bot {
         frontRightDrive.setPower(rightPower);
         backLeftDrive.setPower(leftPower);
         backRightDrive.setPower(rightPower);
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
     public void setLiftPower(double liftPower){

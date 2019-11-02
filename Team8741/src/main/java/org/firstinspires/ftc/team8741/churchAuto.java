@@ -42,7 +42,7 @@ public class churchAuto extends LinearOpMode {
         telemetry.addData("Encoder 4", robot.getBackRight());
         telemetry.update();
 
-        robot.encoderDrive(1, 7.25, 7.25, 300);
+        robot.encoderDrive(1, 9.25, 9.25, 300);
 
         telemetry.addData("Encoder", robot.getFrontLeft());
         telemetry.addData("Encoder 2", robot.getBackLeft());
@@ -50,7 +50,7 @@ public class churchAuto extends LinearOpMode {
         telemetry.addData("Encoder 4", robot.getBackRight());
         telemetry.update();
 
-        robot.encoderDrive(1, 9.75, -9.75, 300);
+        robot.encoderDrive(1, 11.75, -11.75, 300);
 
         telemetry.addData("Encoder", robot.getFrontLeft());
         telemetry.addData("Encoder 2", robot.getBackLeft());
@@ -58,7 +58,7 @@ public class churchAuto extends LinearOpMode {
         telemetry.addData("Encoder 4", robot.getBackRight());
         telemetry.update();
 
-        robot.encoderDrive(1, -4.75, -4.75, 300);
+        robot.encoderDrive(1, -5.85, -5.85, 300);
 
         telemetry.addData("Encoder", robot.getFrontLeft());
         telemetry.addData("Encoder 2", robot.getBackLeft());
@@ -91,9 +91,9 @@ public class churchAuto extends LinearOpMode {
 
 
 
-        robot.encoderDrive(1, 14, -14, 300);
+        robot.encoderDrive(1, 12, -12, 300);
 
-        robot.encoderDrive(1, 35.25, 35.25, 300);
+        robot.encoderDrive(1, 36.25, 36.25, 300);
 
         telemetry.update();
         /*robot.encoderDrive(0.5, 6.5, -6.5, 300);

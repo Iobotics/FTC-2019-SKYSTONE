@@ -28,9 +28,9 @@ public class Teleop extends LinearOpMode {
                 buttonApressed = false;
             }
             if (slowMode) {
-                robot.setPower(gamepad1.left_stick_y * 0.3, gamepad1.right_stick_y * 0.3);
+                robot.setPower(-gamepad1.left_stick_y * 0.3, -gamepad1.right_stick_y * 0.3);
             } else {
-                robot.setPower(gamepad1.left_stick_y * 1, gamepad1.right_stick_y * 1);
+                robot.setPower(-gamepad1.left_stick_y, -gamepad1.right_stick_y);
             }
             //foundation 1
             if (gamepad1.left_trigger > 0.5) {

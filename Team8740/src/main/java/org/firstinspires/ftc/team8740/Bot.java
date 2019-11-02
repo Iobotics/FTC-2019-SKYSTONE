@@ -44,10 +44,10 @@ public class Bot {
         frontRightDrive = hwMap.get(DcMotor.class, "frontRight");
         backLeftDrive = hwMap.get(DcMotor.class, "backLeft");
         backRightDrive = hwMap.get(DcMotor.class, "backRight");
-        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-        frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
-        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
-        backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontRightDrive.setDirection(DcMotor.Direction.FORWARD);
+        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        backRightDrive.setDirection(DcMotor.Direction.FORWARD);
         // for intake
         intakeLeft = hwMap.get(DcMotor.class, "leftIntake");
         intakeRight = hwMap.get(DcMotor.class, "rightIntake");
@@ -78,6 +78,10 @@ public class Bot {
     }
     //drive
     public void setPower(double leftPower, double rightPower) {
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backLeftDrive.setPower(leftPower);
         backRightDrive.setPower(rightPower);
         frontLeftDrive.setPower(leftPower);

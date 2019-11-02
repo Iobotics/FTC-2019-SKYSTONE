@@ -93,7 +93,7 @@ public class simmonsAuto extends LinearOpMode {
 
         robot.encoderDrive(1, -14, 14, 300);
 
-        robot.encoderDrive(1, 35.25, 35.25, 300);
+        robot.encoderDrive(1, 36.25, 36.25, 300);
 
         telemetry.update();
         /*robot.encoderDrive(0.5, 6.5, -6.5, 300);
