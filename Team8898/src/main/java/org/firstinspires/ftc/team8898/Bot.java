@@ -67,6 +67,10 @@ class Bot {
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Latch.setDirection(DcMotor.Direction.REVERSE);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
