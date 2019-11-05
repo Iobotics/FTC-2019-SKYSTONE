@@ -34,7 +34,7 @@ class Bot {
     private Orientation angles = null;
     private Acceleration gravity = null;
     private double p_Coeff = 0.0005;
-    private double f_Coeff = 0.007;
+    private double f_Coeff = 0.009;
 
 
     double inchesPerDegrees = 13.8 * Math.PI / 360;

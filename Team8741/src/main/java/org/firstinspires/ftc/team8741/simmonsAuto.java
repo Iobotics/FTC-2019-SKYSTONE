@@ -50,7 +50,7 @@ public class simmonsAuto extends LinearOpMode {
         telemetry.addData("Encoder 4", robot.getBackRight());
         telemetry.update();
 
-        robot.encoderDrive(1, -9.75, 9.75, 300);
+        robot.encoderDrive(1, -9.25, 9.25, 300);
 
         telemetry.addData("Encoder", robot.getFrontLeft());
         telemetry.addData("Encoder 2", robot.getBackLeft());
@@ -77,7 +77,7 @@ public class simmonsAuto extends LinearOpMode {
 
         //robot.setLatcher(false, false);
 
-        robot.encoderDrive(.5, 23.5, 23.5, 300);
+        robot.encoderDrive(.5, 23.95, 23.95, 300);
 
         robot.setLatcher(true, false);
         runtime.reset();

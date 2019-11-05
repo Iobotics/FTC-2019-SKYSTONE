@@ -10,10 +10,9 @@ public class AutoRed3 extends LinearOpMode {
         robot.init(hardwareMap);
         robot.resetEncoder();
         waitForStart();
-        robot.encoderDrive(.8,-10,-10,30);
-        robot.gyroTurn(90,-.8);
-        robot.encoderDrive(.8,-30,-30,30);
-        //change gyroTurn target to negative for blue
+        sleep(10000);
+        robot.encoderDrive(.8,-35,-35,30);
+
 
     }
 }
