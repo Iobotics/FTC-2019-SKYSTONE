@@ -10,29 +10,40 @@ public class Auto2 extends LinearOpMode {
 
         robot.init(hardwareMap);
         waitForStart();
-
+        robot.encoderDrive(0.4,4, 4, 30);
+        robot.encoderTurn(1,25,30);
         robot.setLift(-0.4,0.4);
-        robot.encoderDrive(0.4,16,16,30);
-        robot.setLift(0.1,-0.1);
-        robot.setPower(0,0);
+        robot.encoderDrive(0.4,11,11,30);
+        robot.setLift(0.2,-0.2);
+        sleep(1500);
+        robot.encoderDrive(0.4,-31,-30,30);
+        sleep(10);
+        robot.setLift(-0.4,0.4);
         sleep(1000);
-        robot.encoderDrive( 0.3,-18,-18,30);
-        robot.setLift(-0.4,0.4);
-        sleep(500);
         robot.setLift(-0.1,0.1);
         sleep(25000);
         robot.setLift(0,0);
 
-
         /*
-        robot.encoderDrive(0.4,-20,-20,30);
-        robot.encoderTurn(0.4,-45,30);
-        robot.encoderDrive(0.4,-10,-10,30);
-        robot.encoderTurn(0.4,-45,30);
-        robot.encoderDrive(0.4, -10,-10,30);
-        robot.setLift(0.4,0.4);
+        robot.encoderDrive(0.4,10, 10, 30);
+        robot.encoderTurn (0.4,-45, 30);
+        robot.encoderDrive(0.4, 5,5,30);
+        robot.encoderTurn (0.4,45, 30);
+        robot.setLift(-0.4,0.4);
+        robot.encoderDrive(0.4,6,6,30);
+        robot.setLift(0.2,-0.2);
+        robot.setPower(0,0);
+        sleep(1000);
+        robot.encoderDrive( 0.3,-19,-19,30);
+        sleep(10);
+        robot.setLift(-0.4,0.4);
+        sleep(1000);
+        robot.setLift(-0.1,0.1);
+        sleep(25000);
+        robot.setLift(0,0);
         */
 
 
     }
 }
+

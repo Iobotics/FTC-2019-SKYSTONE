@@ -46,6 +46,8 @@ class Bot {
     private DcMotor latcher = null;
     private DcMotor lifter1 = null;
     private DcMotor lifter2 = null;
+    private DcMotor rightIntake = null;
+    private DcMotor leftIntake = null;
 
     private BNO055IMU imu = null;
     private Orientation angles = null;
@@ -76,10 +78,13 @@ class Bot {
         latcher = hwMap.get(DcMotor.class, "latcher"); //the latcher
         lifter1 = hwMap.get(DcMotor.class, "lifter"); //right lifter
         //lifter2 = hwMap.get(DcMotor.class, "lifterLeft"); //left lifter
+        rightIntake = hwMap.get(DcMotor.class,"rightIntake");
+        leftIntake = hwMap.get(DcMotor.class, "leftIntake");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -181,7 +186,10 @@ class Bot {
 
         }
     }
-
+    public void setIntakePower(double intakeLeft, double intakeRight) {
+        leftIntake.setPower(intakeLeft);
+        rightIntake.setPower(intakeRight);
+    }
     public double getGyroHeading() {
         // Update gyro
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
