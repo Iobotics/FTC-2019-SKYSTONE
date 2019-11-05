@@ -73,11 +73,11 @@ public class churchAuto extends LinearOpMode {
             //telemetry.update();
         }
 
-        robot.setLatcher(false,false);
+        robot.setLatcher(true,true);
 
         //robot.setLatcher(false, false);
 
-        robot.encoderDrive(.5, 23.5, 23.5, 300);
+        robot.encoderDrive(.5, 24.75, 24.75, 300);
 
         robot.setLatcher(true, false);
         runtime.reset();
@@ -91,7 +91,7 @@ public class churchAuto extends LinearOpMode {
 
 
 
-        robot.encoderDrive(1, 9, -9, 300);
+        /*robot.encoderDrive(1, 11, -11, 300);
 
         robot.encoderDrive(1, 36.25, 36.25, 300);
 

@@ -29,14 +29,11 @@ class Bot {
     private DcMotor Lift = null;
     private TouchSensor limitSwitch = null;
     private TouchSensor limitSwitch2 = null;
-    /*private DcMotor rightFlyWheel = null;
-    private DcMotor leftFlyWheel = null;
-    private DcMotor screwMotor = null;*/
     private Servo clasp = null;
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
-    private double p_Coeff = 0.0009;
+    private double p_Coeff = 0.0005;
     private double f_Coeff = 0.009;
 
 
@@ -70,6 +67,10 @@ class Bot {
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         Latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Latch.setDirection(DcMotor.Direction.REVERSE);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
