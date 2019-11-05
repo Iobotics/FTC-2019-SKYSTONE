@@ -25,8 +25,8 @@ public class teleop extends LinearOpMode {
         robot.init(hardwareMap);
 
         waitForStart();
-        while (opModeIsActive()) {
-            robot.setPower(gamepad2.left_stick_y , gamepad2.right_stick_y );
+            while (opModeIsActive()) {
+                robot.setPower(gamepad2.left_stick_y , gamepad2.right_stick_y );
 
 
             //robot.setLifter(gamepad1.a, gamepad1.b);
@@ -56,7 +56,15 @@ public class teleop extends LinearOpMode {
 
             robot.slowMode(gamepad2.left_bumper, gamepad2.right_bumper);
 
-            //robot.liftBlock(gamepad2.x, .5, 1);
+            robot.liftBlock(gamepad2.x, .5, 1);
+
+            if(gamepad2.y){
+                robot.setIntakePower(.75, -.75);
+
+            }
+            else if(gamepad2.x){
+                robot.setIntakePower(-.75,.75);
+            }
         }
     }
 
