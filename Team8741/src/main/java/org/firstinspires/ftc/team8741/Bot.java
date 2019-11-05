@@ -123,7 +123,10 @@ class Bot {
     }
 
     public void setLatcher(boolean latcherPower, boolean latcherPower2) {
-        if (latcherPower2 == true) {
+        if(latcherPower && latcherPower2){
+            latcher.setPower(-.2);
+        }
+        else if (latcherPower2 == true) {
             latcher.setPower(-0.5);
         }
 
@@ -386,14 +389,18 @@ class Bot {
 
 */
 
-    public void setSpinner(boolean spinnerPower, boolean spinnerPower2) {
+    public void setSpinner(boolean spinnerPower, boolean spinnerPower2, boolean spinnerPower3) {
 
         if (spinnerPower2 == true && servoPos2 < 1) {
             servoPos2 += .05;
         }
 
-        if (spinnerPower == true && servoPos2 > -1) {
+        else if (spinnerPower == true && servoPos2 > -1) {
             servoPos2 -= .05;
+        }
+
+        else if (spinnerPower3 == true){
+            servoPos2 = .49;
         }
 
         spinner.setPosition(servoPos2);

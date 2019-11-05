@@ -18,7 +18,7 @@ public class snatchBlue extends LinearOpMode {
         robot.stop();
 
         waitForStart();
-        robot.encoderDrive(1, -24.25, -24.25, 300);
+        robot.encoderDrive(1, -26.25, -26.25, 300);
 
         robot.setLatcher(false, true);
         runtime.reset();
@@ -41,7 +41,7 @@ public class snatchBlue extends LinearOpMode {
             telemetry.update();
         }
         robot.setLatcher(false, false);
-        robot.encoderDrive(1, 4, 4, 300);
+        robot.encoderDrive(1, 6, 6, 300);
 
     }
 }

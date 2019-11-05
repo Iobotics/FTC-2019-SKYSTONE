@@ -10,7 +10,7 @@ public class AutoRed2 extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
         robot.encoderDrive(.8,-27,-27,30);
-        robot.gyroTurn(-90,.8);
+        robot.gyroTurn(90,-.8);
         robot.encoderDrive(.8,-4,-4,30);
         robot.gyroTurn(0,.8);
         robot.setLatchPower(-0.25);
@@ -20,7 +20,7 @@ public class AutoRed2 extends LinearOpMode {
         robot.setLatchPower(0.25);
         sleep(400);
         robot.setLatchPower(0);
-        robot.gyroTurn(90,1);
+        robot.gyroTurn(90,.8);
         robot.encoderDrive(.8,-35,-35,30);
     }
 }
