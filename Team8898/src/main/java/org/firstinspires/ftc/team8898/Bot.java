@@ -33,7 +33,7 @@ class Bot {
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
-    private double p_Coeff = 0.0005;
+    private double p_Coeff = 0.0009;
     private double f_Coeff = 0.009;
 
 
@@ -249,12 +249,18 @@ class Bot {
     public void gyroTurn(double target, double speed){
         double error;
         double power;
-        while((!(getGyroHeading() < target + 1 && getGyroHeading() > target -1))&& opMode.opModeIsActive()) {
+        double timeout = 1;
+        while((!(getGyroHeading() < target + 1 && getGyroHeading() > target -1))&& opMode.opModeIsActive() && runtime.seconds() > timeout) {
             error = target - getGyroHeading();
             power = absRange((p_Coeff * error) + f_Coeff * ((Math.abs(error))/ error), speed);
             setPower(power, -power);
             opMode.telemetry.addData("Gyro", getGyroHeading());
             opMode.telemetry.update();
+            if((!(getGyroHeading() < target + 1 && getGyroHeading() > target -1))){
+                runtime.reset();
+
+            }
+            
         }
         setPower(0,0);
     }

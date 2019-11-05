@@ -9,6 +9,6 @@ public class AutoTest extends LinearOpMode {
         Bot robot = new Bot(this);
         robot.init(hardwareMap);
         waitForStart();
-        robot.gyroTurn(90,.8);
+        robot.gyroTurn(90,.5);
     }
 }

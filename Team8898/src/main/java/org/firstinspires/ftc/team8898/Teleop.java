@@ -33,10 +33,10 @@ public class Teleop extends LinearOpMode {
                 robot.setLatchPower(0);
             }
 
-            if (gamepad1.dpad_up) {
+            if (gamepad1.right_bumper) {
                 robot.setClasp(1);
             }
-            else if (gamepad1.dpad_down){
+            else if (gamepad1.left_bumper){
                 robot.setClasp(0);
             }
 
