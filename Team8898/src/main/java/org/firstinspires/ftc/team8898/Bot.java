@@ -260,7 +260,7 @@ class Bot {
                 runtime.reset();
 
             }
-            
+
         }
         setPower(0,0);
     }
