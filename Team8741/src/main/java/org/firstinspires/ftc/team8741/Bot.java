@@ -115,6 +115,35 @@ class Bot {
     }
 
 
+
+    public double setRange(double input){
+        if (input > 1)return 1;
+        else if (input < 1)return 1;
+
+        return input;
+    }
+
+
+    public void setMechDrive(double forward, double rotate, double strafe){
+        double frontLeftPower =  forward - rotate - strafe;
+        double frontRightPower =  forward + rotate + strafe;
+        double backLeftPower =  forward - rotate + strafe;
+        double backRightPower =  forward + rotate - strafe;
+
+
+        frontLeftPower = setRange(frontLeftPower);
+        frontRightPower = setRange(frontRightPower);
+        backLeftPower = setRange(backLeftPower);
+        backRightPower = setRange(backRightPower);
+
+        frontLeftDrive.setPower(setRange(frontLeftPower));
+        frontRightDrive.setPower(setRange(frontRightPower));
+        backLeftDrive.setPower(setRange(backLeftPower));
+        backRightDrive.setPower(setRange(backRightPower));
+
+    }
+
+
     public void slowMode(boolean setPower, boolean setPower2){
 
         if(setPower2 == true){
