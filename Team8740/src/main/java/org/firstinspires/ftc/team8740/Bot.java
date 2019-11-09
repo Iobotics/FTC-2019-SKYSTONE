@@ -28,7 +28,7 @@ class Bot {
     private Acceleration gravity = null;
     private DcMotor liftLeft = null;
     private DcMotor liftRight = null;
-
+    private Servo capStone = null;
     private LinearOpMode opMode = null;
 
     public Bot(LinearOpMode opMode) {
@@ -59,12 +59,15 @@ class Bot {
         liftRight = hwMap.get(DcMotor.class, "rightLift");
         liftLeft.setDirection(DcMotor.Direction.REVERSE);
         liftRight.setDirection(DcMotor.Direction.REVERSE);
+        //capStone
+        capStone=hwMap.get(Servo.class, "capStone");
         //stop coasting code
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         liftRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
 
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -103,10 +106,19 @@ class Bot {
 
     }
 
+    //capStone Servo
+    public void setCapStone(double position){
+        capStone.setPosition(position);
+
+
+    }
+
     //brake lift
     public void brakeLift(double leftPower, double rightpower) {
         liftLeft.setPower(leftPower);
         liftRight.setPower(rightpower);
+
+
     }
 
     //skylanders: gyro's adventure
