@@ -29,6 +29,7 @@ class Bot {
     private DcMotor Lift = null;
     private TouchSensor limitSwitch = null;
     private TouchSensor limitSwitch2 = null;
+    private TouchSensor limitSwitch3 = null;
     private Servo clasp = null;
     private CRServo extend = null;
     private BNO055IMU imu = null;
@@ -63,6 +64,7 @@ class Bot {
         Lift = hwMap.get(DcMotor.class, "lift");
         limitSwitch = hwMap.get(TouchSensor.class, "limitSwitch");
         limitSwitch2 = hwMap.get (TouchSensor.class, "limitSwitch2");
+        limitSwitch3= hwMap.get (TouchSensor.class, "limitSwitch3");
         clasp = hwMap.get(Servo.class, "Clasp");
         extend =hwMap.get(CRServo.class, "extend");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -104,8 +106,13 @@ class Bot {
 
 
         }
+        if (!limitSwitch3.isPressed()){
+           Lift.setPower(0);
+        }
         else Lift.setPower(liftPower);
     }
+
+
 
 
     public void setClasp(double position){
