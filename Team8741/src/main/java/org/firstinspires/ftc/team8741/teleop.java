@@ -43,6 +43,7 @@ public class teleop extends LinearOpMode {
             telemetry.addData("splinter", robot.getSpinner());
             telemetry.addData("adsf", robot.getCloser());
             telemetry.addData("latch", robot.getLatcher());
+            telemetry.addData("machamp", robot.getLifter());
 
             telemetry.update();
                 robot.setSpinner(gamepad1.y, gamepad1.x, gamepad1.right_bumper);
@@ -56,9 +57,9 @@ public class teleop extends LinearOpMode {
 
             robot.slowMode(gamepad2.left_bumper, gamepad2.right_bumper);
 
-            robot.liftBlock(gamepad2.x, .5, 1);
+            robot.liftBlock(gamepad2.x, 1, 10, 10);
 
-            if(gamepad2.right_trigger>.5){
+            /*if(gamepad2.right_trigger>.5){
                 robot.setIntakePower(1, -1);
 
             }
@@ -69,7 +70,9 @@ public class teleop extends LinearOpMode {
                 robot.setIntakePower(0,0);
             }
 
-            robot.setMechDrive(gamepad2.left_stick_x, gamepad2.left_stick_y, gamepad2.right_stick_x);
+             */
+
+            //robot.setMechDrive(gamepad2.left_stick_x, gamepad2.left_stick_y, gamepad2.right_stick_x);
         }
     }
 
