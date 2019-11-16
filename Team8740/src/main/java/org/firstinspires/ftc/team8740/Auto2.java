@@ -11,12 +11,12 @@ public class Auto2 extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
         robot.encoderDrive(0.4,3, 3, 2);
-        robot.encoderTurn(0.5,25,5);
+        robot.encoderTurn(0.5,40,5);
         robot.setLift(-0.4,0.4);
         robot.encoderDrive(0.3,12.5,12.5,10);
         robot.setLift(0.2,-0.2);
         sleep(1500);
-        robot.encoderDrive(0.4,-30,-31,30);
+        robot.encoderDrive(0.3,-30,-32,30);
         sleep(10);
         robot.setLift(-0.4,0.4);
         sleep(1000);
