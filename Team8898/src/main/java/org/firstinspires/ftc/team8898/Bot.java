@@ -101,12 +101,12 @@ class Bot {
 
     }
     public void setLiftPower(double liftPower){
-        if (limitSwitch2.isPressed() && liftPower > 0) {
+        if (limitSwitch3.isPressed() && liftPower > 0) {
             Lift.setPower(0);
 
 
         }
-        if (!limitSwitch3.isPressed()){
+        if (!limitSwitch.isPressed()){
            Lift.setPower(0);
         }
         else Lift.setPower(liftPower);
@@ -129,11 +129,24 @@ class Bot {
     }
 
     public void setLatchPower(double latchPower) {
-        if (limitSwitch.isPressed() && latchPower > 0){
+        if (limitSwitch2.isPressed() && latchPower > 0){
             Latch.setPower(0);
         }
         else  Latch.setPower(latchPower);
     }
+
+    public boolean getLimitSwitch3(){
+        return limitSwitch3.isPressed();
+    }
+
+    public boolean getLimitSwitch2(){
+        return limitSwitch2.isPressed();
+    }
+
+    public boolean getLimitSwitch1(){
+        return limitSwitch.isPressed();
+    }
+
     public double getLatchPosition(){
         return Latch.getCurrentPosition();
     }
