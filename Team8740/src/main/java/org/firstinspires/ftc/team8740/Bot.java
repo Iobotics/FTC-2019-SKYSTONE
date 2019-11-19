@@ -137,10 +137,12 @@ class Bot {
     }
 
     public void gyroTurn(double target, double speed) {
-        while (!(getGyroHeading() < target + 1 && getGyroHeading() > target - 1)) ;
-        setPower(speed, -speed);
-        //Skylanders: Gyro's adventure
+        while (!(getGyroHeading() < target + 2 && getGyroHeading() > target - 2)) {
+            setPower(-speed, speed);
+            //Skylanders: Gyro's adventure
 
+
+        }
     }
 
     static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: TETRIX Motor Encoder
