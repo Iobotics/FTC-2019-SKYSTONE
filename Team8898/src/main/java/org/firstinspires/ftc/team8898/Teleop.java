@@ -53,7 +53,9 @@ public class Teleop extends LinearOpMode {
                 robot.setExtend(0);
             }
 
-
+            telemetry.addData("limitSwitch3", robot.getLimitSwitch3());
+            telemetry.addData("limitSwitch2", robot.getLimitSwitch2());
+            telemetry.addData("limitSwitch", robot.getLimitSwitch1());
             telemetry.addData("Front Left", robot.getFrontLeft());
             telemetry.addData("Back Right", robot.getBackRight());
             telemetry.addData("Back Left", robot.getBackLeft());
