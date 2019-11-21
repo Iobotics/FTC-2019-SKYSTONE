@@ -106,10 +106,15 @@ class Bot {
 
 
         }
-        if (!limitSwitch.isPressed()){
+        else {
+            Lift.setPower(liftPower);
+        }
+
+
+        if (limitSwitch.isPressed()){
            Lift.setPower(0);
         }
-        else Lift.setPower(liftPower);
+
     }
 
 

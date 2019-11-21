@@ -42,16 +42,22 @@ public class Teleop extends LinearOpMode {
 
             if (gamepad1.a) {
                 robot.setLiftPower(1);
-                robot.setExtend(1);
+
             }
             else if (gamepad1.b) {
                 robot.setLiftPower(-1);
-                robot.setExtend(-1);
+
             }
             else {
                 robot.setLiftPower(0);
+            }
+            if (gamepad1.left_trigger > .5) {
+                robot.setExtend(1);
+            }
+            else if (gamepad1.right_trigger > .5){
                 robot.setExtend(0);
             }
+
 
             telemetry.addData("limitSwitch3", robot.getLimitSwitch3());
             telemetry.addData("limitSwitch2", robot.getLimitSwitch2());
