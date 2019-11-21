@@ -98,6 +98,9 @@ class Bot {
         imu = hwMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
+        lifter1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lifter1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         lifter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //lifter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         latcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -274,13 +277,16 @@ class Bot {
 
     public double getLifter (){return lifter1.getCurrentPosition();}
 
-    public void liftBlock (boolean liftPower, double speed, double gamePos, double timeoutS){
+    public void liftBlock (boolean liftPower, double speed, double timeoutS){
         int newLiftTarget;
         if (liftPower == true){
-            newLiftTarget = lifter1.getCurrentPosition() + (int) (gamePos * COUNTS_PER_INCH);
+            //newLiftTarget = lifter1.getCurrentPosition() + (int) (gamePos * COUNTS_PER_INCH);
+
 
             lifter1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            lifter1.setTargetPosition(newLiftTarget);
+            lifter1.setTargetPosition(394);
+
+
 
             runtime.reset();
             lifter1.setPower(Math.abs(speed));
@@ -294,6 +300,54 @@ class Bot {
 
         }
     }
+    }
+    public void liftBlock2 (boolean liftPower, double speed, double timeoutS){
+        int newLiftTarget;
+        if (liftPower == true){
+            //newLiftTarget = lifter1.getCurrentPosition() + (int) (gamePos * COUNTS_PER_INCH);
+
+
+            lifter1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            lifter1.setTargetPosition(1112);
+
+
+
+            runtime.reset();
+            lifter1.setPower(Math.abs(speed));
+            while (opMode.opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (lifter1.isBusy())); {
+                lifter1.setPower(0);
+
+                lifter1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+            }
+        }
+    }
+    public void liftBlock3 (boolean liftPower, double speed, double timeoutS){
+        int newLiftTarget;
+        if (liftPower == true){
+            //newLiftTarget = lifter1.getCurrentPosition() + (int) (gamePos * COUNTS_PER_INCH);
+
+
+            lifter1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            lifter1.setTargetPosition(1830);
+
+
+
+            runtime.reset();
+            lifter1.setPower(Math.abs(speed));
+            while (opMode.opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (lifter1.isBusy())); {
+                lifter1.setPower(0);
+
+                lifter1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+            }
+        }
     }
 
     /*public void setIntakePower(double intakeLeft, double intakeRight) {
@@ -368,6 +422,8 @@ class Bot {
         backLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
+
+
 
 
     public void encoderDrive(double speed,
