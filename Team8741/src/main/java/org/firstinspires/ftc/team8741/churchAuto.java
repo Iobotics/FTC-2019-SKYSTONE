@@ -26,7 +26,7 @@ public class churchAuto extends LinearOpMode {
         //10.25 is for 90 degree turns
         waitForStart();
 
-        robot.encoderDrive(1, -22.25, -22.25, 300);
+        robot.encoderDrive(1, -17.25, -17.25, 300);
 
         telemetry.addData("Encoder", robot.getFrontLeft());
         telemetry.addData("Encoder 2", robot.getBackLeft());
@@ -42,7 +42,7 @@ public class churchAuto extends LinearOpMode {
         telemetry.addData("Encoder 4", robot.getBackRight());
         telemetry.update();
 
-        robot.encoderDrive(1, 9.25, 9.25, 300);
+        robot.encoderDrive(1, 7.25, 7.25, 300);
 
         telemetry.addData("Encoder", robot.getFrontLeft());
         telemetry.addData("Encoder 2", robot.getBackLeft());
@@ -58,7 +58,7 @@ public class churchAuto extends LinearOpMode {
         telemetry.addData("Encoder 4", robot.getBackRight());
         telemetry.update();
 
-        robot.encoderDrive(1, -5.25, -5.25, 300);
+        robot.encoderDrive(1, -2.25, -2.25, 300);
 
         telemetry.addData("Encoder", robot.getFrontLeft());
         telemetry.addData("Encoder 2", robot.getBackLeft());
@@ -68,7 +68,7 @@ public class churchAuto extends LinearOpMode {
 
         robot.setLatcher(false, true);
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1.0)) {
+        while (opModeIsActive() && (runtime.seconds() < .5)) {
             //telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             //telemetry.update();
         }
@@ -77,7 +77,7 @@ public class churchAuto extends LinearOpMode {
 
         //robot.setLatcher(false, false);
 
-        robot.encoderDrive(.5, 24.75, 24.75, 300);
+        robot.encoderDrive(.5, 17.95, 17.95, 300);
 
         robot.setLatcher(true, false);
         runtime.reset();
@@ -91,9 +91,9 @@ public class churchAuto extends LinearOpMode {
 
 
 
-        /*robot.encoderDrive(1, 11, -11, 300);
+        robot.encoderDrive(1, 9.25, -9.25, 300);
 
-        robot.encoderDrive(1, 36.25, 36.25, 300);
+        robot.encoderDrive(1, 33.25, 33.25, 300);
 
         telemetry.update();
         /*robot.encoderDrive(0.5, 6.5, -6.5, 300);

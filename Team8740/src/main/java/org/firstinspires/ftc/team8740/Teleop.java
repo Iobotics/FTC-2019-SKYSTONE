@@ -16,10 +16,10 @@ public class Teleop extends LinearOpMode {
         robot.init(hardwareMap);
         waitForStart();
         while (opModeIsActive()) {
-            telemetry.addData("encoder 1",robot.getBackLeft());
-            telemetry.addData("encoder 2",robot.getFrontLeft());
-            telemetry.addData("encoder 3",robot.getBackRight());
-            telemetry.addData("encoder 4",robot.getFrontRight());
+            telemetry.addData("encoder 1", robot.getBackLeft());
+            telemetry.addData("encoder 2", robot.getFrontLeft());
+            telemetry.addData("encoder 3", robot.getBackRight());
+            telemetry.addData("encoder 4", robot.getFrontRight());
             telemetry.update();
             if (gamepad1.a && buttonApressed == false) {
                 slowMode = !slowMode;
@@ -31,7 +31,6 @@ public class Teleop extends LinearOpMode {
             if (slowMode) {
 
                 robot.setPower(-gamepad1.left_stick_y * 0.3, -gamepad1.right_stick_y * 0.3);
-
 
 
             } else {
@@ -52,15 +51,20 @@ public class Teleop extends LinearOpMode {
                 robot.setIntake(0, 0);
             }
             if (gamepad1.left_trigger > 0.5) {
-                robot.setLift(0.4, -0.4);
-            } else if(gamepad1.right_trigger > 0.5){
-                    robot.setLift(-0.4, 0.4);
-            }
-            else robot.setLift(0,0);
+                robot.setLift(0.5, -0.5);
+            } else if (gamepad1.right_trigger > 0.5) {
+                robot.setLift(-0.5, 0.5);
+            } else robot.setLift(0, 0);
 
+            if (gamepad1.x && gamepad1.y) {
+                robot.setCapStone(1);
+
+            } else {
+                robot.setCapStone(0);
             }
 
         }
 
     }
+}
 

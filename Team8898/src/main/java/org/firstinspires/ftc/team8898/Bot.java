@@ -34,7 +34,9 @@ class Bot {
     private DcMotor Lift = null;
     private TouchSensor limitSwitch = null;
     private TouchSensor limitSwitch2 = null;
+    private TouchSensor limitSwitch3 = null;
     private Servo clasp = null;
+    private CRServo extend = null;
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
@@ -72,7 +74,9 @@ class Bot {
         Lift = hwMap.get(DcMotor.class, "lift");
         limitSwitch = hwMap.get(TouchSensor.class, "limitSwitch");
         limitSwitch2 = hwMap.get (TouchSensor.class, "limitSwitch2");
+        limitSwitch3= hwMap.get (TouchSensor.class, "limitSwitch3");
         clasp = hwMap.get(Servo.class, "Clasp");
+        extend =hwMap.get(CRServo.class, "extend");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -127,18 +131,31 @@ class Bot {
 
 
     public void setLiftPower(double liftPower){
-        if (limitSwitch2.isPressed() && liftPower > 0) {
+        if (limitSwitch3.isPressed() && liftPower > 0) {
             Lift.setPower(0);
 
 
         }
-        else Lift.setPower(liftPower);
+        else {
+            Lift.setPower(liftPower);
+        }
+
+
+        if (limitSwitch.isPressed()){
+           Lift.setPower(0);
+        }
+
     }
+
+
 
 
     public void setClasp(double position){
         clasp.setPosition(position);
 
+    }
+    public void setExtend(double power){
+        extend.setPower(power);
     }
 
 
@@ -147,11 +164,24 @@ class Bot {
     }
 
     public void setLatchPower(double latchPower) {
-        if (limitSwitch.isPressed() && latchPower > 0){
+        if (limitSwitch2.isPressed() && latchPower > 0){
             Latch.setPower(0);
         }
         else  Latch.setPower(latchPower);
     }
+
+    public boolean getLimitSwitch3(){
+        return limitSwitch3.isPressed();
+    }
+
+    public boolean getLimitSwitch2(){
+        return limitSwitch2.isPressed();
+    }
+
+    public boolean getLimitSwitch1(){
+        return limitSwitch.isPressed();
+    }
+
     public double getLatchPosition(){
         return Latch.getCurrentPosition();
     }
@@ -290,7 +320,7 @@ class Bot {
                 runtime.reset();
 
             }
-            
+
         }
         setPower(0,0);
     }

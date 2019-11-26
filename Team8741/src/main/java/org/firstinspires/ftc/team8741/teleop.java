@@ -24,6 +24,7 @@ public class teleop extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
 
+
         waitForStart();
             while (opModeIsActive()) {
                 robot.setPower(gamepad2.left_stick_y , gamepad2.right_stick_y );
@@ -43,12 +44,13 @@ public class teleop extends LinearOpMode {
             telemetry.addData("splinter", robot.getSpinner());
             telemetry.addData("adsf", robot.getCloser());
             telemetry.addData("latch", robot.getLatcher());
+            telemetry.addData("machamp", robot.getLifter());
 
             telemetry.update();
-                robot.setSpinner(gamepad1.y,
- gamepad1.x, gamepad1.right_bumper);
+                robot.setSpinner(gamepad1.y, gamepad1.x, gamepad1.right_bumper);
 
-            robot.setLifter(gamepad1.right_trigger > .5, gamepad1.left_trigger > .5);
+
+            robot.setLifter(gamepad1.right_stick_y > .5, gamepad1.right_stick_y < .5);
 
             robot.setCloser(gamepad1.a, gamepad1.b);
 
@@ -56,9 +58,13 @@ public class teleop extends LinearOpMode {
 
             robot.slowMode(gamepad2.left_bumper, gamepad2.right_bumper);
 
-            robot.liftBlock(gamepad2.x, .5, 1);
+            robot.liftBlock(gamepad1.left_trigger > .5, 1, 10);
 
-            if(gamepad2.right_trigger>.5){
+            robot.liftBlock2(gamepad1.left_bumper, 1, 10);
+
+            robot.liftBlock3(gamepad1.right_trigger > .5, 1, 10);
+
+            /*if(gamepad2.right_trigger>.5){
                 robot.setIntakePower(1, -1);
 
             }
@@ -68,6 +74,10 @@ public class teleop extends LinearOpMode {
             else {
                 robot.setIntakePower(0,0);
             }
+
+             */
+
+            //robot.setMechDrive(gamepad2.left_stick_x, gamepad2.left_stick_y, gamepad2.right_stick_x);
         }
     }
 
