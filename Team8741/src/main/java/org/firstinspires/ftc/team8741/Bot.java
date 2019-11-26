@@ -48,7 +48,6 @@ class Bot {
     private DcMotor lifter2 = null;
     private DcMotor rightIntake = null;
     private DcMotor leftIntake = null;
-
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
