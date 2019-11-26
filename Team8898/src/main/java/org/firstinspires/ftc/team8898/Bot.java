@@ -28,10 +28,6 @@ class Bot {
     private DcMotor Latch = null;
     private DcMotor Lift = null;
     private TouchSensor limitSwitch = null;
-    private TouchSensor limitSwitch2 = null;
-    private TouchSensor limitSwitch3 = null;
-    private Servo clasp = null;
-    private CRServo extend = null;
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
@@ -60,13 +56,9 @@ class Bot {
         frontRightDrive = hwMap.get(DcMotor.class, "frontright");
         backLeftDrive = hwMap.get(DcMotor.class, "backleft");
         backRightDrive = hwMap.get(DcMotor.class, "backright");
-        Latch = hwMap.get(DcMotor.class, "latch2");
+        Latch = hwMap.get(DcMotor.class, "latch");
         Lift = hwMap.get(DcMotor.class, "lift");
         limitSwitch = hwMap.get(TouchSensor.class, "limitSwitch");
-        limitSwitch2 = hwMap.get (TouchSensor.class, "limitSwitch2");
-        limitSwitch3= hwMap.get (TouchSensor.class, "limitSwitch3");
-        clasp = hwMap.get(Servo.class, "Clasp");
-        extend =hwMap.get(CRServo.class, "extend");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -100,33 +92,11 @@ class Bot {
         backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
-    public void setLiftPower(double liftPower){
-        if (limitSwitch3.isPressed() && liftPower > 0) {
-            Lift.setPower(0);
-
-
-        }
-        else {
-            Lift.setPower(liftPower);
-        }
-
-
-        if (limitSwitch.isPressed()){
-           Lift.setPower(0);
-        }
-
-    }
 
 
 
 
-    public void setClasp(double position){
-        clasp.setPosition(position);
 
-    }
-    public void setExtend(double power){
-        extend.setPower(power);
-    }
 
 
     public double getFrontLeftPower(){
@@ -134,19 +104,13 @@ class Bot {
     }
 
     public void setLatchPower(double latchPower) {
-        if (limitSwitch2.isPressed() && latchPower > 0){
+        if (limitSwitch.isPressed() && latchPower > 0){
             Latch.setPower(0);
         }
         else  Latch.setPower(latchPower);
     }
 
-    public boolean getLimitSwitch3(){
-        return limitSwitch3.isPressed();
-    }
 
-    public boolean getLimitSwitch2(){
-        return limitSwitch2.isPressed();
-    }
 
     public boolean getLimitSwitch1(){
         return limitSwitch.isPressed();
