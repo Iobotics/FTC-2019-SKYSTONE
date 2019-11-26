@@ -108,7 +108,12 @@ class Bot {
 
     }
 
+    public void setFlywheel(double FlyWheelPower){
 
+        flywheel1.setPower(FlyWheelPower);
+        flywheel2.setPower(FlyWheelPower);
+
+    }
 
 
 
