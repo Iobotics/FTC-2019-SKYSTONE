@@ -45,12 +45,19 @@ public class teleop extends LinearOpMode {
             telemetry.addData("adsf", robot.getCloser());
             telemetry.addData("latch", robot.getLatcher());
             telemetry.addData("machamp", robot.getLifter());
+            telemetry.addData("red", robot.getRightRed());
+            telemetry.addData("blue", robot.getRightBlue());
+            telemetry.addData("green", robot.getRightGreen());
+            telemetry.addData("alpha", robot.getRightAlpha());
+            telemetry.addData("RtoG", robot.getRightRed()/robot.getRightRed());
+
+
 
             telemetry.update();
                 robot.setSpinner(gamepad1.y, gamepad1.x, gamepad1.right_bumper);
 
 
-            robot.setLifter(gamepad1.right_stick_y > .5, gamepad1.right_stick_y < .5);
+            robot.setLifter(gamepad1.right_stick_y > .5, gamepad1.right_stick_y < -0.5);
 
             robot.setCloser(gamepad1.a, gamepad1.b);
 
