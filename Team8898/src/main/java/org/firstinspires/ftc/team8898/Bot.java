@@ -24,6 +24,11 @@ class Bot {
     private DcMotor frontRightDrive = null;
     private DcMotor backLeftDrive = null;
     private DcMotor backRightDrive = null;
+
+    private DcMotor flywheel1 = null;
+    private DcMotor flywheel2 = null;
+    //Code for the fly wheels
+
     private HardwareMap hwMap = null;
     private DcMotor Latch = null;
     private DcMotor Lift = null;
@@ -56,17 +61,27 @@ class Bot {
         frontRightDrive = hwMap.get(DcMotor.class, "frontright");
         backLeftDrive = hwMap.get(DcMotor.class, "backleft");
         backRightDrive = hwMap.get(DcMotor.class, "backright");
-        Latch = hwMap.get(DcMotor.class, "latch");
+
         Lift = hwMap.get(DcMotor.class, "lift");
         limitSwitch = hwMap.get(TouchSensor.class, "limitSwitch");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);
+
+        flywheel1.setDirection(DcMotor.Direction.FORWARD);
+        flywheel2.setDirection(DcMotor.Direction.REVERSE);
+        //Fly wheel's directions
+
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        flywheel1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        flywheel2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //Fly wheel run without the encoders
+
         Latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Latch.setDirection(DcMotor.Direction.REVERSE);
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -92,6 +107,7 @@ class Bot {
         backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     }
+
 
 
 

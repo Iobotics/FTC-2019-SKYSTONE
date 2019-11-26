@@ -50,7 +50,6 @@ class Bot {
     private DcMotor lifter2 = null;
     private DcMotor rightIntake = null;
     private DcMotor leftIntake = null;
-
     private BNO055IMU imu = null;
     private Orientation angles = null;
     private Acceleration gravity = null;
@@ -236,7 +235,7 @@ class Bot {
 
     public void setLatcher(boolean latcherPower, boolean latcherPower2) {
         if(latcherPower && latcherPower2){
-            latcher.setPower(-.2);
+            latcher.setPower(-.1);
         }
         else if (latcherPower2 == true) {
             latcher.setPower(-0.5);
