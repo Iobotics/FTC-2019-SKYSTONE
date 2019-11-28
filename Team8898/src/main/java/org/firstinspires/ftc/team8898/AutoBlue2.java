@@ -2,7 +2,7 @@ package org.firstinspires.ftc.team8898;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name="AutoBlue2", group="AutoBlue2")
+@Autonomous(name="Resticted", group="Restricted")
 public class AutoBlue2 extends LinearOpMode {
 
     @Override

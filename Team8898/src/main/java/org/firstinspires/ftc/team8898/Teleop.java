@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name="Teleop!", group="Iterative Opmode")
+@TeleOp(name="Teleop", group="Iterative Opmode")
 
 public class Teleop extends LinearOpMode {
     //ita hic est magnumcerebrum tempus
