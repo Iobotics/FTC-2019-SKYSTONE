@@ -49,7 +49,7 @@ public class teleop extends LinearOpMode {
             telemetry.addData("blue", robot.getRightBlue());
             telemetry.addData("green", robot.getRightGreen());
             telemetry.addData("alpha", robot.getRightAlpha());
-            telemetry.addData("RtoG", robot.getRightRed()/robot.getRightRed());
+            telemetry.addData("RtoG", robot.getRightRed()/robot.getRightGreen());
 
 
 
