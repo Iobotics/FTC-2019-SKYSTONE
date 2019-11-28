@@ -17,12 +17,12 @@ public class AutoRed extends LinearOpMode {
         robot.setLift(0.2,-0.2);
         sleep(1500);
         robot.encoderDrive(0.3,-30,-32,30);
-        sleep(10);
-        robot.setLift(-0.4,0.4);
         sleep(1000);
+        robot.setLift(-0.4,0.4);
+        sleep(1500);
         robot.setLift(-0.1,0.1);
-        sleep(25000);
-        robot.setLift(0,0);
+
+        while(opModeIsActive());
 
 
     }
