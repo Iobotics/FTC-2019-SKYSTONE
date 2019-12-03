@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.team8898;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-@Autonomous(name="AutoRed2", group="AutoRed2")
-public class AutoRed2 extends LinearOpMode {
+@Autonomous(name="AutoPull", group="AutoPull")
+public class AutoPull extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {

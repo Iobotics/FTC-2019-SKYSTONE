@@ -3,6 +3,7 @@ package org.firstinspires.ftc.team8741;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
     import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -50,6 +51,8 @@ class Bot {
     private DcMotor lifter2 = null;
     private DcMotor rightIntake = null;
     private DcMotor leftIntake = null;
+    private ColorSensor colorRight = null;
+    private ColorSensor colorLeft = null;
 
     private BNO055IMU imu = null;
     private Orientation angles = null;
@@ -79,6 +82,8 @@ class Bot {
         spinner = hwMap.get(Servo.class, "spinner"); //the spinner
         latcher = hwMap.get(DcMotor.class, "latcher"); //the latcher
         lifter1 = hwMap.get(DcMotor.class, "lifter"); //right lifter
+        colorRight = hwMap.get(ColorSensor.class, "ColorsensorRight"); //color sensor right
+        colorLeft = hwMap.get(ColorSensor.class, "ColorsensorLeft");//color sensor left
         //lifter2 = hwMap.get(DcMotor.class, "lifterLeft"); //left lifter
         //rightIntake = hwMap.get(DcMotor.class,"rightIntake");
         //leftIntake = hwMap.get(DcMotor.class, "leftIntake");
@@ -255,7 +260,30 @@ class Bot {
         return latcher.getCurrentPosition();
     }
 
-
+    public int getRightRed (){
+        return colorRight.red();
+    }
+    public int getRightGreen (){
+        return colorRight.green();
+    }
+    public int getRightBlue (){
+        return colorRight.blue();
+    }
+    public int getRightAlpha (){
+        return colorRight.alpha();
+    }
+    public int getLeftRed (){
+        return colorLeft.red();
+    }
+    public int getLeftGreen (){
+        return colorLeft.green();
+    }
+    public int getLeftBlue (){
+        return colorLeft.blue();
+    }
+    public int getLeftAlpha (){
+        return colorLeft.alpha();
+    }
 
     public void setLifter(boolean lifterPower, boolean lifterPower2){
 
@@ -307,9 +335,9 @@ class Bot {
             //newLiftTarget = lifter1.getCurrentPosition() + (int) (gamePos * COUNTS_PER_INCH);
 
 
-            lifter1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            lifter1.setTargetPosition(1112);
 
+            lifter1.setTargetPosition(1112);
+            lifter1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
             runtime.reset();
