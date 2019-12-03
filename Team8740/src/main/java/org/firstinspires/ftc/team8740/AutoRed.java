@@ -15,7 +15,7 @@ public class AutoRed extends LinearOpMode {
         robot.setLift(-0.4,0.4);
         robot.encoderDrive(0.3,12.5,12.5,10);
         robot.setLift(0.2,-0.2);
-        sleep(1500);
+        sleep(2000);
         robot.encoderDrive(0.3,-30,-32,30);
         sleep(1000);
         robot.setLift(-0.4,0.4);
