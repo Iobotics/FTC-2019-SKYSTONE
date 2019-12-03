@@ -33,8 +33,6 @@ public class Teleop extends LinearOpMode {
                 robot.setLatchPower(0);
             }
 
-            robot.setPower(gamepad1.left_trigger, gamepad1.right_trigger);
-
             if (gamepad1.right_trigger > 0.5) {
 
                 robot.setFlywheel(1);
@@ -43,6 +41,9 @@ public class Teleop extends LinearOpMode {
 
                 robot.setFlywheel(-1);
 
+            }
+            else {
+                robot.setFlywheel(0);
             }
 
 

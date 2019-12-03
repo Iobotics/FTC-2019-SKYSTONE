@@ -31,7 +31,6 @@ class Bot {
 
     private HardwareMap hwMap = null;
     private DcMotor Latch = null;
-    private DcMotor Lift = null;
     private TouchSensor limitSwitch = null;
     private BNO055IMU imu = null;
     private Orientation angles = null;
@@ -61,9 +60,10 @@ class Bot {
         frontRightDrive = hwMap.get(DcMotor.class, "frontright");
         backLeftDrive = hwMap.get(DcMotor.class, "backleft");
         backRightDrive = hwMap.get(DcMotor.class, "backright");
-
-        Lift = hwMap.get(DcMotor.class, "lift");
         limitSwitch = hwMap.get(TouchSensor.class, "limitSwitch");
+        flywheel1 = hwMap.get(DcMotor.class, "Flywheel1");
+        flywheel2 = hwMap.get(DcMotor.class, "Flywheel2");
+        Latch = hwMap.get(DcMotor.class, "latch");
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);
