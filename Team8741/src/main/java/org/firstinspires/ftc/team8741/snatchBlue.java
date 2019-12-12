@@ -20,7 +20,7 @@ public class snatchBlue extends LinearOpMode {
         waitForStart();
         robot.encoderDrive(1, -26.25, -26.25, 300);
 
-        robot.setLatcher(false, true);
+        robot.setLatcher(false, true, false);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 1.0)) {
             telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
@@ -34,13 +34,13 @@ public class snatchBlue extends LinearOpMode {
 
         robot.encoderDrive(1, -35, -35, 300);
 
-        robot.setLatcher(true, false);
+        robot.setLatcher(true, false, false);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 1.0)) {
             telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             telemetry.update();
         }
-        robot.setLatcher(false, false);
+        robot.setLatcher(false, false, false);
         robot.encoderDrive(1, 6, 6, 300);
 
     }

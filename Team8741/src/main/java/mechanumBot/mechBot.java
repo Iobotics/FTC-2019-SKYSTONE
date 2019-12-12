@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.team8741;
+package mechanumBot;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-    import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -19,7 +19,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import static java.lang.Thread.sleep;
 
-class Bot {
+class mechBot {
 
 
     final static int ENCODER_TICKS_PER_REV = 1120;
@@ -46,11 +46,10 @@ class Bot {
     private Servo closer1 = null;
     private Servo closer2 = null;
     private Servo spinner = null;
-    private Servo latcher1 = null;
-    private Servo latcher2 = null;
     private DcMotor latcher = null;
     private DcMotor lifter1 = null;
     private DcMotor lifter2 = null;
+    private DcMotor arm = null;
     private DcMotor rightIntake = null;
     private DcMotor leftIntake = null;
     private ColorSensor colorRight = null;
@@ -64,10 +63,8 @@ class Bot {
 
     private double servoPos = 0;
     private double servoPos2 = 1;
-    private double servoPos3 = 0;
-    private double servoPos4 = 1;
 
-    public Bot(LinearOpMode opMode) {
+    public mechBot(LinearOpMode opMode) {
         this.opMode = opMode;
     }
 
@@ -84,12 +81,11 @@ class Bot {
         closer1 = hwMap.get(Servo.class, "closer"); //right closer
         //closer2 = hwMap.get(Servo.class, "closerLeft"); //left closer
         spinner = hwMap.get(Servo.class, "spinner"); //the spinner
-        latcher1 = hwMap.get(Servo.class, "latch1"); //right latcher
-        latcher2 = hwMap.get(Servo.class, "latch2"); //left latcher
-        //latcher = hwMap.get(DcMotor.class, "latcher"); //the latcher
+        latcher = hwMap.get(DcMotor.class, "latcher"); //the latcher
         lifter1 = hwMap.get(DcMotor.class, "lifter"); //right lifter
         colorRight = hwMap.get(ColorSensor.class, "ColorsensorRight"); //color sensor right
         colorLeft = hwMap.get(ColorSensor.class, "ColorsensorLeft");//color sensor left
+        arm = hwMap.get(DcMotor.class, "arm");
         //lifter2 = hwMap.get(DcMotor.class, "lifterLeft"); //left lifter
         rightIntake = hwMap.get(DcMotor.class,"rightIntake");
         leftIntake = hwMap.get(DcMotor.class, "leftIntake");
@@ -114,7 +110,7 @@ class Bot {
 
         lifter1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //lifter2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //latcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        latcher.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -160,8 +156,8 @@ class Bot {
     }
 
     public void mechanumStrafe(double speed,
-                             double leftInches, double rightInches,
-                             double timeoutS) throws InterruptedException {
+                               double leftInches, double rightInches,
+                               double timeoutS) throws InterruptedException {
         int newFrontLeftTarget;
         int newFrontRightTarget;
         int newBackLeftTarget;
@@ -245,7 +241,7 @@ class Bot {
 
     }
 
-    /*public void setLatcher(boolean latcherPower, boolean latcherPower2) {
+    public void setLatcher(boolean latcherPower, boolean latcherPower2) {
         if(latcherPower && latcherPower2){
             latcher.setPower(-.1);
         }
@@ -262,29 +258,9 @@ class Bot {
         }
     }
 
-     */
-
-    public void setLatcher(boolean latcherPower, boolean latcherPower2, boolean latcherPower3){
-        if (latcherPower == true){
-            servoPos3 -= 1;
-            servoPos4 += 1;
-        }
-        else if (latcherPower2 == true){
-            servoPos3 += 1;
-            servoPos4 -= 1;
-        }
-        else if (latcherPower3 == true){
-            servoPos3 = .62;
-            servoPos4 = .62;
-        }
-
-        latcher1.setPosition(servoPos3);
-        latcher2.setPosition(servoPos4);
+    public double getLatcher (){
+        return latcher.getCurrentPosition();
     }
-
-    //public double getLatcher (){
-      //  return latcher.getCurrentPosition();
-
 
     public int getRightRed (){
         return colorRight.red();
@@ -347,13 +323,13 @@ class Bot {
             while (opMode.opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
                     (lifter1.isBusy())); {
-            lifter1.setPower(0);
+                lifter1.setPower(0);
 
-            lifter1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                lifter1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
+            }
         }
-    }
     }
     public void liftBlock2 (boolean liftPower, double speed, double timeoutS){
         int newLiftTarget;
@@ -434,42 +410,42 @@ class Bot {
         else return 1 * ((Math.abs(input))/ input);
     }
 
-   /* public double getGyroHeading() {
-        // Update gyro
-        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        gravity = imu.getGravity();
+    /* public double getGyroHeading() {
+         // Update gyro
+         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+         gravity = imu.getGravity();
 
-        double heading = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
-        return heading;
-    }
+         double heading = AngleUnit.DEGREES.normalize(AngleUnit.DEGREES.fromUnit(angles.angleUnit, angles.firstAngle));
+         return heading;
+     }
 
 
 
-    public void gyroTurn(double target, double speed){
-        int multiplier = 1;
-        while((target > 178 && (-180 -  getGyroHeading()  >  1  || getGyroHeading() < target - 1)) || ((target <= 178 && target >= -178 && !(getGyroHeading() < target + 1 && getGyroHeading() > target -1))) || (target < -178 && (180 - getGyroHeading() > 1|| getGyroHeading() > target +1))) {
+     public void gyroTurn(double target, double speed){
+         int multiplier = 1;
+         while((target > 178 && (-180 -  getGyroHeading()  >  1  || getGyroHeading() < target - 1)) || ((target <= 178 && target >= -178 && !(getGyroHeading() < target + 1 && getGyroHeading() > target -1))) || (target < -178 && (180 - getGyroHeading() > 1|| getGyroHeading() > target +1))) {
 
-            if (isTurnCCW(getGyroHeading() + 180, target + 180)) {
-                multiplier = 1;
-            } else {
-                multiplier = -1;
-            }
+             if (isTurnCCW(getGyroHeading() + 180, target + 180)) {
+                 multiplier = 1;
+             } else {
+                 multiplier = -1;
+             }
 
-            if ((Math.abs(target - getGyroHeading()) < 20)){
-                setPower(-((speed - .2) * Math.abs(target - getGyroHeading()) / 20 + .2) *  multiplier, ((speed - .2) * Math.abs(target - getGyroHeading()) / 20 + .2) *  multiplier);
-            } else{
-                setPower(-speed * multiplier, speed * multiplier);
-            }
+             if ((Math.abs(target - getGyroHeading()) < 20)){
+                 setPower(-((speed - .2) * Math.abs(target - getGyroHeading()) / 20 + .2) *  multiplier, ((speed - .2) * Math.abs(target - getGyroHeading()) / 20 + .2) *  multiplier);
+             } else{
+                 setPower(-speed * multiplier, speed * multiplier);
+             }
 
-        }
-    }
+         }
+     }
 
-    boolean isTurnCCW(double hdg, double newHdg) { // should a new heading turn left ie. CCW?
-        double diff = newHdg - hdg;        // CCW = counter-clockwise ie. left
-        return diff > 0 ? diff > 180 : diff >= -180;
-    }
+     boolean isTurnCCW(double hdg, double newHdg) { // should a new heading turn left ie. CCW?
+         double diff = newHdg - hdg;        // CCW = counter-clockwise ie. left
+         return diff > 0 ? diff > 180 : diff >= -180;
+     }
 
-    */
+     */
     public void stop() {
         frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -537,37 +513,37 @@ class Bot {
 
 
 
-                // Stop all motion;
-                frontLeftDrive.setPower(0);
-                frontRightDrive.setPower(0);
-                backLeftDrive.setPower(0);
-                backRightDrive.setPower(0);
+            // Stop all motion;
+            frontLeftDrive.setPower(0);
+            frontRightDrive.setPower(0);
+            backLeftDrive.setPower(0);
+            backRightDrive.setPower(0);
 
-                // Turn off RUN_TO_POSITION
-                frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            // Turn off RUN_TO_POSITION
+            frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-                 //sleep(250);   // optional pause after each move
-            }
+            //sleep(250);   // optional pause after each move
         }
+    }
 
-        public double getFrontLeft(){
-            return frontLeftDrive.getCurrentPosition();
-        }
+    public double getFrontLeft(){
+        return frontLeftDrive.getCurrentPosition();
+    }
 
-        public double getBackLeft(){
-            return backLeftDrive.getCurrentPosition();
-        }
+    public double getBackLeft(){
+        return backLeftDrive.getCurrentPosition();
+    }
 
-        public double getFrontRight(){
-            return frontRightDrive.getCurrentPosition();
-        }
+    public double getFrontRight(){
+        return frontRightDrive.getCurrentPosition();
+    }
 
-        public double getBackRight(){
-            return backRightDrive.getCurrentPosition();
-        }
+    public double getBackRight(){
+        return backRightDrive.getCurrentPosition();
+    }
 
 
 
@@ -575,11 +551,11 @@ class Bot {
     public void setSpinner(boolean spinnerPower, boolean spinnerPower2, boolean spinnerPower3) {
 
         if (spinnerPower2 == true && servoPos2 < 1) {
-            servoPos2 += .02;
+            servoPos2 += .05;
         }
 
         else if (spinnerPower == true && servoPos2 > -1) {
-            servoPos2 -= .02;
+            servoPos2 -= .05;
         }
 
         else if (spinnerPower3 == true){
@@ -593,16 +569,7 @@ class Bot {
         return spinner.getPosition();
     }
 
-    /*public void setLatcher(boolean latcherPower, boolean latcherPower2){
-        if (latcherPower2 == true){
-            servoPos += 0.01;
-        }
 
-        if (latcherPower == true){
-            servoPos -= 0.01;
-        }
-    }
-*/
     public void setCloser(boolean closerPower, boolean closerPower2){
 
         if (closerPower2 == true && servoPos < 1){
@@ -617,7 +584,31 @@ class Bot {
         //closer2.setPosition(1 - servoPos);
     }
     public double getCloser(){return closer1.getPosition();}
-}
+
+    public void setArm (boolean armPower, double speed, double timeoutS){
+        int newLiftTarget;
+        if (armPower == true){
+            //newLiftTarget = lifter1.getCurrentPosition() + (int) (gamePos * COUNTS_PER_INCH);
+
+
+
+            arm.setTargetPosition(1112);
+            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+            runtime.reset();
+            arm.setPower(Math.abs(speed));
+            while (opMode.opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (arm.isBusy())); {
+                arm.setPower(0);
+
+                arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+            }
+        }
+    }}
 
 
 

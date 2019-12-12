@@ -66,20 +66,20 @@ public class simmonsAuto extends LinearOpMode {
         telemetry.addData("Encoder 4", robot.getBackRight());
         telemetry.update();
 
-        robot.setLatcher(false, true);
+        robot.setLatcher(false, true, false);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < .5)) {
             //telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             //telemetry.update();
         }
 
-        robot.setLatcher(true,true);
+        //robot.setLatcher(true,true, false);
 
         //robot.setLatcher(false, false);
 
         robot.encoderDrive(.5, 17.95, 17.95, 300);
 
-        robot.setLatcher(true, false);
+        robot.setLatcher(true, false, false);
         runtime.reset();
         while (opModeIsActive() && (runtime.seconds() < 1.0)) {
             //telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
@@ -87,11 +87,11 @@ public class simmonsAuto extends LinearOpMode {
         }
 
 
-        robot.setLatcher(false, false);
+        robot.setLatcher(false, false, false);
 
 
 
-        robot.encoderDrive(1, -9.25, 9.25, 300);
+        robot.encoderDrive(1, -10.25, 10.25, 300);
 
         robot.encoderDrive(1, 33.25, 33.25, 300);
 
