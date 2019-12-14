@@ -46,7 +46,7 @@ public class simmonsAuto extends LinearOpMode {
 
         telemetry.addData("Encoder", robot.getFrontLeft());
         telemetry.addData("Encoder 2", robot.getBackLeft());
-        telemetry.addData("Encoder 3", robot.getFrontRight());
+        telemetry.addData("Encoder 3", robot.getFrontRight());                              //this portion drives the robot to the center of the foundation
         telemetry.addData("Encoder 4", robot.getBackRight());
         telemetry.update();
 
@@ -80,7 +80,7 @@ public class simmonsAuto extends LinearOpMode {
         robot.encoderDrive(.5, 17.95, 17.95, 300);
 
         robot.setLatcher(true, false, false);
-        runtime.reset();
+        runtime.reset();                                                                            //this grabs the foundation and pulls it into the depot
         while (opModeIsActive() && (runtime.seconds() < 1.0)) {
             //telemetry.addData("Path", "Leg 3: %2.5f S Elapsed", runtime.seconds());
             //telemetry.update();
@@ -92,8 +92,8 @@ public class simmonsAuto extends LinearOpMode {
 
 
         robot.encoderDrive(1, -10.25, 10.25, 300);
-
-        robot.encoderDrive(1, 33.25, 33.25, 300);
+                                                                                                    //this turns the robot and parks
+        robot.encoderDrive(1, 32.75, 32.75, 300);
 
         telemetry.update();
         /*robot.encoderDrive(0.5, 6.5, -6.5, 300);

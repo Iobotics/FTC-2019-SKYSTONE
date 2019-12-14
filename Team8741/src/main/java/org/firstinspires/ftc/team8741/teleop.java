@@ -27,7 +27,7 @@ public class teleop extends LinearOpMode {
 
         waitForStart();
             while (opModeIsActive()) {
-                robot.setPower(gamepad2.left_stick_y , gamepad2.right_stick_y );
+
 
 
             //robot.setLifter(gamepad1.a, gamepad1.b);
@@ -56,19 +56,20 @@ public class teleop extends LinearOpMode {
 
 
             telemetry.update();
-            robot.setSpinner(gamepad1.y, gamepad1.x, gamepad1.right_bumper);
+            robot.setSpinner(gamepad1.y, gamepad1.x, gamepad1.right_bumper);                        //this is for the spinner on our lift
 
+            robot.setPower(gamepad2.left_stick_y , gamepad2.right_stick_y );                        //this is to drive the robot
 
-            robot.setLifter(gamepad1.right_stick_y > .5, gamepad1.right_stick_y < -0.5);
+            robot.setLifter(gamepad1.right_stick_y > .5, gamepad1.right_stick_y < -0.5);    //this is to control our lifter/up and down boy
 
-            robot.setCloser(gamepad1.a, gamepad1.b);
+            robot.setCloser(gamepad1.a, gamepad1.b);                                                //this is our control to grab the blocks
 
-            robot.setLatcher(gamepad2.right_bumper, gamepad2.left_bumper, gamepad2.x);
+            robot.setLatcher(gamepad2.right_bumper, gamepad2.left_bumper, gamepad2.x);              //this is the control for our foundation movers; also used to hold the blocks in
 
             //robot.slowMode(gamepad2.left_bumper, gamepad2.right_bumper);
 
             /*robot.liftBlock(gamepad1.left_trigger > .5, 1, 10);
-
+                                                                                                    //this is some unused functions; they were unreliable so we stopped using them
             robot.liftBlock2(gamepad1.left_bumper, 1, 10);
 
             robot.liftBlock3(gamepad1.right_trigger > .5, 1, 10);
@@ -79,7 +80,7 @@ public class teleop extends LinearOpMode {
                 robot.setIntakePower(1, -1);
 
             }
-            else if(gamepad2.left_trigger>.5){
+            else if(gamepad2.left_trigger>.5){                                                      //this is the control/code for our intake mechanic
                 robot.setIntakePower(-1,1);
             }
             else {
@@ -88,7 +89,7 @@ public class teleop extends LinearOpMode {
 
 
 
-            //robot.setMechDrive(gamepad2.left_stick_x, gamepad2.left_stick_y, gamepad2.right_stick_x);
+            //robot.setMechDrive(gamepad2.left_stick_x, gamepad2.left_stick_y, gamepad2.right_stick_x);         //supposed to be used for a mecanum drive bot
         }
     }
 

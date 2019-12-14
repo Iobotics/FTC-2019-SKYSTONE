@@ -93,7 +93,7 @@ public class churchAuto extends LinearOpMode {
 
         robot.encoderDrive(1, 10.25, -10.25, 300);
 
-        robot.encoderDrive(1, 33.25, 33.25, 300);
+        robot.encoderDrive(1, 32.75, 32.75, 300);
 
         telemetry.update();
         /*robot.encoderDrive(0.5, 6.5, -6.5, 300);

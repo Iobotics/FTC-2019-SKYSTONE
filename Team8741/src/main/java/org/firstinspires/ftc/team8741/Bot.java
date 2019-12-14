@@ -266,19 +266,19 @@ class Bot {
 
     public void setLatcher(boolean latcherPower, boolean latcherPower2, boolean latcherPower3){
         if (latcherPower == true){
-            servoPos3 -= 1;
+            servoPos3 -= 1;                 //this is to turn our latchers down
             servoPos4 += 1;
         }
         else if (latcherPower2 == true){
-            servoPos3 += 1;
+            servoPos3 += 1;                 //this is to turn our latchers back up
             servoPos4 -= 1;
-        }
+        }                                                                                           //this is the function of our latcher
         else if (latcherPower3 == true){
-            servoPos3 = .62;
+            servoPos3 = .62;                //this is supposed to be set to hold in the block better
             servoPos4 = .62;
         }
 
-        latcher1.setPosition(servoPos3);
+        latcher1.setPosition(servoPos3);    //this is to set both servos at the same position at the start
         latcher2.setPosition(servoPos4);
     }
 
@@ -314,17 +314,17 @@ class Bot {
     public void setLifter(boolean lifterPower, boolean lifterPower2){
 
         if (lifterPower2 == true) {
-            lifter1.setPower(-0.5);
+            lifter1.setPower(-0.5);             //this is for the lifter to go up
             //lifter2.setPower(0.5);
         }
 
         else if (lifterPower == true) {
-            lifter1.setPower(0.5);
+            lifter1.setPower(0.5);              //this is for the lifter to go down                 //this is the function for our lifter
             //lifter2.setPower(-0.5);
         }
 
         else if (lifterPower == false && lifterPower2 == false){
-            lifter1.setPower(0);
+            lifter1.setPower(0);                                    //this is so there is no power in the motor when its not being used
             //lifter2.setPower(0);
         }
     }
@@ -575,15 +575,15 @@ class Bot {
     public void setSpinner(boolean spinnerPower, boolean spinnerPower2, boolean spinnerPower3) {
 
         if (spinnerPower2 == true && servoPos2 < 1) {
-            servoPos2 += .02;
+            servoPos2 += .02;            //this is for our spinner to go around to the back
         }
 
         else if (spinnerPower == true && servoPos2 > -1) {
-            servoPos2 -= .02;
-        }
+            servoPos2 -= .02;            //this is for the spinner to go back to the front
+        }                                                                                           //this is the function for our spinner
 
         else if (spinnerPower3 == true){
-            servoPos2 = .49;
+            servoPos2 = .49;            //this is for the spinner to go to our capstone holder for easy grab
         }
 
         spinner.setPosition(servoPos2);
@@ -606,11 +606,11 @@ class Bot {
     public void setCloser(boolean closerPower, boolean closerPower2){
 
         if (closerPower2 == true && servoPos < 1){
-            servoPos += 0.5;
+            servoPos += 0.5;                        //this is for the closer to close
         }
 
         if (closerPower == true && servoPos > -1){
-            servoPos -= 0.5;
+            servoPos -= 0.5;                        //this is to open the closer again              //this is the function for the closer
         }
 
         closer1.setPosition(servoPos);
