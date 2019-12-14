@@ -32,6 +32,7 @@ public class Teleop extends LinearOpMode {
             } else {
                 robot.setLatchPower(0);
             }
+            //I wonder if they will ever find this
 
             if (gamepad1.right_trigger > 0.5) {
 
